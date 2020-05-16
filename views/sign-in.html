@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!------------------------------- CSS StyleSheet link ---------------------------->
+  <link rel="stylesheet" media="all" type="text/css" href="/public/css/styles.css">
+
+  <!------------------------------- Bootstrap CDN ---------------------------------->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+  <!------------------------------- Font Awesome CDN -------------------------------->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+
+  <title>Sign in</title>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="col-md-8 col-lg-6">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <h1 class="login-heading mb-5">Sign in</h1>
+                                <!----------------------- Start Form --------------------->
+                                <form action="/sign-in" method="POST">
+                                    <div class="form-label-group">
+                                        <input id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+                                        <label for="inputEmail"><i class="far fa-envelope" style="font-size: 20px;"></i> Email address</label>
+                                    </div>
+
+                                    <div class="form-label-group">
+                                        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                                        <label for="inputPassword"><i class="fas fa-lock" style="font-size: 20px;"></i> Password</label>
+                                    </div>
+                    
+                                    <div class="custom-control custom-switch mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1">Remember password</label>
+                                    </div>
+                    
+                                      <button class="btn btn-primary btn-block text-uppercase font-weight-bold mb-2"
+                                        type="submit"><i class="fas fa-sign-in-alt" style="font-size: 20px;"></i>   Sign in</button>
+                                    <div class="text-center">
+                                        <a class="small" href="#">Forgot password?</a>
+                                    </div>
+                                </form>
+                                <!----------------------- End Form --------------------->
+                                <p class="d-flex justify-content-center">Don't have an account yet?<a href="signup.html" class="card-link">  Sign up</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- Side Image -------------------->
+            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+        </div>
+    </div>
+</body>
+</html>
