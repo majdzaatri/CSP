@@ -27,8 +27,8 @@
                 <div class="login d-flex align-items-center py-5">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-9 col-lg-8 mx-auto">
-                                <h1 class="login-heading mb-5">Sign in</h1>
+                            <div class="col-md-8 col-lg-6 mx-auto">
+                                <h1 class="mx-auto login-heading mb-5 col-6">Sign in</h1>
                                 <!----------------------- Start Form --------------------->
                                 <form action="/sign-in" method="POST">
                                     <div class="form-label-group">
@@ -46,8 +46,8 @@
                                         <label class="custom-control-label" for="customCheck1">Remember password</label>
                                     </div>
                     
-                                      <button class="btn btn-primary btn-block text-uppercase font-weight-bold mb-2"
-                                        type="submit"><i class="fas fa-sign-in-alt" style="font-size: 20px;"></i>   Sign in</button>
+                                    <button class="btn btn-primary btn-block text-uppercase font-weight-bold mb-2 btn-login"
+                                        type="submit"><i class="fas fa-sign-in-alt" style="font-size: 20px;"></i>Sign in</button>
                                     <div class="text-center">
                                         <a class="small" href="#">Forgot password?</a>
                                     </div>
@@ -60,8 +60,14 @@
                 </div>
             </div>
             <!---------------------- Side Image -------------------->
-            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+            <div id="particles-js" class="d-none d-md-flex col-md-4 col-lg-6 bg-image-sign-in"></div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', '/public/json/particles.json', function(){
+            console.log("particles.js loaded...");
+        })
+    </script>
 </body>
 </html>

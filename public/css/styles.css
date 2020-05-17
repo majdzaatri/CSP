@@ -1,3 +1,4 @@
+/*---------------------------------------------------------------------------- Global ------------------------------------------------------------------------*/
 :root {
     --input-padding-x: 1.5rem;
     --input-padding-y: 0.75rem;
@@ -6,13 +7,18 @@
 body {
     bcolor: rgba(164, 195, 211,0.2);
 }
-/*---------------------------------------------------------------------- start login style ------------------------------------------------------------------*/
+/*---------------------------------------------------------------------- start sign in style ------------------------------------------------------------------*/
 .login,
 .image {
   min-height: 100vh;
 }
 
-.bg-image {
+#particles-js {
+  height: 100vh;
+
+}
+
+.bg-image-sign-in {
     background-image: url('images/sign-in-img.jpg');
     background-size: 100% 100%;
     background-position: center;
@@ -23,7 +29,8 @@ body {
     font-weight: 300;
     color: blue;
     letter-spacing: 0.02em;
-    margin-left: 35%;
+    display: block;
+    /* margin-left: auto; */
     text-transform: uppercase;
 }
 
@@ -120,7 +127,7 @@ body {
     }
   }
 
-  /*------------------------------------------------------------ end login style -----------------------------------------------------------------*/
+  /*------------------------------------------------------------ end sign in style -----------------------------------------------------------------*/
 
   /*--------------------------------------------------------- start dashboard style --------------------------------------------------------------*/
 
@@ -574,4 +581,22 @@ body {
     .collapsing {
       transition: none;
     }
+  }
+
+  /*--------------------------------------------------------------------- start dashboard style -----------------------------------------------------------------*/
+
+  /*---------------------------------------------------------------------- start sign up style ------------------------------------------------------------------*/
+
+  .bg-img-sign-up {
+    background-image: url('images/sign-in-img.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0px 0px 20px 20px gray;
+  }
+
+  .btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+    border-radius: 2rem;
   }
