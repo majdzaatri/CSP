@@ -25,6 +25,11 @@ app.get('/dashboard', function(req,res){
     res.sendFile(__dirname + '/views/dashboard.html');
 });
 
+app.get('/dashboard2', function(req,res){
+    res.sendFile(__dirname + '/views/buyphone.html');
+});
+
+
 const port = "8000";
 const host = "localhost";
 
