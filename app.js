@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const AM = require(__dirname + "/account_manager.js")
 
+
 app.use(bodyParser.urlencoded({
     urlencoded: true
 }));
@@ -12,6 +13,8 @@ app.use('/public', express.static(__dirname + '/public'));
 app.get('/', function (req, res) {
     res.redirect(301, '/sign-in');
 });
+
+
 
 //    sign-in      //
 
@@ -23,18 +26,21 @@ app.post('/sign-in', function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
     
-    AM.checkLogin(email, password, function(o, err){
+    AM.checkLogin(email, password, function(err, result){
         if(err){
-            res.status(400).send("error occured");
+            res.status(400).send("error occured: " + err);
         } else {
-            if(o){
+            if(result){
                 res.redirect(301,'/dashboard');
             }else{
+                console.log(err);
                 res.redirect(301,'/sign-in');
             }
         }
     })
-})
+});
+
+
 
 //    sign-up      //
 
@@ -62,9 +68,9 @@ app.post('/sign-up', function (req, res) {
             console.log("user added succesfuly");
             res.redirect(301,'/dashboard');
         }
-    })
+    });
 
-})
+});
 
 
 

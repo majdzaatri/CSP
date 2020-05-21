@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const mysql =  require("mysql");
 
 const connection = mysql.createConnection({
@@ -12,18 +13,27 @@ const connection = mysql.createConnection({
 
 exports.checkLogin = function(email, password, callback)
 {
-    connection.query("SELECT * FROM users WHERE email = ? AND password = ?",[email, password], async function(err, rows, fields) {
-       
+    let query = "SELECT * FROM users WHERE email = ?";
+
+    connection.query(query, email, async function(err, rows, fields) {
         if(err){
             console.log("Failed to check if email and password exist in DB: " + err);
-            //TODO: check if we have to return anything in the callback if something failed
+            //TODO: check what we have to return in the callback if something failed
         } else {
             if(rows.length > 0){
-                console.log("login succeded..");
+                let hashPass = rows[0].Password;
+
+                validatePassword(password, hashPass, function(err, res){
+                    if(res){
+                        callback(null,res);
+                    } else {
+                        callback('invalid-password');
+                    }
+                });
             }else{
                 console.log("email doesn't exist or password wrong!");
+                callback('invalid-email');
             }
-            callback(rows.length);
         }
     });
 }
@@ -33,22 +43,59 @@ exports.checkLogin = function(email, password, callback)
 
 exports.addNewAccount = function(newUser, callback)
 {
-    connection.query("SELECT COUNT(*) AS cnt FROM users WHERE email = ?", newUser.email, function(err, data){
+    let query = "SELECT COUNT(*) AS cnt FROM users WHERE email = ?";
+    connection.query(query, newUser.email, function(err, data){
         if (err){
             console.log("Failed checking if email is already exist: " + err);
         } else {
             if(data[0].cnt > 0){
                 callback(0); //TODO: Check if it's OK
             } else {
-                connection.query("INSERT INTO `csp`.`users` SET ?", newUser, function(err, res, fields){
-                    if(err){
-                        console.log("Failed to add new user: " + err);
-                        callback(500); //TODO: Check if it's OK
-                    } else {
-                        callback(200);
-                    }
+                saltAndHash(newUser.password, function(hash){
+                    newUser.password = hash;
+                    connection.query("INSERT INTO `csp`.`users` SET ?", newUser, function(err, res, fields){
+                        if(err){
+                            console.log("Failed to add new user: " + err);
+                            callback(500); //TODO: Check if it's OK
+                        } else {
+                            callback(200);
+                        }
+                    });
                 })
             }
         }
-    })
+    });
+}
+
+
+
+
+//    encryption methods    //
+
+var md5 = function(str) {
+    return crypto.createHash('md5').update(str).digest('hex');
+}
+
+var generateSalt = function()
+{
+    var salt = '';
+    var key = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
+    for(var i=0; i<10; i++){
+        var p = Math.floor(Math.random() * key.length);
+        salt += key[p];
+    }
+    return salt;
+}
+
+var saltAndHash = function(pass, callback)
+{
+    var salt = generateSalt();
+    callback(salt + md5(pass + salt));
+}
+
+var validatePassword = function(plainPass, hashPass, callback)
+{
+    var salt = hashPass.substr(0,10);
+    var validHash = salt + md5(plainPass + salt);
+    callback(null, hashPass === validHash);
 }
