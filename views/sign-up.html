@@ -16,6 +16,8 @@
     <!------------------------------- Font Awesome CDN -------------------------------->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+	<!----------------------------------- Javascript ---------------------------------->
+	
 
     <title>sign up</title>
 </head>
@@ -32,16 +34,19 @@
                             <div class="col-md-8 col-lg-8 mx-auto">
                                 <h1 class="ml-3 login-heading mb-5 col-12">Create an Account!</h1>
                                 <!----------------------- Start Form --------------------->
-                                <form action="" class="needs-validation" novalidate>
+                                <form id="form-signup" action="" class="needs-validation" novalidate>
                                     <div class="row">
                                         <div class="col">
                                             <!----------------------- firstname input ------------------------>
                                             <div class="form-label-group">
                                                 <input type="text" name="firstname" id="firstname" class="form-control ml-3"
-                                                    placeholder="First Name" required autofocus>
+                                                    placeholder="First Name" required autofocus >
                                                 <label for="firstname" class="ml-2"><i class="fa fa-address-card-o"
                                                         style="font-size: 20px;"></i>First Name</label>
                                                 <div class="invalid-feedback">please enter your first name</div>
+                                            </div>
+                                            <div class="row ml-3 pb-1">
+                                                <div id="errorFirstname"></div>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -53,6 +58,9 @@
                                                         style="font-size: 20px;"></i>Last Name</label>
                                                 <div class="invalid-feedback">please enter your last name</div>
                                             </div>
+                                            <div class="row ml-3 pb-1">
+                                                <div id="errorLastname"></div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="container">
@@ -62,7 +70,9 @@
                                                 placeholder="Email Address" required>
                                             <label for="email"><i class="far fa-envelope"
                                                     style="font-size: 20px;"></i>Email Address</label>
+                                                   
                                             <div class="invalid-feedback">invalid email</div>
+                                            <div id="errorEmail"></div>
                                         </div>
                                         <!--------------------------- password input -------------------------->
                                         <div class="form-label-group">
@@ -71,6 +81,7 @@
                                             <label for="password"><i class="fas fa-lock"
                                                     style="font-size: 20px;"></i>Password</label>
                                             <div class="invalid-feedback">your password must contain 6 characters</div>
+                                            <div id="errorPassword"></div>
                                         </div>
                                         <!------------------------ confirm password input --------------------->
                                         <div class="form-label-group">
@@ -78,6 +89,7 @@
                                                 class="form-control" placeholder="Confirm Password" required>
                                             <label for="confirmPass"><i class="fas fa-lock"
                                                     style="font-size: 20px;"></i>Confirm Password</label>
+                                                    <div id="errorPasswordConformation"></div>
                                         </div>
                                         <!-------------------------- promocode input -------------------------->
                                         <div class="form-label-group">
@@ -87,7 +99,7 @@
                                                     style="font-size: 20px;"></i>Have a promo code?</label>
                                         </div>
                                         <!----------------------- register account button --------------------->
-                                        <button type="submit"
+                                        <button type="submit" id="submitBtn"
                                             class="glyphicon glyphicon-search btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 my-5">
                                             <i class="fa fa-user-plus" style="font-size: 20px;"></i>
                                             Register Account
@@ -109,6 +121,7 @@
             console.log("particles.js loaded...");
         })
     </script>
+    <script src="/public/javascript/validation.js"></script>
 </body>
 
 </html>
