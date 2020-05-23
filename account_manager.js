@@ -2,15 +2,14 @@ const crypto = require("crypto");
 const mysql =  require("mysql");
 
 const connection = mysql.createConnection({
-    host: "localhost",
+    host: "127.0.0.1",
     user: "root",
     port: 3306,
-    password: "password",
+    password: "123456",
     database: "csp"
 });
 
 //    sign-in queries      //
-
 exports.checkLogin = function(email, password, callback)
 {
     let query = "SELECT * FROM users WHERE email = ?";
@@ -25,7 +24,8 @@ exports.checkLogin = function(email, password, callback)
 
                 validatePassword(password, hashPass, function(err, res){
                     if(res){
-                        callback(null,res);
+                        callback(null,rows[0]);
+
                     } else {
                         callback('invalid-password');
                     }
@@ -40,7 +40,6 @@ exports.checkLogin = function(email, password, callback)
 
 
 //    sign-up queries    //
-
 exports.addNewAccount = function(newUser, callback)
 {
     let query = "SELECT COUNT(*) AS cnt FROM users WHERE email = ?";
@@ -70,8 +69,8 @@ exports.addNewAccount = function(newUser, callback)
 
 
 
-//    encryption methods    //
 
+//    encryption methods    //
 var md5 = function(str) {
     return crypto.createHash('md5').update(str).digest('hex');
 }
