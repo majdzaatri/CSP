@@ -5,31 +5,8 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 const AM = require(__dirname + "/account_manager.js")
-
-
-
 const session = require('express-session')
-
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
-app.use(bodyParser.urlencoded({
-    urlencoded: true
-}));
-app.use('/public', express.static(__dirname + '/public'));
-
-app.use(session({
-    key: 'user_sid',
-    secret: '1123FfdSSs23335',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 600000
-    }
-}));
-
-
-app.get('/', function (req, res) {
-    res.redirect(301, '/sign-in');
-});
 
  // redirect the user to login page if he didn't log in // 
 const redirectLogin  = (req, res, next) =>{
@@ -48,6 +25,29 @@ const redirectHome  = (req, res, next) =>{
         next();
     }
 }
+
+app.use(bodyParser.urlencoded({
+    urlencoded: true
+}));
+
+app.use('/public', express.static(__dirname + '/public'));
+
+app.use(session({
+    key: 'user_sid',
+    secret: '1123FfdSSs23335',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
+
+
+app.get('/', function (req, res) {
+    res.redirect(301, '/sign-in');
+});
+
+
 
 //    sign-in      //
 app.get('/sign-in',redirectHome, function (req, res) {
@@ -76,8 +76,6 @@ app.post('/sign-in', function (req, res) {
         }
     })
 });
-
-
 
 //    sign-up      //
 
@@ -115,11 +113,8 @@ app.post('/logout', function (req, res) {
        if(err){
         return res.redirect('/dashboard')
        }
-
        res.redirect('/sign-in');
     })
-   
-
 
 });
 
@@ -127,7 +122,6 @@ app.get('/confirmation/:token', async (req, res) => {
     try {
       const email = jwt.verify(req.params.token, EMAIL_SECRET);
       console.log(email.user);
-      //await models.User.update({ confirmed: true }, { where: { id } });
       AM.emailConfirmed(email);
       console.log("confirmed");
     } catch (e) {
@@ -135,9 +129,7 @@ app.get('/confirmation/:token', async (req, res) => {
     }
   
     return res.redirect('http://localhost:8000/sign-in');
-  });
-
-
+});
 
 
 app.get('/reset-password', function (req, res) {
@@ -149,17 +141,19 @@ app.get('/dashboard',redirectLogin, function (req, res) {
     res.sendFile(__dirname + '/views/dashboard.html');
 });
 
-app.get('/buy-cell-phone', function(req,res){
+app.get('/buy-cell-phone',redirectLogin, function(req,res){
     res.sendFile(__dirname + '/views/buyphone.html');
 });
 
-app.get('/profile', function(req,res){
+app.get('/profile',redirectLogin, function(req,res){
     res.sendFile(__dirname + '/views/profile.html');
 });
 
-app.get('/about', function(req,res){
+app.get('/about',redirectLogin, function(req,res){
     res.sendFile(__dirname + '/views/about.html');
 });
+
+
 
 
 const port = "8000";

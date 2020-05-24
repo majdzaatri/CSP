@@ -36,7 +36,7 @@
             id="accordionSidebar">
 
             <!---------- Sidebar - Brand ------------>
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="http://localhost:8000/dashboard">
                 <div class="sidebar-brand-text mx-3">CSP</div>
             </a>
 
@@ -51,7 +51,7 @@
                 <a class="nav-link" href="">
                     <i class="fas fa-laptop"></i>
                     <span>PC</span></a>
-                <a class="nav-link" href="">
+                <a class="nav-link" href="http://localhost:8000/buy-cell-phone">
                     <i class="fas fa-mobile-alt"></i>
                     <span>Cell Phone</span></a>
             </li>
@@ -132,7 +132,7 @@
                     <div class="" id="">
                         <ul class="navbar-nav">
                             <li class="nav-item mr-3">
-                                <a class="nav-link" href="">Buy Cell Phone</a>
+                                <a class="nav-link" href="http://localhost:8000/buy-cell-phone">Buy Cell Phone</a>
                             </li>
                             <li class="nav-item mr-5">
                                 <a class="nav-link" href="">Buy PC</a>
@@ -156,11 +156,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby=" ">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="http://localhost:8000/profile">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="http://localhost:8000/about">
                                         <i class="fas fa-info fa-sm fa-fw mr-2 text-gray-400"></i>
                                         About
                                     </a>
@@ -180,23 +180,26 @@
                 <!------------------------ Begin Page Content --------------------------->
                 <div class="container-fluid">
                     <div class="row justify-content-center font-weight-bold">
-                        <h1 class="ml-3">About</h1>
+                        <h1 class="ml-3" style="font-size: 5rem;">About</h1>
                     </div>
 
                             <div class="row justify-content-center mt-5">
-                                <h2>HQ office address</h2>
+                                <h2><u>HQ office address</u></h2>
                             </div>
                             <div class="row justify-content-center">
-                                <h4>My address</h4>
+                                <h4>Karmiel, Ort Braude College</h4>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div id="map"></div>
                             </div>
                             <div class="row mt-5 justify-content-center">
-                                <h2>E-mail</h2>
+                                <h2><u>E-mail</u></h2>
                             </div>
                             <div class="row justify-content-center">
-                                <a href="#" style="font-size: 1.5rem;">myemail@gmail.com</a>
+                                <a href="#" style="font-size: 1.5rem;">csportbraude@hotmail.com</a>
                             </div>
                             <div class="row justify-content-center mt-5">
-                                <h2>Website</h2>
+                                <h2><u>Website</u></h2>
                             </div>
                             <div class="row justify-content-center">
                                 <a href="https://www.google.com" style="font-size: 1.5rem;">www.google.com</a>
@@ -212,11 +215,15 @@
                                     <button class="button" data-hover="Telegram"><div><i class="fa fa-telegram" style="font-size: 3rem;"></i></div></button>
                                 </div>
                             </div>
-                            <div class="row justify-content-center">
-                                privacy policy
+                            <div class="row mt-5 justify-content-center">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#privacyModal">
+                                    privacy policy
+                                  </button>
                             </div>
-                            <div class="row justify-content-center">
-                                Terms of use
+                            <div class="row mt-2 justify-content-center">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                                    Terms of use
+                                </button>
                             </div>
                 </div>
                 <!-- .container-fluid -->
@@ -229,6 +236,65 @@
     <!-- End of Page Wrapper -->
 
 
+    <!--------- privacy policy Modal ---------->
+    <div class="modal fade" id="privacyModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non fugit aliquam cumque explicabo? Veritatis possimus labore, dolores, nostrum numquam impedit animi optio minima ipsam vitae repellat sint sit doloremque qui?<br>
+              1) Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, reiciendis. Optio illo, deserunt accusamus quaerat dolore atque ratione nemo, consequatur libero eligendi cupiditate dolor labore blanditiis dolorum, vero eveniet quam.<br>
+              2) Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus sapiente quidem ea quaerat perferendis, ex impedit assumenda quod eum officiis quia rem laborum! Ratione deleniti placeat corrupti amet omnis commodi!<br>
+              3) Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quibusdam voluptas fugiat iste ut voluptatum repellendus ipsa, temporibus nemo quis nesciunt dicta aperiam. Aspernatur provident placeat eos, accusamus libero aperiam.<br>
+              4) Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere tenetur suscipit repudiandae sunt dicta debitis ipsum maiores hic fuga, vel quos nemo, iure, repellat perspiciatis expedita sequi harum. Quos, totam.<br>
+              5) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione, sapiente. Ab, asperiores quae, consequatur nam dolorum exercitationem saepe hic iusto cumque accusamus iure deserunt quod? Laboriosam minima est facere placeat!<br>
+              6) Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nobis quasi consequatur tempora enim id laboriosam quibusdam commodi explicabo quia! Illum suscipit alias fugiat eveniet esse repellendus sint quo quod!<br>
+              7) Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum error ducimus voluptatibus est et ratione eius asperiores, aperiam autem doloribus! Rerum repudiandae amet quidem veritatis atque, ab dolor illo earum.<br>
+              8) Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis deleniti ipsa minima fuga cumque, exercitationem nulla rem cupiditate deserunt amet aperiam veritatis. Ipsam iusto commodi officiis dignissimos voluptas, ipsum odio!<br>
+              9) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti doloribus quas quis voluptas ullam magni, animi numquam officiis obcaecati nihil veritatis quo pariatur omnis hic, inventore, dolorum aliquam eius perspiciatis.<br>
+              10) Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda quia iusto nihil maiores ad a distinctio, sed eligendi natus reiciendis suscipit rerum, optio totam perferendis praesentium commodi expedita minima blanditiis. <br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Understood</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!---------- Terms of use Modal ---------->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non fugit aliquam cumque explicabo? Veritatis possimus labore, dolores, nostrum numquam impedit animi optio minima ipsam vitae repellat sint sit doloremque qui?<br>
+              1) Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, reiciendis. Optio illo, deserunt accusamus quaerat dolore atque ratione nemo, consequatur libero eligendi cupiditate dolor labore blanditiis dolorum, vero eveniet quam.<br>
+              2) Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus sapiente quidem ea quaerat perferendis, ex impedit assumenda quod eum officiis quia rem laborum! Ratione deleniti placeat corrupti amet omnis commodi!<br>
+              3) Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quibusdam voluptas fugiat iste ut voluptatum repellendus ipsa, temporibus nemo quis nesciunt dicta aperiam. Aspernatur provident placeat eos, accusamus libero aperiam.<br>
+              4) Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere tenetur suscipit repudiandae sunt dicta debitis ipsum maiores hic fuga, vel quos nemo, iure, repellat perspiciatis expedita sequi harum. Quos, totam.<br>
+              5) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione, sapiente. Ab, asperiores quae, consequatur nam dolorum exercitationem saepe hic iusto cumque accusamus iure deserunt quod? Laboriosam minima est facere placeat!<br>
+              6) Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nobis quasi consequatur tempora enim id laboriosam quibusdam commodi explicabo quia! Illum suscipit alias fugiat eveniet esse repellendus sint quo quod!<br>
+              7) Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum error ducimus voluptatibus est et ratione eius asperiores, aperiam autem doloribus! Rerum repudiandae amet quidem veritatis atque, ab dolor illo earum.<br>
+              8) Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis deleniti ipsa minima fuga cumque, exercitationem nulla rem cupiditate deserunt amet aperiam veritatis. Ipsam iusto commodi officiis dignissimos voluptas, ipsum odio!<br>
+              9) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti doloribus quas quis voluptas ullam magni, animi numquam officiis obcaecati nihil veritatis quo pariatur omnis hic, inventore, dolorum aliquam eius perspiciatis.<br>
+              10) Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda quia iusto nihil maiores ad a distinctio, sed eligendi natus reiciendis suscipit rerum, optio totam perferendis praesentium commodi expedita minima blanditiis. <br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Understood</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -244,11 +310,29 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <form action="/logout" method="POST">
+                        <button type="submit" class="btn btn-primary" href="login.html">Logout</button> 
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+          // The location of Uluru
+          var uluru = {lat: 32.913894, lng: 35.282818};
+          // The map, centered at Uluru
+          var map = new google.maps.Map(
+              document.getElementById('map'), {zoom: 15, center: uluru});
+          // The marker, positioned at Uluru
+          var marker = new google.maps.Marker({position: uluru, map: map});
+        }
+    </script>
+    <script async defer
+         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94xIXApRugxl7okJ-z0OYPEdpv3MyHGQ&callback=initMap">
+    </script>
 </body>
 
 </html>

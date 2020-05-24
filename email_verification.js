@@ -10,10 +10,7 @@ const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
         user: 'csportbraude@hotmail.com',
         pass: 'Aa100100'
       }
-    });
-    
-
-  
+    });  
 
 
 exports.sendConfirmation = function(user){
@@ -28,14 +25,13 @@ exports.sendConfirmation = function(user){
     },
     (err, emailToken) => {
       const url = `http://localhost:8000/confirmation/${emailToken}`;
-        console.log(123456)
 
 
         var mailOptions = {
             from: 'csportbraude@hotmail.com',
             to: user,
-            subject: 'Confiramation',
-            text: url
+            subject: 'Confirmation',
+            html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
           };
 
 
@@ -46,10 +42,6 @@ exports.sendConfirmation = function(user){
                console.log('Email sent: ' + info.response);
             }
           });
-
-
-
     },
   );
-
 }
