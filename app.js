@@ -149,6 +149,19 @@ app.get('/dashboard',redirectLogin, function (req, res) {
     res.sendFile(__dirname + '/views/dashboard.html');
 });
 
+app.get('/buy-cell-phone', function(req,res){
+    res.sendFile(__dirname + '/views/buyphone.html');
+});
+
+app.get('/profile', function(req,res){
+    res.sendFile(__dirname + '/views/profile.html');
+});
+
+app.get('/about', function(req,res){
+    res.sendFile(__dirname + '/views/about.html');
+});
+
+
 const port = "8000";
 const host = "localhost";
 

@@ -2,7 +2,7 @@
     {
       "id": "iPhone X",
       "type": "Cell Phone",
-      "in stock": "true"
+      "in stock": "true",
       "description": "Best smartphone ever",
       "models": [
         {
@@ -28,7 +28,7 @@
     {
       "id": "iPhone 7",
       "type": "Cell Phone",
-      "in stock": "true"
+      "in stock": "true",
       "description": "Just the right phone for you",
       "models": [
         {
@@ -54,7 +54,7 @@
     {
       "id": "Samsung S8",
       "type": "Cell Phone",
-      "in stock": "true"
+      "in stock": "true",
       "description": "The first in it's class",
       "models": [
         {
@@ -74,7 +74,7 @@
     {
       "id": "Huwawei P10",
       "type": "Cell Phone",
-      "in stock": "false"
+      "in stock": "false",
       "description": "The most advanced phone",
       "models": [
       ]

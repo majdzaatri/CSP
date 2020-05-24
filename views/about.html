@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
 
     <!------------------------------- Font Awesome CDN -------------------------------->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -105,6 +105,8 @@
 
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </li>
@@ -177,49 +179,50 @@
 
                 <!------------------------ Begin Page Content --------------------------->
                 <div class="container-fluid">
-
-                    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-                        <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-                            <div class="my-3 py-3">
-                                <h2 class="display-5">Buy Cell Phone</h2>
-                                <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis
-                                    unde mollitia placeat sapiente voluptas, nulla error iste accusamus laboriosam
-                                    aliquam quae quam assumenda alias vel enim temporibus porro. Dicta, mollitia?</p>
-                            </div>
-                            <div class="mx-auto buy-cell-phone"
-                                style="width: 384px; height: 288px; border-radius: 21px 21px 0 0;"></div>
-                        </div>
-                        <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                            <div class="my-3 p-3">
-                                <h2 class="display-5">Buy PC</h2>
-                                <p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim commodi
-                                    aperiam, iure et labore quaerat optio mollitia est omnis! Quisquam omnis inventore
-                                    cum dicta nemo asperiores perferendis unde eligendi! Provident?</p>
-                            </div>
-                            <div class="mx-auto buy-PC"
-                                style="width: 384px; height: 288px; border-radius: 21px 21px 0 0;"></div>
-                        </div>
+                    <div class="row justify-content-center font-weight-bold">
+                        <h1 class="ml-3">About</h1>
                     </div>
 
-                    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-                        <div class="col-md-5 p-lg-5 mx-auto my-5">
-                            <h1 class="display-4 font-weight-normal">Coming Soon</h1>
-                            <p class="lead font-weight-normal">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                Debitis, praesentium suscipit! Voluptas excepturi cum aliquid, iusto possimus
-                                asperiores! Non labore maxime suscipit sint nemo pariatur, magnam corporis nostrum!
-                                Adipisci, tempora!</p>
-                        </div>
-                        <div class="product-device shadow-sm d-none d-lg-block comming-soon-pic"></div>
-                        <div class="product-device product-device-2 shadow-sm d-none d-lg-block"></div>
-                    </div>
-
+                            <div class="row justify-content-center mt-5">
+                                <h2>HQ office address</h2>
+                            </div>
+                            <div class="row justify-content-center">
+                                <h4>My address</h4>
+                            </div>
+                            <div class="row mt-5 justify-content-center">
+                                <h2>E-mail</h2>
+                            </div>
+                            <div class="row justify-content-center">
+                                <a href="#" style="font-size: 1.5rem;">myemail@gmail.com</a>
+                            </div>
+                            <div class="row justify-content-center mt-5">
+                                <h2>Website</h2>
+                            </div>
+                            <div class="row justify-content-center">
+                                <a href="https://www.google.com" style="font-size: 1.5rem;">www.google.com</a>
+                            </div>
+                            <div class="row mt-5 ml-5 justify-content-center">
+                                <div class="col-12 col-md-2 col-lg-2">
+                                    <button class="button" data-hover="Facebook"><div><i class="fab fa-facebook" style="font-size: 3rem;"></i></div></button>
+                                </div>
+                                <div class="col-12 col-md-2 col-lg-2">
+                                    <button class="button" data-hover="Twitter"><div><i class="fab fa-twitter" style="font-size: 3rem;"></i></div></button>
+                                </div>
+                                <div class="col-12 col-md-2 col-lg-2">
+                                    <button class="button" data-hover="Telegram"><div><i class="fa fa-telegram" style="font-size: 3rem;"></i></div></button>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                privacy policy
+                            </div>
+                            <div class="row justify-content-center">
+                                Terms of use
+                            </div>
                 </div>
                 <!-- .container-fluid -->
 
             </div>
             <!-------------------------------- End of Main Content ------------------------->
-
-        </div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -241,16 +244,11 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="/logout" method="POST">
-                        <button type="submit" class="btn btn-primary" href="login.html">Logout</button> 
-                    </form>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </body>
 
 </html>
