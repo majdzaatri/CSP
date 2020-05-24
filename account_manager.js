@@ -2,14 +2,14 @@ const crypto = require("crypto");
 const mysql = require("mysql");
 
 const EV = require(__dirname + "/email_verification.js")
-
+const mydatabase = "heroku_98861de8c1925bc";
 
 
 const connection = mysql.createConnection({
     host: "us-cdbr-east-06.cleardb.net",
     user: "b662e61354c88f",
     password: "d6548e95",
-    database: "heroku_98861de8c1925bc"
+    database: mydatabase
 });
 
 //    sign-in queries      //
@@ -53,7 +53,7 @@ exports.addNewAccount = function (newUser, callback) {
             } else {
                 saltAndHash(newUser.password, function (hash) {
                     newUser.password = hash;
-                    connection.query("INSERT INTO `csp`.`users` SET ?", newUser, function (err, res, fields) {
+                    connection.query("INSERT INTO "+mydatabase+".`users` SET ?", newUser, function (err, res, fields) {
                         if (err) {
                             console.log("Failed to add new user: " + err);
                             callback(500); //TODO: Check if it's OK
@@ -73,7 +73,7 @@ exports.addNewAccount = function (newUser, callback) {
 
 
 exports.emailConfirmed = function (email, callback) {
-    let query = "UPDATE `csp`.`users` SET `active` = '1' WHERE (`Email` = ?)";
+    let query = "UPDATE " + mydatabase + ".`users` SET `active` = '1' WHERE (`Email` = ?)";
     connection.query(query, email.user, function (err, data) {
         if (err) {
             console.log("Failed activating the account");

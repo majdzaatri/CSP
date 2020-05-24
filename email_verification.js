@@ -24,7 +24,7 @@ exports.sendConfirmation = function(user){
       expiresIn: '1d',
     },
     (err, emailToken) => {
-      const url = `http://localhost:8000/confirmation/${emailToken}`;
+      const url = `http://cspproject.herokuapp.com/confirmation/${emailToken}`;
 
 
         var mailOptions = {
