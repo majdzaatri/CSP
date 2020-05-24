@@ -156,7 +156,7 @@ app.get('/about',redirectLogin, function(req,res){
 
 
 
-const port = "8000";
+const port = process.env.PORT || 3000;
 const host = "localhost";
 
 const server = app.listen(port, host, () => {
