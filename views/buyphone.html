@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
 
     <!------------------------------- Font Awesome CDN -------------------------------->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -161,12 +161,8 @@
                                         Profile
                                     </a>
                                     <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Activity Log
+                                        <i class="fas fa-info fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        About
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -184,158 +180,234 @@
                 <!------------------------ Begin Page Content --------------------------->
                 <div class="container-fluid">
                     <div class="row">
+                        <h1 class="ml-3">Buy Cell Phone:</h1>
+                    </div>
 
-                        <!------------------------ List the phones  --------------------------->
-                        <div class="col-3">
-                            <div class="list-group" id="list-tab" role="tablist">
-                                <a class="list-group-item list-group-item-action active" id="list-home-list"
-                                    data-toggle="list" href="#list-home" role="tab" aria-controls="home">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <img class="img-resposnsive" src="./public/css/images/Iphonex.png">
-                                        </div>
-                                        <div class="col-sm">
-                                            <p class="item-name">Iphone X </p>
-                                            <p class="item-p">Read more...</p>
-
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a class="list-group-item list-group-item-action" id="list-profile-list"
-                                    data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <img class="img-resposnsive" src="./public/css/images/s10.jpg">
-                                        </div>
-                                        <div class="col-sm">
-                                            <p class="item-name">Galaxy S10</p>
-                                            <p class="item-p">Read more...</p>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a class="list-group-item list-group-item-action" id="list-messages-list"
-                                    data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <img class="img-resposnsive" src="./public/css/images/iphonexr.jpg">
-                                        </div>
-                                        <div class="col-sm">
-                                            <p class="item-name">Iphone XR</p>
-                                            <p class="item-p">Read more...</p>
-
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item list-group-item-action" id="list-settings-list"
-                                    data-toggle="list" href="#list-settings" role="tab"
-                                    aria-controls="settings">Settings</a>
-                            </div>
-                        </div>
-
-                        <!------------------------Phone Options --------------------------->
-                        <div class="col-6">
-                            <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="list-home" role="tabpanel"
-                                    aria-labelledby="list-home-list">
-                                    <div class="container">
+                    <div class="row my-5">
+                        <!------------------------ phones list --------------------------->
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <a class="list-group-item list-group-item-action" id="list-iphoneX-list"
+                                    data-toggle="list" href="#iphoneX-list" role="tab" aria-controls="iphoneX" onclick="Clicked('list-iphoneX-list')">
                                         <div class="row">
-                                            <a data-toggle="collapse" href="#payment-form" role="button"
-                                                aria-expanded="false" id="collapse-option-1">
-                                                <button class="col-sm bg-dark mr-2 mb-4 payment-box">
-                                                    <div class="h2 text-center text-light">32GB</div>
-                                                    <div class="h5 text-left text-light">2 months of warranty</div>
-                                                    <div class="h4 text-center text-danger">200$</div>
-                                                </button>
-                                            </a>
-                                            <a data-toggle="collapse" href="#payment-form" role="button"
-                                                aria-expanded="false">
-                                                <button class="col-sm bg-dark mr-2 mb-4 payment-box">
-                                                    <div class="h2 text-center text-light">128GB</div>
-                                                    <div class="h5 text-left text-light">4 months of warranty</div>
-                                                    <div class="h4 text-center text-danger">200$</div>
-                                                </button>
-                                            </a>
-                                            <a data-toggle="collapse" href="#payment-form" role="button"
-                                                aria-expanded="false">
-                                                <button class="col-sm bg-dark mr-2 mb-4 payment-box">
-                                                    <div class="h2 text-center text-light">512GB</div>
-                                                    <div class="h5 text-left text-light">life time warranty</div>
-                                                    <div class="h4 text-center text-danger">200$</div>
-                                                </button>
-                                            </a>
+                                            <div class="col-sm-3">
+                                                <img class="img-resposnsive" src="./public/css/images/Iphonex.png">
+                                            </div>
+                                            <div class="col-sm">
+                                                <p class="item-name">Iphone X </p>
+                                                <p class="item-p">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
+    
+                                    <a class="list-group-item list-group-item-action" id="list-iphone7-list"
+                                        data-toggle="list" href="#iphone7-list" role="tab" aria-controls="iphone7" onclick="Clicked('list-iphone7-list')">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <img class="img-resposnsive" src="./public/css/images/s10.jpg">
+                                            </div>
+                                            <div class="col-sm">
+                                                <p class="item-name">Galaxy S10</p>
+                                                <p class="item-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+    
+                                    <a class="list-group-item list-group-item-action" id="list-samsungS8-list"
+                                        data-toggle="list" href="#samsungS8-list" role="tab" aria-controls="samsungS8" onclick="Clicked('list-samsungS8-list')">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <img class="img-resposnsive" src="./public/css/images/iphonexr.jpg">
+                                            </div>
+                                            <div class="col-sm">
+                                                <p class="item-name">Iphone XR</p>
+                                                <p class="item-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+    
+                                    <a class="list-group-item list-group-item-action" id="list-settings-list"
+                                        role="tab" onclick="Clicked('list-huwaei-list')">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-3">
+                                                <img class="img-resposnsive" src="./public/css/images/iphonexr.jpg">
+                                            </div>
+                                            <div class="col-sm-5 col-md-9">
+                                                <p class="item-name">Huwawei P10</p>
+                                                <p class="item-p">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                                </p>
+                                                <p class="item-p text-right text-danger">Out of stuck</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-
-
-
-                                <div class="row">
-
-                                    <div class="collapse multi-collapse" id="payment-form">
-                                        <div class="col-12 py-5 text-center">
-                                            <h2>Checkout form</h2>
-                                        </div>
-                                        <div class="col-12 order-md-5">
-                                            <form class="needs-validation" novalidate>
-                                                <div class="row">
-                                                    <div class="col-md-12 mb-6">
-                                                        <label for="cc-name">Name on card</label>
-                                                        <input type="text" class="form-control" id="cc-name"
-                                                            placeholder="" required>
-                                                        <div class="invalid-feedback">
-                                                            Name on card is required
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 mb-6">
-                                                        <label for="cc-number">Credit card number</label>
-                                                        <input type="text" class="form-control" id="cc-number"
-                                                            placeholder="" required>
-                                                        <div class="invalid-feedback">
-                                                            Credit card number is required
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="cc-expiration">Expiration</label>
-                                                        <input type="text" class="form-control" id="cc-expiration"
-                                                            placeholder="" required>
-                                                        <div class="invalid-feedback">
-                                                            Expiration date required
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="cc-cvv">CVV</label>
-                                                        <input type="text" class="form-control" id="cc-cvv"
-                                                            placeholder="" required>
-                                                        <div class="invalid-feedback">
-                                                            Security code required
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr class="mb-4">
-                                                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue
-                                                    to checkout</button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="tab-pane fade" id="list-profile" role="tabpanel"
-                                    aria-labelledby="list-profile-list">...</div>
-                                <div class="tab-pane fade" id="list-messages" role="tabpanel"
-                                    aria-labelledby="list-messages-list">..tttttt.</div>
-                                <div class="tab-pane fade" id="list-settings" role="tabpanel"
-                                    aria-labelledby="list-settings-list">...</div>
                             </div>
-                        </div>
+                        <!------------------------ End phones list ----------------------->
 
-                        <div class="col-3 justify-content-center d-flex align-items-center">
+                        <!------------------------ model and payment method ----------------------->
+                        <div class="col-4 col-md-4 col-lg-7">
+                            <!------------------------IPhone X models --------------------------->
+                            <div class="tab-pane" id="iphoneX-list" style="display: none;">
+                                <div class="row">
+                                    <h3 class="ml-3">Select model:</h3>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">32GB</div>
+                                                <div class="h5 text-left text-light">2 months of warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+        
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">128GB</div>
+                                                <div class="h5 text-left text-light">4 months of warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+        
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">512GB</div>
+                                                <div class="h5 text-left text-light">life time warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------------------ End IPhone X models --------------------------->
+                                <!------------------------IPhone 7 models --------------------------->
+                                <div class="tab-pane" id="iphone7-list" role="tabpanel"
+                                aria-labelledby="list-iphone7-list" style="display: none;">
+                                <div class="row">
+                                    <h3 class="ml-3">Select model:</h3>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">32GB</div>
+                                                <div class="h5 text-left text-light">2 months of warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">32GB</div>
+                                                <div class="h5 text-left text-light">2 months of warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">32GB</div>
+                                                <div class="h5 text-left text-light">2 months of warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------------------ End IPhone 7 models --------------------------->
+
+                            <!------------------------ Galaxy s8 models --------------------------->
+                            <div class="tab-pane" id="samsungS8-list" role="tabpanel"
+                                aria-labelledby="list-samsungS8-list" style="display: none;">
+                                <div class="row">
+                                    <h3 class="ml-3">Select model:</h3>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">32GB</div>
+                                                <div class="h5 text-left text-light">2 months of warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">32GB</div>
+                                                <div class="h5 text-left text-light">2 months of warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+                                        <a role="button">
+                                            <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
+                                                <div class="h2 text-center text-light">32GB</div>
+                                                <div class="h5 text-left text-light">2 months of warranty</div>
+                                                <div class="h4 text-center text-danger">200$</div>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------------------ End Galaxy s8 models --------------------------->
+                            <!---------------- payment method form ------------------->
+                            <div class="row justify-content-start">
+                                <div class="ml-5" style="display: none;" id="payment-form">
+                                    <div class="col-10 text-center">
+                                        <h2>Checkout form</h2>
+                                    </div>
+                                    <div class="col-12 order-md-5">
+                                        <form class="needs-validation" novalidate>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-6">
+                                                    <label for="cc-name">Name on card</label>
+                                                    <input type="text" class="form-control" id="cc-name"
+                                                        placeholder="" required>
+                                                    <div class="invalid-feedback">
+                                                        Name on card is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-6">
+                                                    <label for="cc-number">Credit card number</label>
+                                                    <input type="text" class="form-control" id="cc-number"
+                                                        placeholder="" required>
+                                                    <div class="invalid-feedback">
+                                                        Credit card number is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="cc-expiration">Expiration</label>
+                                                    <input type="text" class="form-control" id="cc-expiration"
+                                                        placeholder="" required>
+                                                    <div class="invalid-feedback">
+                                                        Expiration date required
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="cc-cvv">CVV</label>
+                                                    <input type="text" class="form-control" id="cc-cvv"
+                                                        placeholder="" required>
+                                                    <div class="invalid-feedback">
+                                                        Security code required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mb-4">
+                                            <button class="btn btn-primary btn-lg btn-block"
+                                                type="submit">Pay</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!---------------- End payment method form ------------------->
+                            
+                        </div>
+                        <div class="col-2 justify-content-center d-flex align-items-center">
                             <div class="buy-pc-box">
                                 <img class="img-resposnsive2 mb-3" src="./public/css/images/PC.png">
                                 <div class="h5 text-center text-light">Buy PC now</div>
@@ -343,7 +415,6 @@
                                     <button class="h4 text-center btn btn-primary">Buy now</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -353,15 +424,7 @@
 
             </div>
             <!-------------------------------- End of Main Content ------------------------->
-            <footer class="my-5 pt-5 text-muted text-center text-small">
-                <p class="mb-1">&copy; 2017-2019 Company Name</p>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="#">Privacy</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Support</a></li>
-                </ul>
-            </footer>
-        </div>
+
         <!-- End of Content Wrapper -->
 
     </div>
@@ -388,6 +451,57 @@
             </div>
         </div>
     </div>
+
+<script>
+    function toggle(){
+        var ele = document.getElementById('payment-form');
+        let modelS8 = document.getElementById('samsungS8-list');
+        let nonClicked = document.getElementById("non-clicked");
+        console.log("ele" + ele.style.display);
+        if(ele.toggleAttribute === true){
+            ele.toggleAttribute = false;
+            console.log("entered");
+        }
+        nonClicked.style.display = "none";
+    }
+
+    function Clicked(elementID){
+        var iphoneX = document.getElementById("list-iphoneX-list");
+        var modelX = document.getElementById("iphoneX-list");
+        var model7 = document.getElementById("iphone7-list");
+        var modelS8 = document.getElementById("samsungS8-list");
+        var modelH = document.getElementById("list-huwaei-list");
+        var pay = document.getElementById('payment-form');
+
+        if(elementID === "list-iphoneX-list"){
+            modelX.style.display = "block";
+            model7.style.display = "none";
+            modelS8.style.display = "none";
+            iphoneX.classList.add = ('active');
+            pay.style.display = "none";
+        } else if(elementID === "list-iphone7-list"){
+            model7.style.display = "block";
+            modelX.style.display = "none";
+            modelS8.style.display = "none";
+            pay.style.display = "none";
+        } else {
+            model7.style.display = "none";
+            modelX.style.display = "none";
+            modelS8.style.display = "block";
+            pay.style.display = "none";
+        }
+        if(elementID === "list-huwaei-list"){
+            model7.style.display = "none";
+            modelX.style.display = "none";
+            modelS8.style.display = "none";
+            iphoneX.classList.remove = ('active');
+            pay.style.display = "none";
+        }
+    }
+    function continuePay(){
+        document.getElementById('payment-form').style.display = "block";
+    }
+</script>
 
 </body>
 

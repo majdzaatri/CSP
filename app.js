@@ -25,8 +25,16 @@ app.get('/dashboard', function(req,res){
     res.sendFile(__dirname + '/views/dashboard.html');
 });
 
-app.get('/dashboard2', function(req,res){
+app.get('/buy-cell-phone', function(req,res){
     res.sendFile(__dirname + '/views/buyphone.html');
+});
+
+app.get('/profile', function(req,res){
+    res.sendFile(__dirname + '/views/profile.html');
+});
+
+app.get('/about', function(req,res){
+    res.sendFile(__dirname + '/views/about.html');
 });
 
 
