@@ -6,11 +6,10 @@ const EV = require(__dirname + "/email_verification.js")
 
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    port: 3306,
-    password: "password",
-    database: "csp"
+    host: "us-cdbr-east-06.cleardb.net",
+    user: "b662e61354c88f",
+    password: "d6548e95",
+    database: "heroku_98861de8c1925bc"
 });
 
 //    sign-in queries      //
