@@ -159,7 +159,7 @@ app.get('/about',redirectLogin, function(req,res){
 const port = 3000;
 const host = "localhost";
 
-const server = app.listen(process.env.PORT, host, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
