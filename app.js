@@ -1,12 +1,16 @@
+
 const express = require("express");
 const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const AM = require(__dirname + "/account_manager.js")
 
+
+
 const session = require('express-session')
 
-
+const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 app.use(bodyParser.urlencoded({
     urlencoded: true
 }));
@@ -61,8 +65,11 @@ app.post('/sign-in', function (req, res) {
         } else {
             if(result){
                 req.session.user = result
-                console.log(userconnected.FirstName);
+                if(req.session.user.active===1){
                 res.redirect(301,'/dashboard');
+                } else{
+                    console.log("please confirm your email");
+                }
             }else{
                 res.redirect(301,'/sign-in');
             }
@@ -85,7 +92,8 @@ app.post('/sign-up', function (req, res) {
     lastName: req.body.lastname,
     email: req.body.email,
     password: req.body.password,
-    promoCode: req.body.promocode? req.body.promocode : null
+    promoCode: req.body.promocode? req.body.promocode : null,
+    active:0
     };
 
     AM.addNewAccount(newUser, function(status){
@@ -115,6 +123,19 @@ app.post('/logout', function (req, res) {
 
 });
 
+app.get('/confirmation/:token', async (req, res) => {
+    try {
+      const email = jwt.verify(req.params.token, EMAIL_SECRET);
+      console.log(email.user);
+      //await models.User.update({ confirmed: true }, { where: { id } });
+      AM.emailConfirmed(email);
+      console.log("confirmed");
+    } catch (e) {
+      res.send('error');
+    }
+  
+    return res.redirect('http://localhost:8000/sign-in');
+  });
 
 
 
@@ -134,3 +155,5 @@ const host = "localhost";
 const server = app.listen(port, host, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
+
+
