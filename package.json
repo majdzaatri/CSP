@@ -1,7 +1,9 @@
 {
   "requires": true,
   "lockfileVersion": 1,
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.17.1"
+  },
   "name": "csp",
   "version": "1.0.0",
   "main": "account_manager.js",
