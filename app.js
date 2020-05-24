@@ -156,10 +156,10 @@ app.get('/about',redirectLogin, function(req,res){
 
 
 
-const port = process.env.PORT || 3000;
+const port = 3000;
 const host = "localhost";
 
-const server = app.listen(port, host, () => {
+const server = app.listen(process.env.PORT, host, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
