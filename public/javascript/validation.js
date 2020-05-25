@@ -8,55 +8,70 @@ const submit=document.getElementById('submitBtn')
 
 
 submit.addEventListener('click' , (e) => {
-  
-   
-    if(lastName.value==='' || lastName.value===null)
-    {
-        e.preventDefault()
-        document.getElementById('errorLastname').innerText=" Last name cannot be blank"
-    }
-    if(firstName.value==='' || firstName.value===null)
-    {
-        e.preventDefault()
-        document.getElementById('errorFirstname').innerText=" First name cannot be blank"
-    }
-  
-    let regx=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-        if(!regx.test(email.value))
-        {
-            e.preventDefault()
-            document.getElementById('errorEmail').innerText=" Email must be in xxx@yyy.zzz format"
-        }
-        
-        let passwordregx= /^(?=.*\d)(?=.*[a-zA-Z]).{6,25}$/;
-        if(password.value==='' || password.value===null)
-        {
-            e.preventDefault()
-            document.getElementById('errorPassword').innerText=" Password is blank"
-        }
-       else if(!passwordregx.test(password.value))
-        {
-            e.preventDefault()
-            document.getElementById('errorPassword').innerText=" Password's length must be at least 6 and must include at least 1 digit"
-        }
-        if(confirmPass.value==='' || confirmPass.value===null)
-        {
-            e.preventDefault()
-            document.getElementById('errorPasswordConformation').innerText=" Confirm Password is blank"
-        }
-       else if(confirmPass.value!==password.value)
-        {
-            e.preventDefault()
-            document.getElementById('errorPasswordConformation').innerText=" Please make sure it matches your password"
-        }
-        
-        
+  e.preventDefault();
+  checkInput();      
 })
-function setErrorFor(input,message)
+
+
+function checkInput()
 {
-    const formControl=input.parentElement;
-    const small=formControl.querySelector('small');
-    small.innerText=message;
-    formControl.className='form-control'
+    let regx=/^[a-z ,.'-,A-Z]+$/;
+    if(!regx.test(lastName.value))
+    {
+        setErrorFor(lastName,' Last name must be in letters only');
+    }
+    else
+        setSuccessFor(lastName);
+ 
+     if(!regx.test(firstName.value))
+     {
+        setErrorFor(firstName,'First name must be in letters only');
+     }
+     else
+        setSuccessFor(firstName);
+ 
+   
+      regx=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+ 
+         if(!regx.test(email.value))
+         {
+            setErrorFor(email,' Email must be in xxx@yyy.zzz format');
+         }
+         else
+            setSuccessFor(email);
+         
+         let passwordregx= /^(?=.*\d)(?=.*[a-zA-Z]).{6,25}$/;
+         if(password.value==='' || password.value===null)
+         {
+            setErrorFor(password,' Password is blank');
+         }
+        else if(!passwordregx.test(password.value))
+         {
+            setErrorFor(password," Password's length must be at least 6 and must include at least 1 digit");
+         }
+         else
+            setSuccessFor(password);
+         if(confirmPass.value==='' || confirmPass.value===null)
+         {
+            setErrorFor(confirmPass," Confirm Password is blank");
+         }
+        else if(confirmPass.value!==password.value)
+         {
+             setErrorFor(confirmPass," Please make sure it matches your password");
+         }
+         else {
+            console.log('success');
+               setSuccessFor(confirmPass);
+        }
+}
+function setErrorFor(input, message) {
+	const formlabelgroup = input.parentElement;
+	const small = formlabelgroup.querySelector('small');
+	formlabelgroup.className = 'form-label-group error';
+	small.innerText = message;
+}
+
+function setSuccessFor(input) {
+	const formlabelgroup = input.parentElement;
+	formlabelgroup.className = 'form-label-group success';
 }

@@ -36,7 +36,8 @@ body {
 
 .form-label-group {
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
   }
   
   .form-label-group>input{
@@ -101,6 +102,42 @@ body {
     font-size: 12px;
     color: blue;
   }
+  .form-label-group.success input{
+    border-color: #2ecc71;
+  }
+  .form-label-group.error input{
+    border-color: #e74c3c;
+  }
+  .form-label-group small{
+    visibility: hidden;
+    color: #e74c3c;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+ 
+  }
+  .form-label-group i {
+    visibility: hidden;
+    position: absolute;
+    top: 20px;
+    right: 15px;
+  }
+  
+  .form-label-group.success i.fa-check-circle {
+    color: #2ecc71;
+    visibility: visible;
+  }
+  
+  .form-label-group.error i.fa-exclamation-circle {
+    color: #e74c3c;
+    visibility: visible;
+  }
+  
+ 
+  .form-label-group.error small {
+    visibility: visible;
+  }
+ 
   
   /* Fallback for Edge
   -------------------------------------------------- */
