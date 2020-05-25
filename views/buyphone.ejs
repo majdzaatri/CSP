@@ -148,7 +148,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 ml-1 d-none d-lg-inline">Majd Zaatri</span>
+                                    <span class="mr-2 ml-1 d-none d-lg-inline"><%= user %></span>
                                     <img class="img-profile rounded-circle"
                                         src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/44536570_10217016452380949_4084243414340599808_o.jpg?_nc_cat=110&amp;_nc_sid=09cbfe&amp;_nc_ohc=vbp9lkJfA3oAX-koVQ3&amp;_nc_ht=scontent.fsdv2-1.fna&amp;oh=cf7f8a4631d09f9ffeb7de236851c4d9&amp;oe=5EE3C10C">
                                 </a>
@@ -187,21 +187,28 @@
                         <!------------------------ phones list --------------------------->
                             <div class="col-6 col-md-4 col-lg-3">
                                 <div class="list-group" id="list-tab" role="tablist">
-                                    <a class="list-group-item list-group-item-action" id="list-iphoneX-list"
-                                    data-toggle="list" href="#iphoneX-list" role="tab" aria-controls="iphoneX" onclick="Clicked('list-iphoneX-list')">
+                                    
+                                    <% for(var i=0; i<phones.length ;i++){ %>
+                                    <a class="list-group-item list-group-item-action" id="list-phone<%= i %>-list"
+                                    data-toggle="list" href="#phone<%= i %>-list" role="tab" aria-controls="iphoneX" onclick="Clicked('list-phone<%= i %>-list')">
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <img class="img-resposnsive" src="./public/css/images/Iphonex.png">
+                                                <img class="img-resposnsive" src=<%= phones[i].src%>>
                                             </div>
                                             <div class="col-sm">
-                                                <p class="item-name">Iphone X </p>
-                                                <p class="item-p">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                                </p>
+                                                <p class="item-name"><%= phones[i].id %></p>
+                                                <p class="item-p"><%= phones[i].description %></p>
+                                                <% if(phones[i].in_stock === 'true'){ %>
+                                                <p class="item-p text-right text-success">In Stuck</p>
+                                            <% } else { %>
+                                                <p class="item-p text-right text-danger">Out of stuck</p>
+                                            <% } %>
                                             </div>
                                         </div>
                                     </a>
+                                <% } %>
     
-                                    <a class="list-group-item list-group-item-action" id="list-iphone7-list"
+                                    <!-- <a class="list-group-item list-group-item-action" id="list-iphone7-list"
                                         data-toggle="list" href="#iphone7-list" role="tab" aria-controls="iphone7" onclick="Clicked('list-iphone7-list')">
                                         <div class="row">
                                             <div class="col-sm-3">
@@ -242,7 +249,7 @@
                                                 <p class="item-p text-right text-danger">Out of stuck</p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </a> -->
                                 </div>
                             </div>
                         <!------------------------ End phones list ----------------------->
@@ -250,21 +257,26 @@
                         <!------------------------ model and payment method ----------------------->
                         <div class="col-4 col-md-4 col-lg-7">
                             <!------------------------IPhone X models --------------------------->
-                            <div class="tab-pane" id="iphoneX-list" style="display: none;">
+
+
+                            <% for(var i=0; i<phones.length ;i++){ %>
+                            <div class="tab-pane" id="phone<%= i %>-list" style="display: none;">
                                 <div class="row">
                                     <h3 class="ml-3">Select model:</h3>
                                 </div>
                                 <div class="container">
                                     <div class="row">
+                                        <% for(var j=0; j<phones[i].models.length ;j++){ %>
                                         <a role="button">
                                             <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
-                                                <div class="h2 text-center text-light">32GB</div>
-                                                <div class="h5 text-left text-light">2 months of warranty</div>
-                                                <div class="h4 text-center text-danger">200$</div>
+                                                <div class="h2 text-center text-light"><%= phones[i].models[j].type %></div>
+                                                <div class="h5 text-left text-light"><%= phones[i].models[j].text %></div>
+                                                <div class="h4 text-center text-danger"><%= phones[i].models[j].price %></div>
                                             </button>
                                         </a>
+                                        <% } %>
         
-                                        <a role="button">
+                                        <!-- <a role="button">
                                             <button class="col-10 bg-dark mr-2 mb-4 payment-box" onclick="continuePay()">
                                                 <div class="h2 text-center text-light">128GB</div>
                                                 <div class="h5 text-left text-light">4 months of warranty</div>
@@ -278,13 +290,14 @@
                                                 <div class="h5 text-left text-light">life time warranty</div>
                                                 <div class="h4 text-center text-danger">200$</div>
                                             </button>
-                                        </a>
+                                        </a> -->
                                     </div>
                                 </div>
                             </div>
+                            <% } %>
                             <!------------------------ End IPhone X models --------------------------->
                                 <!------------------------IPhone 7 models --------------------------->
-                                <div class="tab-pane" id="iphone7-list" role="tabpanel"
+                                <!-- <div class="tab-pane" id="iphone7-list" role="tabpanel"
                                 aria-labelledby="list-iphone7-list" style="display: none;">
                                 <div class="row">
                                     <h3 class="ml-3">Select model:</h3>
@@ -314,11 +327,11 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!------------------------ End IPhone 7 models --------------------------->
 
                             <!------------------------ Galaxy s8 models --------------------------->
-                            <div class="tab-pane" id="samsungS8-list" role="tabpanel"
+                            <!-- <div class="tab-pane" id="samsungS8-list" role="tabpanel"
                                 aria-labelledby="list-samsungS8-list" style="display: none;">
                                 <div class="row">
                                     <h3 class="ml-3">Select model:</h3>
@@ -348,7 +361,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!------------------------ End Galaxy s8 models --------------------------->
                             <!---------------- payment method form ------------------->
                             <div class="row justify-content-start">
@@ -455,51 +468,70 @@
     </div>
 
 <script>
-    function toggle(){
-        var ele = document.getElementById('payment-form');
-        let modelS8 = document.getElementById('samsungS8-list');
-        let nonClicked = document.getElementById("non-clicked");
-        console.log("ele" + ele.style.display);
-        if(ele.toggleAttribute === true){
-            ele.toggleAttribute = false;
-            console.log("entered");
-        }
-        nonClicked.style.display = "none";
-    }
+    
+
+    // function toggle(){
+    //     var ele = document.getElementById('payment-form');
+    //     let modelS8 = document.getElementById('samsungS8-list');
+    //     let nonClicked = document.getElementById("non-clicked");
+    //     console.log("ele" + ele.style.display);
+    //     if(ele.toggleAttribute === true){
+    //         ele.toggleAttribute = false;
+    //         console.log("entered");
+    //     }
+    //     nonClicked.style.display = "none";
+    // }
+
 
     function Clicked(elementID){
-        var iphoneX = document.getElementById("list-iphoneX-list");
-        var modelX = document.getElementById("iphoneX-list");
-        var model7 = document.getElementById("iphone7-list");
-        var modelS8 = document.getElementById("samsungS8-list");
-        var modelH = document.getElementById("list-huwaei-list");
+        var models = {};
+
+        for(var i=0; i<4 ;i++){
+            models["phone"+i] =  document.getElementById("phone"+ i +"-list");
+        }
+        // var modelX = document.getElementById("iphoneX-list");
+        // var model7 = document.getElementById("iphone7-list");
+        // var modelS8 = document.getElementById("samsungS8-list");
         var pay = document.getElementById('payment-form');
 
-        if(elementID === "list-iphoneX-list"){
-            modelX.style.display = "block";
-            model7.style.display = "none";
-            modelS8.style.display = "none";
-            iphoneX.classList.add = ('active');
-            pay.style.display = "none";
-        } else if(elementID === "list-iphone7-list"){
-            model7.style.display = "block";
-            modelX.style.display = "none";
-            modelS8.style.display = "none";
-            pay.style.display = "none";
-        } else {
-            model7.style.display = "none";
-            modelX.style.display = "none";
-            modelS8.style.display = "block";
-            pay.style.display = "none";
+        for(var i=0; i<4; i++){
+            if(elementID === "list-phone"+ i +"-list"){
+                for(var j=0; j< 3; j++){
+                    if(i===j){
+                        models["phone"+j].style.display = "block";
+                    } else {
+                        models["phone"+j].style.display = "none";
+                    }
+                }
+            }
         }
-        if(elementID === "list-huwaei-list"){
-            model7.style.display = "none";
-            modelX.style.display = "none";
-            modelS8.style.display = "none";
-            iphoneX.classList.remove = ('active');
-            pay.style.display = "none";
-        }
+
+        pay.style.display = "none";
+
+        // if(elementID === "list-iphoneX-list"){
+        //     modelX.style.display = "block";
+        //     model7.style.display = "none";
+        //     modelS8.style.display = "none";
+        //     pay.style.display = "none";
+        // } else if(elementID === "list-iphone7-list"){
+        //     model7.style.display = "block";
+        //     modelX.style.display = "none";
+        //     modelS8.style.display = "none";
+        //     pay.style.display = "none";
+        // } else {
+        //     model7.style.display = "none";
+        //     modelX.style.display = "none";
+        //     modelS8.style.display = "block";
+        //     pay.style.display = "none";
+        // }
+        // if(elementID === "list-huwaei-list"){
+        //     model7.style.display = "none";
+        //     modelX.style.display = "none";
+        //     modelS8.style.display = "none";
+        //     pay.style.display = "none";
+        // }
     }
+
     function continuePay(){
         document.getElementById('payment-form').style.display = "block";
     }

@@ -2,11 +2,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
-
 const app = express();
 const AM = require(__dirname + "/account_manager.js")
 const session = require('express-session')
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
+const phonesData = require(__dirname + "/cell_phone_data.json");
+
 
  // redirect the user to login page if he didn't log in // 
 const redirectLogin  = (req, res, next) =>{
@@ -26,22 +27,22 @@ const redirectHome  = (req, res, next) =>{
     }
 }
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     urlencoded: true
 }));
 
 app.use('/public', express.static(__dirname + '/public'));
 
+
 app.use(session({
     key: 'user_sid',
     secret: '1123FfdSSs23335',
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        expires: 600000
-    }
 }));
 
+app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
     res.redirect(301, '/sign-in');
@@ -51,7 +52,6 @@ app.get('/', function (req, res) {
 
 //    sign-in      //
 app.get('/sign-in',redirectHome, function (req, res) {
-
     res.sendFile(__dirname + '/views/sign-in.html');
 });
 
@@ -138,28 +138,52 @@ app.get('/reset-password', function (req, res) {
 
 app.get('/dashboard',redirectLogin, function (req, res) {
     //let name = document.getElementById('last name')
-    res.sendFile(__dirname + '/views/dashboard.html');
+    // res.sendFile(__dirname + '/views/dashboard.html');
+    var string = JSON.stringify(req.session.user);
+    var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    res.render('dashboard', {user : userName});
 });
+
+
+
+//---------------------- buy cell phone -------------------------
 
 app.get('/buy-cell-phone',redirectLogin, function(req,res){
-    res.sendFile(__dirname + '/views/buyphone.html');
+    var string = JSON.stringify(req.session.user);
+    var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    res.render('buyphone', {user : userName, phones : phonesData});
 });
 
+
+
+
+//---------------------- profile -------------------------
 app.get('/profile',redirectLogin, function(req,res){
-    res.sendFile(__dirname + '/views/profile.html');
+    var string = JSON.stringify(req.session.user);
+    var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    res.render('profile', {user : userName});
 });
 
+
+
+//---------------------- about -------------------------
 app.get('/about',redirectLogin, function(req,res){
-    res.sendFile(__dirname + '/views/about.html');
+    var string = JSON.stringify(req.session.user);
+    var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    res.render('about', {user : userName});
 });
 
 
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 8000, () => {
+app.listen(process.env.PORT || 5050, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
