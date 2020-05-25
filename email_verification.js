@@ -31,7 +31,7 @@ exports.sendConfirmation = function(user){
             from: 'csportbraude@hotmail.com',
             to: user,
             subject: 'Confirmation',
-            html: "<h1>CSP</h1><h3>Thank you for choosing us</h3><h5>please confirm your email by clicking on the link:</h5>" + url
+            html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
           };
 
 

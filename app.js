@@ -128,7 +128,7 @@ app.get('/confirmation/:token', async (req, res) => {
       res.send('error');
     }
   
-    return res.redirect('http://localhost:8000/sign-in');
+    return res.redirect('/sign-in');
 });
 
 
