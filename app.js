@@ -64,7 +64,7 @@ app.post('/sign-in', function (req, res) {
             res.redirect(301,'/sign-in');
         } else {
             if(result){
-                req.session.user = result
+                req.session.user = result;
                 if(req.session.user.active===1){
                 res.redirect(301,'/dashboard');
                 } else{
@@ -163,10 +163,32 @@ app.get('/buy-cell-phone',redirectLogin, function(req,res){
 app.get('/profile',redirectLogin, function(req,res){
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
-    let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('profile', {user : userName});
+    // let userName = userJson.FirstName + " " + userJson.LastName;
+    res.render('profile', {user : userJson});
 });
 
+app.post('/profileInfo', function(req,res){
+
+    var newUserInfo = [
+        req.body.firstname,
+        req.body.lastname,
+        req.body.phonenumber? req.body.phonenumber : null,
+        req.body.country? req.body.country : null,
+        req.body.City? req.body.City : null,
+        req.body.Street? req.body.Street : null,
+        req.body.Zipcode? req.body.Zipcode : null,
+        req.session.user.ID
+    ];
+
+    AM.updateUserInfo(newUserInfo, function(err, result){
+        if(result){
+            req.session.user = result;
+            if(req.session.user.active===1){
+                res.redirect(301,'/profile');
+            }
+        }
+    });
+});
 
 
 //---------------------- about -------------------------
@@ -183,7 +205,7 @@ app.get('/about',redirectLogin, function(req,res){
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 5050, () => {
+app.listen(process.env.PORT || 8000, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 

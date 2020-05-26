@@ -148,7 +148,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 ml-1 d-none d-lg-inline"><%= user %></span>
+                                    <span class="mr-2 ml-1 d-none d-lg-inline"><%= user.FirstName %> <%= user.LastName %></span>
                                     <img class="img-profile rounded-circle"
                                         src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/44536570_10217016452380949_4084243414340599808_o.jpg?_nc_cat=110&amp;_nc_sid=09cbfe&amp;_nc_ohc=vbp9lkJfA3oAX-koVQ3&amp;_nc_ht=scontent.fsdv2-1.fna&amp;oh=cf7f8a4631d09f9ffeb7de236851c4d9&amp;oe=5EE3C10C">
                                 </a>
@@ -183,14 +183,14 @@
                     <div class="row">
                         <h1 class="ml-3">Profile details</h1>
                     </div>
-                    <form action="#" method="#">
+                    <form action="/profileInfo" method="POST" class="needs-validation">
                         <div class="row ml-5 mt-5">
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
                                     <i class="fa fa-address-card-o mr-3" style="font-size: 20px;"></i><h5>First name</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" value="My first name">
+                                    <input type="text" name="firstname" value=<%= user.FirstName %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -198,7 +198,7 @@
                                     <i class="fa fa-address-card-o mr-3" style="font-size: 20px;"></i><h5>Last name</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" value="My last name">
+                                    <input type="text" name="lastname" value=<%= user.LastName %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -206,7 +206,7 @@
                                     <i class="fa fa-phone mr-3" style="font-size: 20px;" aria-hidden="true"></i><h5>Phone number</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" value="+9725224135">
+                                    <input type="text" name="phonenumber" value=<%= user.PhoneNumber %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -214,7 +214,7 @@
                                     <i class="fas fa-globe-europe mr-3" style="font-size: 20px;"></i><h5>Country</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input>
+                                    <input type="text" name="country" value=<%= user.Country %>>
                                 </div>
                             </div>
                         </div>
@@ -224,7 +224,7 @@
                                     <i class="far fa-envelope mr-3" style="font-size: 20px;"></i><h5>E-mail</h5>
                                 </div>
                                 <div class="row">
-                                    <a href="#" style="font-size: 1.5rem;">myemail@gmail.com</a>
+                                    <a href="#" style="font-size: 1.5rem;"><%= user.Email %></a>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -232,7 +232,7 @@
                                     <i class="fas fa-city mr-3" style="font-size: 20px;"></i><h5>City</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input>
+                                    <input type="text" name="City" value=<%= user.City %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -240,7 +240,7 @@
                                     <i class="fa fa-road mr-3" aria-hidden="true" style="font-size: 20px;"></i><h5>Street</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input>
+                                    <input type="text" name="Street" value=<%= user.Street %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -248,7 +248,7 @@
                                     <i class="fas fa-mail-bulk mr-3" style="font-size: 20px;"></i><h5>Zip code</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input>
+                                    <input type="text" name="Zipcode" value=<%= user.ZipCode %>>
                                 </div>
                             </div>
                         </div>

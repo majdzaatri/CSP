@@ -71,6 +71,31 @@ exports.addNewAccount = function (newUser, callback) {
 
 
 
+// update profile queries //
+exports.updateUserInfo = function(newUserInfo, callback) {
+
+    let query = "UPDATE users SET FirstName = "+JSON.stringify(newUserInfo[0])+", LastName = "+JSON.stringify(newUserInfo[1])+", PhoneNumber = "+JSON.stringify(newUserInfo[2])+", Country = "+JSON.stringify(newUserInfo[3])+", City = "+JSON.stringify(newUserInfo[4])+",Street = "+JSON.stringify(newUserInfo[5])+",ZipCode = "+JSON.stringify(newUserInfo[6])+" WHERE ID = "+newUserInfo[7];
+    connection.query(query, function(err,result,fields) {
+        if(err){
+            console.log("Failed update user: " + err);
+        } else {
+            let query = "SELECT * FROM users WHERE id = " + newUserInfo[7];
+            connection.query(query, function(err, rows, field){
+                if(err){
+                    console.log("Failed to fetch user data after updating:" + err);
+                } else {
+                    console.log("Data fetched after updating user...");
+                    callback(null, rows[0]);
+                }
+            })
+            console.log("updated user successfuly!");
+            callback(result, fields);
+        }
+    });
+}
+
+
+
 
 exports.emailConfirmed = function (email, callback) {
     let query = "UPDATE " + mydatabase + ".`users` SET `active` = '1' WHERE (`Email` = ?)";
