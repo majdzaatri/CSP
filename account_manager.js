@@ -5,7 +5,8 @@ const EV = require(__dirname + "/email_verification.js")
 const mydatabase = "heroku_98861de8c1925bc";
 
 
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
+    connectionLimit : 10,
     host: "us-cdbr-east-06.cleardb.net",
     user: "b662e61354c88f",
     password: "d6548e95",
