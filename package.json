@@ -8,7 +8,9 @@
     "express-session": "^1.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-    "nodemailer": "^6.4.6"
+    "nodemailer": "^6.4.6",
+    "nodemon": "^2.0.4",
+    "passport-remember-me": "0.0.1"
   },
   "name": "csp",
   "version": "1.0.0",
