@@ -185,7 +185,7 @@
 
                     <div class="row my-5">
                         <!------------------------ phones list --------------------------->
-                        <div class="col-6 col-md-4 col-lg-3">
+                        <div class="col-12 col-md-6 col-lg-3">
                             <div class="list-group" id="list-tab" role="tablist">
 
                                 <% for(var i=0; i<phones.length ;i++){ %>
@@ -214,54 +214,54 @@
                         <!------------------------ End phones list ----------------------->
                         
                         <!------------------------ model and payment method ----------------------->
-                        <div class="col-4 col-md-4 col-lg-7">
+                        <div class="col-12 col-md-6 col-lg-7">
                             <!------------------------phones models --------------------------->
-                            <div id="nothing-clicked" class="row">
-                                <h1>CHOOSE YOUR PHONE</h1>
+                            <div id="nothing-clicked" class="row justify-content-center">
+                                <h1 class="text-center">CHOOSE YOUR PHONE</h1>
                             </div>
                             
                             <% for(var i=0; i<phones.length ;i++){ %>
-                            <div class="tab-pane" id="phone<%= i %>-list" style="display: none;">
                                 <% if(phones[i].in_stock === 'true') {%>
-                                <div class="row">
-                                    <h4 class="ml-3">Select model:</h4>
-                                </div>
-                                <div class="container mt-5">
-                                    <div class="row">
-                                        <% for(var j=0; j<phones[i].models.length ;j++){ %>
-                                        <a role="button">
-                                            <button class="col-10 bg-dark mr-2 mb-2 payment-box"
-                                                onclick="continuePay()">
-                                                <div class="h2 text-center text-light"><%= phones[i].models[j].type %>
-                                                </div>
-                                                <div class="h5 text-left text-light"><%= phones[i].models[j].text %>
-                                                </div>
-                                                <div class="h4 text-center text-danger"><%= phones[i].models[j].price %>
-                                                </div>
-                                            </button>
-                                        </a>
-                                        <% } %>
-                                        <% } else { %>
+                                    <div class="row mt-5" id="phone<%= i %>-list" style="display: none;">
                                         <div class="row justify-content-center">
-                                            <h1>coming soon</h1>
+                                            <h3 class="ml-3">Select model one of the <%= phones[i].models.length %> models </h3>
                                         </div>
-                                        <% } %>
+                                        
+                                         <div class="container mt-5">
+                                             <div class="row justify-content-center">
+                                                <% for(var j=0; j<phones[i].models.length ;j++){ %>
+                                                  <a role="button">
+                                                    <button class="col-10 bg-dark mr-2 mb-2 payment-box"
+                                                        onclick="continuePay()">
+                                                        <div class="h2 text-center text-light"><%= phones[i].models[j].type %>
+                                                        </div>
+                                                        <div class="h5 text-left text-light"><%= phones[i].models[j].text %>
+                                                        </div>
+                                                        <div class="h4 text-center text-danger"><%= phones[i].models[j].price %>
+                                                        </div>
+                                                    </button>
+                                                  </a>
+                                                  <% } %>
+                                                </div>
+                                            </div>
                                     </div>
+
+                            <% } else { %>
+                                <div class="row mt-5" id="phone<%= i %>-list" style="display: none;">
+                                    <h1 class="text-center">coming soon</h1>
                                 </div>
-                            </div>
+                                <% } %>
                             <% } %>
                             <!------------------------ End phones models --------------------------->
 
-
-
-
                             <!---------------- payment method form ------------------->
-                            <div class="row justify-content-start">
-                                <div class="ml-5" style="display: none;" id="payment-form">
-                                    <div class="col-10 text-center">
+                            <!-- <div class="row mt-5 justify-content-center"> -->
+                                <div class="row mt-5 justify-content-center ml-5" style="display: none;" id="payment-form">
+                                    <div class="col-10 text-center ml-4">
                                         <h2>Checkout form</h2>
                                     </div>
-                                    <div class="col-12 order-md-5">
+                                    <div class="row justify-content-center mt-5 mr-5">
+                                    <div class="col-8 order-md-5">
                                         <form class="needs-validation" novalidate>
                                             <div class="row">
                                                 <div class="col-md-12 mb-6">
@@ -306,21 +306,20 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-
+                                </div>
+                            <!-- </div> -->
                             <!---------------- End payment method form ------------------->
-                            
+
                         </div>
-                        <div class="col-2 justify-content-center d-flex align-items-center">
-                            <div class="buy-pc-box">
-                                <img class="img-resposnsive2 mb-3" src="./public/css/images/PC.png">
+                        <div class="col-2 col-md-4 col-lg-2 buy-pc-box d-md-block d-none">
+                                <img class="img-resposnsive2 mb-3 img-fluid" src="./public/css/images/PC.png">
                                 <div class="h5 text-center text-light">Buy PC now</div>
                                 <div class="text-center">
                                     <button class="h4 text-center btn btn-primary">Buy now</button>
                                 </div>
-                            </div>
                         </div>
                     </div>
+
                 </div>
                 <!-- .container-fluid -->
 
