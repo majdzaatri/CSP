@@ -190,8 +190,7 @@
 
                                 <% for(var i=0; i<phones.length ;i++){ %>
                                 <input type="radio" class="list-group-item list-group-item-action" id="list-phone<%= i %>-list"
-                                    data-toggle="list" href="#phone<%= i %>-list" role="tab" aria-controls="iphoneX"
-                                    onclick="Clicked('list-phone<%= i %>-list')" name="phone" value="phone<%=i%>">
+                                     name="phone" value="phone<%=i%>" onclick="Clicked('list-phone<%= i %>-list')">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <img class="img-resposnsive" src=<%= phones[i].src %>>
@@ -231,8 +230,7 @@
                                              <div class="row justify-content-center">
                                                 <% for(var j=0; j<phones[i].models.length ;j++){ %>
                                                   <!-- <a role="button"> -->
-                                                    <input type="radio" id="mod<%= c++ %>" class="col-10 bg-dark mr-2 mb-2 payment-box"
-                                                        onclick="continuePay('mod<%= c %>')">
+                                                    <input type="radio" name="tamir" id="mod<%= c++ %>" class="col-10 bg-dark mr-2 mb-2 payment-box" onclick="continuePay('mod<%= c %>')">
                                                         <%= c %> 
                                                         <div class="h2 text-center text-light"><% var type = phones[i].models[j].type %>
                                                             <%= phones[i].models[j].type %>
@@ -372,7 +370,6 @@
 
                 for (var i = 0; i < 4; i++) {
                     if (elementID === "list-phone" + i + "-list") {
-                        document.getElementById("list-phone" + i +"-list").checked = true;
                         for (var j = 0; j < 4; j++) {
                             if (i === j) {
                                 
@@ -383,23 +380,19 @@
                             }
                         }
                     } else {
-                        document.getElementById("list-phone" + i +"-list").checked = false;
                     }
                 }
                 pay.style.display = "none";
+
+                for(var i=0; i<8;i++){
+                    document.getElementById('mod'+i).checked = false;
+                }
             }
         </script>
 
 
         <script>
             function continuePay(elementID) {
-                for (var i = 0; i < 8; i++) {
-                    if (elementID === "mod"+i) {
-                        document.getElementById("mod"+i).checked = true;
-                    } else {
-                        document.getElementById("mod"+i).checked = false;
-                    }
-                }
                 document.getElementById('payment-form').style.display = "block";
             }
             // function continuePay(elementID) {

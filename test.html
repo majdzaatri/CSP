@@ -182,7 +182,7 @@
                     <div class="row">
                         <h1 class="ml-3">Buy Cell Phone:</h1>
                     </div>
-                    <form>
+                    <form action="/buy-cell-phone" method="POST">
                     <div class="row my-5">
                         <!------------------------ phones list --------------------------->
                         <div class="col-12 col-md-6 col-lg-3">
@@ -191,7 +191,7 @@
                                 <% for(var i=0; i<phones.length ;i++){ %>
                                 <input type="radio" class="list-group-item list-group-item-action" id="list-phone<%= i %>-list"
                                     data-toggle="list" href="#phone<%= i %>-list" role="tab" aria-controls="iphoneX"
-                                    onclick="Clicked('list-phone<%= i %>-list')">
+                                    onclick="Clicked('list-phone<%= i %>-list')" name="phone" value="phone<%=i%>">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <img class="img-resposnsive" src=<%= phones[i].src %>>
@@ -233,7 +233,7 @@
                                                   <!-- <a role="button"> -->
                                                     <input type="radio" id="mod<%= c++ %>" class="col-10 bg-dark mr-2 mb-2 payment-box"
                                                         onclick="continuePay('mod<%= c %>')">
-                                                        
+                                                        <%= c %> 
                                                         <div class="h2 text-center text-light"><% var type = phones[i].models[j].type %>
                                                             <%= phones[i].models[j].type %>
                                                         </div>
@@ -395,7 +395,7 @@
             function continuePay(elementID) {
                 for (var i = 0; i < 8; i++) {
                     if (elementID === "mod"+i) {
-                        // document.getElementById("mod"+i).checked = true;
+                        document.getElementById("mod"+i).checked = true;
                     } else {
                         document.getElementById("mod"+i).checked = false;
                     }
@@ -409,21 +409,18 @@
 
 
 
-        <script>
+        <!-- <script>
             function pay_clicked() {
-                const phone = '<%= phone %>';
+                const phone = '<//%= phone %>';
 
-                const model = '<%= type %>';
-                const price = '<%= price %>';
+                const model = '<//%= type %>';
+                const price = '<//%= price %>';
                 const cardName = document.getElementById('cc-name').value;
                 const cardNum = document.getElementById('cc-number').value;
                 const exp = document.getElementById('cc-expiration').value;
                 const cvv = document.getElementById('cc-cvv').value;
 
 
-            //     const blas = '<%- JSON.stringify(bla) %>'
-            //     JSON.stringify(blas);
-            // }
                 const data = { phone, model, price, cardName, cardNum, exp, cvv};
                 const options = {
                     method: 'POST',
@@ -435,7 +432,7 @@
 
                 fetch('/buy-cell-phone',options);
             }
-        </script>
+        </script> -->
 
 </body>
 
