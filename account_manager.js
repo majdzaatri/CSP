@@ -169,3 +169,26 @@ exports.checkPassword = function (enteredPassword, password,callback) {
         }
     })
 }
+
+//    sign-in queries      //
+exports.automaticLogin = function (email, password, callback) {
+    let query = "SELECT * FROM users WHERE email = ?";
+
+    connection.query(query, email, async function (err, rows, fields) {
+        if (err) {
+            console.log("Failed to check if email and password exist in DB: " + err);
+            //TODO: check what we have to return in the callback if something failed
+        } else {
+            if (rows.length > 0) {
+                let hashPass = rows[0].Password;
+                if(password==hashPass){
+                    callback(200,rows);
+                }
+       
+            } else {
+                console.log("email doesn't exist or password wrong!");
+                callback(500);
+            }
+        }
+    });
+}

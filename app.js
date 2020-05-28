@@ -3,11 +3,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const app = express();
+const EV = require(__dirname + "/email_verification.js")
 const AM = require(__dirname + "/account_manager.js")
 const session = require('express-session')
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 const phonesData = require(__dirname + "/cell_phone_data.json");
-
+const cookieParser = require('cookie-parser')
 
 // redirect the user to login page if he didn't log in // 
 const redirectLogin = (req, res, next) => {
@@ -34,6 +35,9 @@ app.use(bodyParser.urlencoded({
 
 app.use('/public', express.static(__dirname + '/public'));
 
+app.use(cookieParser());
+
+
 
 app.use(session({
     key: 'user_sid',
@@ -45,27 +49,52 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
+    
+    console.log(req.cookies.Rememeber)
     res.redirect(301, '/sign-in');
+
 });
 
 
 
 //    sign-in      //
-app.get('/sign-in', redirectHome, function (req, res) {
-    res.sendFile(__dirname + '/views/sign-in.html');
+app.get('/sign-in', function (req, res) {
+    
+    console.log(req.cookies.RememberMe)
+    if(req.cookies.RememberMe != null){
+        AM.automaticLogin(req.cookies.RememberMe[0],req.cookies.RememberMe[1], function(result,user){
+            if(result==200)   {
+            req.session.user = user;
+            res.redirect(301, '/dashboard');
+            }
+            else{
+                res.clearCookie('RememberMe')
+                res.sendFile(__dirname + '/views/sign-in.html');
+            }
+
+        })
+    }else{
+        res.sendFile(__dirname + '/views/sign-in.html');
+    }
+
 });
 
 app.post('/sign-in', function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
-
+    
     AM.checkLogin(email, password, function (err, result) {
         if (err) {
             res.redirect(301, '/sign-in');
         } else {
             if (result) {
                 req.session.user = result;
-                if (req.session.user.active === 1) {
+                if (req.session.user.active == 1) {
+                    /*checks if the user checked remember me*/
+                    if(req.body.checkbox){
+                        console.log(req.body.checkbox);
+                    res.cookie('RememberMe', [req.session.user.Email,req.session.user.Password])
+                    }
                     res.redirect(301, '/dashboard');
                 } else {
                     console.log("please confirm your email");
@@ -82,6 +111,11 @@ app.post('/sign-in', function (req, res) {
 app.get('/sign-up', redirectHome, function (req, res) {
     res.sendFile(__dirname + '/views/sign-up.html');
 });
+
+app.get('/thank-you', function (req, res) {
+    res.sendFile(__dirname + '/views/thank-you.html');
+});
+
 
 app.post('/sign-up', function (req, res) {
 
@@ -102,7 +136,7 @@ app.post('/sign-up', function (req, res) {
             res.redirect(301, '/sign-up');
         } else {
             console.log("user added succesfuly");
-            res.redirect(301, '/dashboard');
+            res.redirect(301, '/thank-you');
         }
     });
 
@@ -113,6 +147,7 @@ app.post('/logout', function (req, res) {
         if (err) {
             return res.redirect('/dashboard')
         }
+        res.clearCookie('RememberMe')
         res.redirect('/sign-in');
     })
 
@@ -132,11 +167,21 @@ app.post('/change-password', function (req, res) {
         }
         else {
             AM.updatePassword(newPassword, req.session.user.ID, function (result) {
-                if (res == 200) {
-                    console.log('password has been updated successfully')
+                if (result == 200) {
+                    emailToConfirm=req.session.user.Email
+                    EV.PasswordUpdateConfirmation(emailToConfirm)
+                    if(req.cookies.RememberMe != null){
+                    res.clearCookie('RememberMe')
+                    return res.redirect('/profile')
+                    }else{
+                        return res.redirect('/profile')
+                    }
+                }
+                else{
+                    return res.redirect('/profile')
                 }
             })
-            return res.redirect('/profile')
+           
 
         }
     })
@@ -165,12 +210,18 @@ app.get('/dashboard', redirectLogin, function (req, res) {
     // res.sendFile(__dirname + '/views/dashboard.html');
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
-    let userName = userJson.FirstName + " " + userJson.LastName;
+    if(userJson[0]){
+     var userName = userJson[0].FirstName + " " + userJson[0].LastName;
+     req.session.user=userJson[0];
+    }
+    else {
+        var userName = userJson.FirstName + " " + userJson.LastName;
+    }
     res.render('dashboard', { user: userName });
 });
 
 
-
+ 
 //---------------------- buy cell phone -------------------------
 
 app.get('/buy-cell-phone', redirectLogin, function (req, res) {
@@ -207,9 +258,9 @@ app.post('/profileInfo', function (req, res) {
     AM.updateUserInfo(newUserInfo, function (err, result) {
         if (result) {
             req.session.user = result;
-            if (req.session.user.active === 1) {
-                res.redirect(301, '/profile');
-            }
+            res.redirect(301, '/profile');
+            emailToConfirm=req.session.user.Email
+            EV.dataUpdateConfirmation(emailToConfirm)
         }
     });
 });
