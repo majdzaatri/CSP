@@ -28,6 +28,7 @@ const redirectHome  = (req, res, next) =>{
 }
 
 app.use(bodyParser.json());
+app.use(express.json({ limit: '1mb'}));
 app.use(bodyParser.urlencoded({
     urlencoded: true
 }));
@@ -157,6 +158,24 @@ app.get('/buy-cell-phone',redirectLogin, function(req,res){
 });
 
 
+app.post('/buy-cell-phone',redirectLogin, function(req,res){
+    // console.log("yyyeeeyyy i got a request");
+    // console.log(req.body);
+    // console.log(req.session.user);
+    
+    // AM.addPurchase(req.body,req.session.user,function(status){
+    //     if(status === 500){
+    //         res.redirect(301,'/buy-cell-phone');
+    //     } else {
+    //         res.redirect(301,'/buy-cell-phone');
+    //     }
+    // });
+
+
+
+    console.log(req.body.phone);
+})
+
 
 
 //---------------------- profile -------------------------
@@ -205,7 +224,7 @@ app.get('/about',redirectLogin, function(req,res){
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 8000, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 

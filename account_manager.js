@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const mysql = require("mysql");
-
+const https = require("https");
 const EV = require(__dirname + "/email_verification.js")
 const mydatabase = "heroku_98861de8c1925bc";
 
@@ -93,6 +93,73 @@ exports.updateUserInfo = function(newUserInfo, callback) {
             callback(result, fields);
         }
     });
+}
+
+
+// add purchases queries //
+exports.addPurchase = function(phoneDetails, user, callback) {
+    console.log(phoneDetails);
+
+
+
+    const url = "https://currencyapi.net/api/v1/rates?key=0kpdBfiRT9ktw04EApqJbDIx55SU7aHabaes"
+
+    https.get(url,function(res){
+        
+        res.setEncoding('utf8');
+        let rawData = '';
+        res.on('data', (chunk) => { rawData += chunk; });
+        res.on('end', () => {
+          try {
+            const parsedData = JSON.parse(rawData);
+            const ilsRate = parsedData.rates.ILS;
+            const priceInFloat = parseFloat(phoneDetails.price.replace('$',''));
+            console.log(priceInFloat);
+            const priceInIls = priceInFloat*ilsRate;
+            data = [
+                phoneDetails.phone,
+                phoneDetails.model,
+                user.Email,
+                phoneDetails.price,
+                (priceInIls.toFixed(2)) + " ILS",
+                (priceInIls+(priceInIls*0.17)).toFixed(2) + " ILS",
+                phoneDetails.cardNum,
+                phoneDetails.cardName,
+                phoneDetails.exp,
+                phoneDetails.cvv,
+                phoneDetails.cvv
+            ]
+
+
+            // let query = "INSERT INTO"+ mydatabase +".`transactions` SET Product = "+phoneDetails.phone+", Model = "+phoneDetails.model+", Date = NOW(), User = "+user.Email+", Price = "+phoneDetails.price+", LocalPrice = "+phoneDetails.price+", TotalPriceIncludeingVAT = "+phoneDetails.price+", Number = "+phoneDetails.cardNum+", Name = "+phoneDetails.cardName+", ExperationDate = "+phoneDetails.exp+", CVV = "+phoneDetails.cvv+", Memo = "+phoneDetails.cvv;
+            let query = "INSERT INTO `transactions` SET Product = ?, Model = ?, Date = NOW(), User = ?, Price = ?, LocalPrice = ?, TotalPriceIncludingVAT = ?, Number = ?, Name = ?, ExperationDate = ?, CVV = ?, Memo = ?";
+            connection.query(query,data,function(err, res, fields) {
+                if(err){
+                    console.log("Failed to add purchase detail: " + err);
+                    callback(500);
+                } else {
+                    console.log("purchase detail added successfuly!");
+                    callback(200);
+                }
+            })
+    
+          } catch (e) {
+            console.error(e.message);
+          }
+        });
+    })
+
+    // // let query = "INSERT INTO"+ mydatabase +".`transactions` SET Product = "+phoneDetails.phone+", Model = "+phoneDetails.model+", Date = NOW(), User = "+user.Email+", Price = "+phoneDetails.price+", LocalPrice = "+phoneDetails.price+", TotalPriceIncludeingVAT = "+phoneDetails.price+", Number = "+phoneDetails.cardNum+", Name = "+phoneDetails.cardName+", ExperationDate = "+phoneDetails.exp+", CVV = "+phoneDetails.cvv+", Memo = "+phoneDetails.cvv;
+    // let query = "INSERT INTO `transactions` SET Product = ?, Model = ?, Date = NOW(), User = ?, Price = ?, LocalPrice = ?, TotalPriceIncludingVAT = ?, Number = ?, Name = ?, ExperationDate = ?, CVV = ?, Memo = ?";
+    // connection.query(query,data,function(err, res, fields) {
+    //     if(err){
+    //         console.log("Failed to add purchase detail: " + err);
+    //         callback(500);
+    //     } else {
+    //         console.log("purchase detail added successfuly!");
+    //         callback(200);
+    //     }
+    // })
 }
 
 
