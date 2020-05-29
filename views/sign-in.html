@@ -24,36 +24,36 @@
     <div class="container-fluid">
         <div class="row no-gutter">
             <div class="col-md-8 col-lg-6">
-                <div class="login d-flex align-items-center py-5">
+                <div class="div-100 d-flex align-items-center py-5">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-lg-6 mx-auto">
-                                <h1 class="mx-auto login-heading mb-5 col-6">Sign in</h1>
+                                <h1 class="mx-auto sign-in-up-heading mb-5 col-6">Sign in</h1>
                                 <!----------------------- Start Form --------------------->
                                 <form action="/sign-in" method="POST">
                                     <div class="form-label-group">
-                                        <input id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+                                        <input id="inputEmail" name="email" class="form-control" placeholder="Email address" value="majdz-1@live.com" required autofocus>
                                         <label for="inputEmail"><i class="far fa-envelope" style="font-size: 20px;"></i> Email address</label>
                                     </div>
 
                                     <div class="form-label-group">
-                                        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                                        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" value="majd" required>
                                         <label for="inputPassword"><i class="fas fa-lock" style="font-size: 20px;"></i> Password</label>
                                     </div>
                     
                                     <div class="custom-control custom-switch mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <input type="radio" class="custom-control-input" id="customCheck1" name="checkbox" value="fadi">
                                         <label class="custom-control-label" for="customCheck1">Remember password</label>
                                     </div>
                     
-                                    <button class="btn btn-primary btn-block text-uppercase font-weight-bold mb-2 btn-login"
+                                    <button class="btn btn-primary btn-block text-uppercase font-weight-bold mb-2 sign-in-up-btn"
                                         type="submit"><i class="fas fa-sign-in-alt" style="font-size: 20px;"></i>Sign in</button>
                                     <div class="text-center">
-                                        <a class="small" href="#">Forgot password?</a>
+                                        <a class="small" href="/reset-password">Forgot password?</a>
                                     </div>
                                 </form>
                                 <!----------------------- End Form --------------------->
-                                <p class="d-flex justify-content-center">Don't have an account yet?<a href="signup.html" class="card-link">  Sign up</a></p>
+                                <p class="d-flex justify-content-center">Don't have an account yet?<a href="/sign-up" class="card-link">  Sign up</a></p>
                             </div>
                         </div>
                     </div>

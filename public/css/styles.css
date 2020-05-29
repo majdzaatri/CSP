@@ -5,10 +5,155 @@
 }
 
 body {
-    bcolor: rgba(164, 195, 211,0.2);
+    background-color: rgba(164, 195, 211,0.2);
 }
+
+.div-100 {
+  min-height: 100vh;
+}
+
+.sign-in-up-heading {
+  font-weight: 300;
+  color: blue;
+  letter-spacing: 0.02em;
+  display: block;
+  /* margin-left: auto; */
+  text-transform: uppercase;
+}
+.forgot-password-heading {
+  font-weight:300;
+  color: blue;
+  letter-spacing: 0.02em;
+  
+  /* margin-left: auto; */
+  text-transform: uppercase;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group>input{
+  padding: var(--input-padding-y) 2.8rem;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.form-label-group>label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+  height: auto;
+  border-radius: 2rem;
+}
+
+.form-label-group>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+
+  /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: grey;
+  cursor: text;
+  
+  /* Match the input under the label */
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown)~label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: blue;
+}
+.form-label-group.success input{
+  border-color: #2ecc71;
+}
+.form-label-group.error input{
+  border-color: #e74c3c;
+}
+.form-label-group small{
+  visibility: hidden;
+  color: #e74c3c;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+}
+.form-label-group i {
+  visibility: hidden;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+}
+
+.form-label-group.success i.fa-check-circle {
+  color: #2ecc71;
+  visibility: visible;
+}
+
+.form-label-group.error i.fa-exclamation-circle {
+  color: #e74c3c;
+  visibility: visible;
+}
+
+
+.form-label-group.error small {
+  visibility: visible;
+}
+ 
+@supports (-ms-ime-align: auto) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #ffb677;
+  }
+}
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #ffb677;
+  }
+}
+
+
 /*---------------------------------------------------------------------- start sign in style ------------------------------------------------------------------*/
-.login,
+
 .image {
   min-height: 100vh;
 }
@@ -24,14 +169,17 @@ body {
     background-position: center;
     box-shadow: 0px 25px 10px 20px gray;
 }
-  
-.login-heading {
-    font-weight: 300;
-    color: blue;
-    letter-spacing: 0.02em;
-    display: block;
-    /* margin-left: auto; */
-    text-transform: uppercase;
+.bg-image-forgot-password {
+  background-image: url('images/sari.jpg');
+  background-size: 100% 100%;
+  background-position: center;
+  box-shadow: 0px 25px 10px 20px gray;
+}
+.bg-image-reset-password {
+  background-image: url('images/sari2.jpg');
+  background-size: 100% 100%;
+  background-position: center;
+  box-shadow: 0px 25px 10px 20px gray;
 }
 
 .form-label-group {
@@ -45,10 +193,21 @@ body {
     height: auto;
     border-radius: 0.5rem;
   }
-  
-  .form-label-group>label {
-    padding: var(--input-padding-y) var(--input-padding-x);
-    height: auto;
+  /*------------------------------------------------------------ end sign in style -----------------------------------------------------------------------*/
+
+  /*----------------------------------------------------------- start sign up style ----------------------------------------------------------------------*/
+
+   .bg-img-sign-up {
+    background-image: url('images/sign-in-img.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0px 0px 20px 20px gray;
+  }
+
+  .sign-in-up-btn {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
     border-radius: 2rem;
   }
   
@@ -166,7 +325,7 @@ body {
 
   /*------------------------------------------------------------ end sign in style -----------------------------------------------------------------*/
 
-  /*--------------------------------------------------------- start dashboard style --------------------------------------------------------------*/
+  /*--------------------------------------------------------- start dashboard style ----------------------------------------------------------------------*/
 
 #wrapper {
     display: flex;
@@ -214,7 +373,7 @@ body {
     bottom: -30%;
     width: 300px;
     height: 540px;
-    background-color: #333;
+    background-color: transparent;
     border-radius: 21px;
     -webkit-transform: rotate(30deg);
     transform: rotate(30deg);
@@ -255,11 +414,9 @@ body {
     }
   }
   
-  .overflow-hidden { overflow: hidden; }
-  
-
-
-
+  .overflow-hidden {
+     overflow: hidden; 
+    }
 
   .sidebar .nav-item.dropdown .dropdown-toggle::after,
   .topbar .nav-item.dropdown .dropdown-toggle::after {
@@ -620,20 +777,137 @@ body {
     }
   }
 
-  /*--------------------------------------------------------------------- start dashboard style -----------------------------------------------------------------*/
-
-  /*---------------------------------------------------------------------- start sign up style ------------------------------------------------------------------*/
-
-  .bg-img-sign-up {
-    background-image: url('images/sign-in-img.jpg');
-    background-size: cover;
+  .buy-cell-phone{
+    background-image: url('images/Phones.png');
+    background-size: 100% 100%;
     background-position: center;
-    box-shadow: 0px 0px 20px 20px gray;
   }
 
-  .btn-login {
-    font-size: 0.9rem;
-    letter-spacing: 0.05rem;
-    padding: 0.75rem 1rem;
-    border-radius: 2rem;
+  .buy-PC{
+    background-image: url('images/PC.png');
+    background-size: 100% 100%;
+    background-position: center;
   }
+
+  .comming-soon-pic{
+    background-image: url('images/3.png');
+    background-size: 90% 60%;
+    background-repeat: no-repeat;
+    transform: rotate(15deg);
+    margin-right: -30px;
+    background-color: transparent;
+    
+  }
+
+  
+  .img-resposnsive{
+    display: inline-block;
+    max-width: 60px;
+    max-height: 60px;
+    padding-left: 10px;
+  }
+
+  .img-resposnsive2{
+    display: inline-block;
+    max-width: 250px;
+    max-height: 250px;
+  }
+
+  .item-p{
+   margin-bottom: 0;
+   padding-top: 10px; 
+  }
+
+  .item-name{
+    margin-bottom: 0;
+  }
+
+  .price-phone{
+    height: 130px;
+    weight: 130px;
+  }
+
+.payment-box:hover{
+    background-color: #bcc4cc;
+    border: 2px solid rgb(99, 99, 187);
+}
+
+.payment-box:focus{
+  background-color:#2f343a ;
+  border: 2px solid rgb(210, 210, 230) ;
+}
+
+.payment-box{
+  color: rgb(58, 52, 52);
+  background-color: #343a40;
+  cursor: pointer;
+}
+
+.buy-pc-box{
+  background-color: #343a407a;
+}
+  
+  /*--------------------------------------------------------------------- end dashboard style -----------------------------------------------------------------*/
+
+ /* --------------------------------------------------------------------- social media button effect --------------------------------------------------------- */
+
+ @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,800);
+
+
+  .button, .button:before, .button:after{
+    box-sizing: border-box;
+    padding: 0; margin: 0;
+    font: 300 1em/1.5 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    text-decoration: none;
+    color: #111;
+  }
+
+    .button:hover{cursor: pointer}
+    .button {
+      background: transparent; outline: none;
+      position: relative;
+      border: 0px solid #111;
+      padding: 15px 50px;
+      overflow: hidden;
+    }
+
+    /* button:before (attr data-hover) */
+    .button:hover:before{opacity: 1; transform: translate(0,0);}
+    .button:before{
+      content: attr(data-hover);
+      position: absolute;
+      top: 1.1em; left: 0;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 800;
+      font-size: 1.3em;
+      opacity: 0;
+      transform: translate(-100%,0);
+      transition: all .3s ease-in-out;
+    }
+    
+    /* button div (button text before hover) */
+    .button:hover div{opacity: 0; transform: translate(100%,0)}
+    .button div{
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 800;
+      font-size: .8em;
+      transition: all .3s ease-in-out;
+    }
+ 
+/* --------------------------------------------------------------------- End social media button effect --------------------------------------------------------- */
+
+
+.list-group-item.active {
+  background-color: #53575B !important;
+  border-style: inset;
+  border-width: 5px;
+  border-color: grey !important;
+}
+
+#map {
+  height: 400px;  /* The height is 400 pixels */
+  width: 50%;  /* The width is the width of the web page */
+ }
