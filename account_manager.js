@@ -144,11 +144,7 @@ exports.addPurchase = function(phoneDetails, user, callback) {
                     callback(500,null);
                 } else {
                     EV.sendPurchaseDetails(user, function(response){
-                        if(response === 200){
                             callback(response,res);
-                        } else {
-                            //resend
-                        }
                     })
                 }
             })
