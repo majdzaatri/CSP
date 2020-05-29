@@ -46,7 +46,7 @@ exports.sendConfirmation = function(newEmail){
   );
 }
 
-<<<<<<< HEAD
+
 exports.sendPurchaseDetails = function(user, callback) {
 
   var mailOptions = {
@@ -66,7 +66,7 @@ exports.sendPurchaseDetails = function(user, callback) {
     }
   });
 }
-=======
+
 exports.dataUpdateConfirmation = function(userEmail){
   console.log(userEmail)
 
@@ -107,10 +107,9 @@ exports.PasswordUpdateConfirmation = function(userEmail){
   });
 }
 
-<<<<<<< HEAD
+
 exports.emailUpdateActivation = function(newEmail,ID){
   // asyncr email
-  console.log("dEEEE")
   jwt.sign(
     {
       newEmail: newEmail,
@@ -138,8 +137,5 @@ exports.emailUpdateActivation = function(newEmail,ID){
           });
     },
   );
-=======
 
->>>>>>> aboutpage
->>>>>>> master
 }
