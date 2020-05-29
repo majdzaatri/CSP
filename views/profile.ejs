@@ -16,7 +16,7 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-    </script>
+        </script>
 
     <!------------------------------- Font Awesome CDN -------------------------------->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -126,7 +126,8 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 ml-1 d-none d-lg-inline"><%= user.FirstName %> <%= user.LastName %></span>
+                                    <span class="mr-2 ml-1 d-none d-lg-inline"><%= user.FirstName %>
+                                        <%= user.LastName %></span>
                                     <img class="img-profile rounded-circle"
                                         src="https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/44536570_10217016452380949_4084243414340599808_o.jpg?_nc_cat=110&amp;_nc_sid=09cbfe&amp;_nc_ohc=vbp9lkJfA3oAX-koVQ3&amp;_nc_ht=scontent.fsdv2-1.fna&amp;oh=cf7f8a4631d09f9ffeb7de236851c4d9&amp;oe=5EE3C10C">
                                 </a>
@@ -165,7 +166,8 @@
                         <div class="row ml-5 mt-5">
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
-                                    <i class="fa fa-address-card-o mr-3" style="font-size: 20px;"></i><h5>First name</h5>
+                                    <i class="fa fa-address-card-o mr-3" style="font-size: 20px;"></i>
+                                    <h5>First name</h5>
                                 </div>
                                 <div class="row form-group">
                                     <input type="text" name="firstname" value=<%= user.FirstName %>>
@@ -173,7 +175,8 @@
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
-                                    <i class="fa fa-address-card-o mr-3" style="font-size: 20px;"></i><h5>Last name</h5>
+                                    <i class="fa fa-address-card-o mr-3" style="font-size: 20px;"></i>
+                                    <h5>Last name</h5>
                                 </div>
                                 <div class="row form-group">
                                     <input type="text" name="lastname" value=<%= user.LastName %>>
@@ -181,7 +184,8 @@
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
-                                    <i class="fa fa-phone mr-3" style="font-size: 20px;" aria-hidden="true"></i><h5>Phone number</h5>
+                                    <i class="fa fa-phone mr-3" style="font-size: 20px;" aria-hidden="true"></i>
+                                    <h5>Phone number</h5>
                                 </div>
                                 <div class="row form-group">
                                     <input type="text" name="phonenumber" value=<%= user.PhoneNumber %>>
@@ -189,7 +193,8 @@
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
-                                    <i class="fas fa-globe-europe mr-3" style="font-size: 20px;"></i><h5>Country</h5>
+                                    <i class="fas fa-globe-europe mr-3" style="font-size: 20px;"></i>
+                                    <h5>Country</h5>
                                 </div>
                                 <div class="row form-group">
                                     <input type="text" name="country" value=<%= user.Country %>>
@@ -199,15 +204,17 @@
                         <div class="row ml-5 mt-5">
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
-                                    <i class="far fa-envelope mr-3" style="font-size: 20px;"></i><h5>E-mail</h5>
+                                    <i class="far fa-envelope mr-3" style="font-size: 20px;"></i>
+                                    <h5>E-mail</h5>
                                 </div>
                                 <div class="row">
-                                    <a href="#" style="font-size: 1.5rem;"><%= user.Email %></a>
+                                    <input type="text" name="email" value=<%= user.Email %>></a>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
-                                    <i class="fas fa-city mr-3" style="font-size: 20px;"></i><h5>City</h5>
+                                    <i class="fas fa-city mr-3" style="font-size: 20px;"></i>
+                                    <h5>City</h5>
                                 </div>
                                 <div class="row form-group">
                                     <input type="text" name="City" value=<%= user.City %>>
@@ -215,7 +222,8 @@
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
-                                    <i class="fa fa-road mr-3" aria-hidden="true" style="font-size: 20px;"></i><h5>Street</h5>
+                                    <i class="fa fa-road mr-3" aria-hidden="true" style="font-size: 20px;"></i>
+                                    <h5>Street</h5>
                                 </div>
                                 <div class="row form-group">
                                     <input type="text" name="Street" value=<%= user.Street %>>
@@ -223,7 +231,8 @@
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
-                                    <i class="fas fa-mail-bulk mr-3" style="font-size: 20px;"></i><h5>Zip code</h5>
+                                    <i class="fas fa-mail-bulk mr-3" style="font-size: 20px;"></i>
+                                    <h5>Zip code</h5>
                                 </div>
                                 <div class="row form-group">
                                     <input type="text" name="Zipcode" value=<%= user.ZipCode %>>
@@ -232,43 +241,51 @@
                         </div>
                         <div class="row mt-5 justify-content-end">
                             <div class="col-2">
-                                <button class="btn btn-primary text-uppercase font-weight-bold" type="submit">Update</button>
+                                <button class="btn btn-primary text-uppercase font-weight-bold"
+                                    type="submit">Update</button>
                             </div>
                         </div>
                     </form>
                     <!--------------------End Profile details ----------------------->
                     <hr>
 
-                    <div class="row">
+                    <div class="row ">
                         <!-------------------- Profile details ----------------------->
                         <div class="col">
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 <h1 class="ml-3">Change password</h1>
                             </div>
-                            <div class="row">
-                                <form class="ml-5" action="#" method="POST">
+
+                            <div class="row justify-content-center">
+                                <form class="ml-5" action="/change-password" method="POST">
                                     <div class="form-label-group mt-5">
-                                        <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Old password" required>
-                                        <label for="oldPassword"><i class="fas fa-lock" style="font-size: 20px;"></i> Old password</label>
+                                        <input type="password" id="oldPassword" name="oldPassword" class="form-control"
+                                            placeholder="Old password" required>
+                                        <label for="oldPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
+                                            Old password</label>
                                     </div>
                                     <div class="form-row mt-4">
                                         <div class="form-label-group col-md-6 col-sm">
-                                            <input type="password" id="newPssword" name="newPssword" class="form-control" placeholder="New password" required>
-                                            <label for="newPssword"><i class="fas fa-lock" style="font-size: 20px;"></i> New password</label>
+                                            <input type="password" id="newPassword" name="newPassword"
+                                                class="form-control" placeholder="New password" required>
+                                            <label for="newPssword"><i class="fas fa-lock" style="font-size: 20px;"></i>
+                                                New password</label>
                                         </div>
                                         <div class="form-label-group col-md-6 col-sm">
-                                            <input type="password" id="confirmPass" name="confirmPass" class="form-control" placeholder="Old password" required>
-                                            <label for="confirmPass"><i class="fas fa-lock" style="font-size: 20px;"></i> Confirm password</label>
+                                            <input type="password" id="confirmPass" name="confirmPass"
+                                                class="form-control" placeholder="Old password" required>
+                                            <label for="confirmPass"><i class="fas fa-lock"
+                                                    style="font-size: 20px;"></i> Confirm password</label>
                                         </div>
-                                    
+
                                     </div>
                                     <div class="row mt-3 justify-content-center">
-                                        <button class="btn btn-primary btn-block text-uppercase font-weight-bold sign-in-up-btn col-8" type="submit" style="height: 4rem;">Change password</button>
+                                        <button
+                                            class="btn btn-primary btn-block text-uppercase font-weight-bold sign-in-up-btn col-8"
+                                            type="submit" style="height: 4rem;">Change password</button>
                                     </div>
                                 </form>
-                                <div class="col">
-                                    <!-------------TODO: add validation messages---------------->
-                                </div>
+                                
                             </div>
                         </div>
 
@@ -281,34 +298,37 @@
 
             </div>
             <!-------------------------------- End of Main Content ------------------------->
-        <!-- End of Content Wrapper -->
+            <!-- End of Content Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
 
 
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="/logout" method="POST">
-                        <button type="submit" class="btn btn-primary" href="login.html">Logout</button> 
-                    </form>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>
+
+
+

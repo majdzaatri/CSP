@@ -169,6 +169,28 @@ exports.fetchPurchasesData = function(callback) {
 }
 
 
+exports.updatePassword =function(newPassword,ID,callback){
+
+    
+    saltAndHash(newPassword, function (hash) {
+        newPassword = hash;
+        connection.query("UPDATE "+mydatabase+".`users` SET Password = ? where ID = ?", [newPassword, ID] , function (err, res, fields) {
+            console.log(newPassword)       
+            if (err) {
+                console.log("Failed to update password: " + err);
+                callback(500); //TODO: Check if it's OK
+
+            }
+            else{
+                console.log("Password has been updated successfully")
+                callback(200);
+            }
+            
+        });
+    })
+
+}
+
 
 exports.emailConfirmed = function (email, callback) {
     let query = "UPDATE " + mydatabase + ".`users` SET `active` = '1' WHERE (`Email` = ?)";
@@ -206,4 +228,39 @@ var validatePassword = function (plainPass, hashPass, callback) {
     var salt = hashPass.substr(0, 10);
     var validHash = salt + md5(plainPass + salt);
     callback(null, hashPass === validHash);
+}
+
+exports.checkPassword = function (enteredPassword, password,callback) {
+
+    validatePassword(enteredPassword,password, function(err,res){
+        if(res){
+            callback(null,200);
+        }
+        else{
+            callback(err,500);
+        }
+    })
+}
+
+//    sign-in queries      //
+exports.automaticLogin = function (email, password, callback) {
+    let query = "SELECT * FROM users WHERE email = ?";
+
+    connection.query(query, email, async function (err, rows, fields) {
+        if (err) {
+            console.log("Failed to check if email and password exist in DB: " + err);
+            //TODO: check what we have to return in the callback if something failed
+        } else {
+            if (rows.length > 0) {
+                let hashPass = rows[0].Password;
+                if(password==hashPass){
+                    callback(200,rows);
+                }
+       
+            } else {
+                console.log("email doesn't exist or password wrong!");
+                callback(500);
+            }
+        }
+    });
 }

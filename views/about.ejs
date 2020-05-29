@@ -16,7 +16,7 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-    </script>
+        </script>
 
     <!------------------------------- Font Awesome CDN -------------------------------->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -183,156 +183,111 @@
                         <h1 class="ml-3" style="font-size: 5rem;">About</h1>
                     </div>
 
-                            <div class="row justify-content-center mt-5">
-                                <h2><u>HQ office address</u></h2>
-                            </div>
-                            <div class="row justify-content-center">
-                                <h4>Karmiel, Ort Braude College</h4>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div id="map"></div>
-                            </div>
-                            <div class="row mt-5 justify-content-center">
-                                <h2><u>E-mail</u></h2>
-                            </div>
-                            <div class="row justify-content-center">
-                                <a href="mailto:csportbraude@hotmail.com" style="font-size: 1.5rem;">csportbraude@hotmail.com</a>
-                            </div>
-                            <div class="row justify-content-center mt-5">
-                                <h2><u>Website</u></h2>
-                            </div>
-                            <div class="row justify-content-center">
-                                <a href="https://www.google.com" style="font-size: 1.5rem;">www.google.com</a>
-                            </div>
-                            <div class="row mt-5 ml-5 justify-content-center">
-                                <div class="col-12 col-md-2 col-lg-2">
-                                    <button class="button" data-hover="Facebook"><div><i class="fab fa-facebook" style="font-size: 3rem;"></i></div></button>
-                                </div>
-                                <div class="col-12 col-md-2 col-lg-2">
-                                    <button class="button" data-hover="Twitter"><div><i class="fab fa-twitter" style="font-size: 3rem;"></i></div></button>
-                                </div>
-                                <div class="col-12 col-md-2 col-lg-2">
-                                    <button class="button" data-hover="Telegram"><div><i class="fa fa-telegram" style="font-size: 3rem;"></i></div></button>
-                                </div>
-                            </div>
-                            <div class="row mt-5 justify-content-center">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#privacyModal">
-                                    privacy policy
-                                  </button>
-                            </div>
-                            <div class="row mt-2 justify-content-center">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-                                    Terms of use
-                                </button>
-                            </div>
+                    <div class="row justify-content-center mt-5">
+                        <h2><u>HQ office address</u></h2>
+                    </div>
+                    <div class="row justify-content-center">
+                        <h4>Karmiel, Ort Braude College</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div id="map"></div>
+                    </div>
+                    <div class="row mt-5 justify-content-center">
+                        <h2><u>E-mail</u></h2>
+                    </div>
+                    <div class="row justify-content-center">
+                        <a href="mailto:csportbraude@hotmail.com"
+                            style="font-size: 1.5rem;">csportbraude@hotmail.com</a>
+                    </div>
+                    <div class="row justify-content-center mt-5">
+                        <h2><u>Website</u></h2>
+                    </div>
+                    <div class="row justify-content-center">
+                        <a href="https://www.google.com" style="font-size: 1.5rem;">www.google.com</a>
+                    </div>
+                    <div class="row mt-5 ml-5 justify-content-center">
+                        <div class="col-12 col-md-2 col-lg-2">
+                            <button class="button" onclick="windowlocation.href = 'https://www.facebook.com';"
+                                data-hover="Facebook">
+                                <div><i class="fab fa-facebook" style="font-size: 3rem;"></i></div>
+                            </button>
+
+                        </div>
+                        <div class="col-12 col-md-2 col-lg-2">
+                            <button class="button" onclick="window.location.href = 'https://www.twitter.com';"
+                                data-hover="Twitter">
+                                <div><i class="fab fa-twitter" style="font-size: 3rem;"></i></div>
+                            </button>
+                        </div>
+                        <div class="col-12 col-md-2 col-lg-2">
+                            <button class="button" onclick="window.location.href = 'https://www.facebook.com';"
+                                data-hover="Telegram">
+                                <div><i class="fa fa-telegram" style="font-size: 3rem;"></i></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container-fluid col-sm-1">
+                        <div class="row mb-2 justify-content-center">
+                            <button onclick=" window.open('/public/files/privacy.pdf'); return true;" type="button"
+                                class="btn btn-primary btn-block">
+                                privacy policy
+                            </button>
+
+                        </div>
+                        <div class="row mb-4 justify-content-center">
+                            <button onclick=" window.open('/public/files/terms-of-use.pdf'); return true;" type="button"
+                                class="btn btn-block btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                                Terms of use
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <!-- .container-fluid -->
 
             </div>
             <!-------------------------------- End of Main Content ------------------------->
-        <!-- End of Content Wrapper -->
+            <!-- End of Content Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-
-
-    <!--------- privacy policy Modal ---------->
-    <div class="modal fade" id="privacyModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non fugit aliquam cumque explicabo? Veritatis possimus labore, dolores, nostrum numquam impedit animi optio minima ipsam vitae repellat sint sit doloremque qui?<br>
-              1) Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, reiciendis. Optio illo, deserunt accusamus quaerat dolore atque ratione nemo, consequatur libero eligendi cupiditate dolor labore blanditiis dolorum, vero eveniet quam.<br>
-              2) Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus sapiente quidem ea quaerat perferendis, ex impedit assumenda quod eum officiis quia rem laborum! Ratione deleniti placeat corrupti amet omnis commodi!<br>
-              3) Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quibusdam voluptas fugiat iste ut voluptatum repellendus ipsa, temporibus nemo quis nesciunt dicta aperiam. Aspernatur provident placeat eos, accusamus libero aperiam.<br>
-              4) Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere tenetur suscipit repudiandae sunt dicta debitis ipsum maiores hic fuga, vel quos nemo, iure, repellat perspiciatis expedita sequi harum. Quos, totam.<br>
-              5) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione, sapiente. Ab, asperiores quae, consequatur nam dolorum exercitationem saepe hic iusto cumque accusamus iure deserunt quod? Laboriosam minima est facere placeat!<br>
-              6) Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nobis quasi consequatur tempora enim id laboriosam quibusdam commodi explicabo quia! Illum suscipit alias fugiat eveniet esse repellendus sint quo quod!<br>
-              7) Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum error ducimus voluptatibus est et ratione eius asperiores, aperiam autem doloribus! Rerum repudiandae amet quidem veritatis atque, ab dolor illo earum.<br>
-              8) Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis deleniti ipsa minima fuga cumque, exercitationem nulla rem cupiditate deserunt amet aperiam veritatis. Ipsam iusto commodi officiis dignissimos voluptas, ipsum odio!<br>
-              9) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti doloribus quas quis voluptas ullam magni, animi numquam officiis obcaecati nihil veritatis quo pariatur omnis hic, inventore, dolorum aliquam eius perspiciatis.<br>
-              
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Understood</button>
-            </div>
-          </div>
         </div>
-      </div>
+        <!-- End of Page Wrapper -->
 
-    <!---------- Terms of use Modal ---------->
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non fugit aliquam cumque explicabo? Veritatis possimus labore, dolores, nostrum numquam impedit animi optio minima ipsam vitae repellat sint sit doloremque qui?<br>
-              1) Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, reiciendis. Optio illo, deserunt accusamus quaerat dolore atque ratione nemo, consequatur libero eligendi cupiditate dolor labore blanditiis dolorum, vero eveniet quam.<br>
-              2) Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus sapiente quidem ea quaerat perferendis, ex impedit assumenda quod eum officiis quia rem laborum! Ratione deleniti placeat corrupti amet omnis commodi!<br>
-              3) Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus quibusdam voluptas fugiat iste ut voluptatum repellendus ipsa, temporibus nemo quis nesciunt dicta aperiam. Aspernatur provident placeat eos, accusamus libero aperiam.<br>
-              4) Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere tenetur suscipit repudiandae sunt dicta debitis ipsum maiores hic fuga, vel quos nemo, iure, repellat perspiciatis expedita sequi harum. Quos, totam.<br>
-              5) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione, sapiente. Ab, asperiores quae, consequatur nam dolorum exercitationem saepe hic iusto cumque accusamus iure deserunt quod? Laboriosam minima est facere placeat!<br>
-              6) Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nobis quasi consequatur tempora enim id laboriosam quibusdam commodi explicabo quia! Illum suscipit alias fugiat eveniet esse repellendus sint quo quod!<br>
-              7) Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum error ducimus voluptatibus est et ratione eius asperiores, aperiam autem doloribus! Rerum repudiandae amet quidem veritatis atque, ab dolor illo earum.<br>
-              8) Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis deleniti ipsa minima fuga cumque, exercitationem nulla rem cupiditate deserunt amet aperiam veritatis. Ipsam iusto commodi officiis dignissimos voluptas, ipsum odio!<br>
-              9) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti doloribus quas quis voluptas ullam magni, animi numquam officiis obcaecati nihil veritatis quo pariatur omnis hic, inventore, dolorum aliquam eius perspiciatis.<br>
-              10) Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda quia iusto nihil maiores ad a distinctio, sed eligendi natus reiciendis suscipit rerum, optio totam perferendis praesentium commodi expedita minima blanditiis. <br>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Understood</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="/logout" method="POST">
-                        <button type="submit" class="btn btn-primary" href="login.html">Logout</button> 
-                    </form>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Initialize and add the map
-        function initMap() {
-          // The location of Uluru
-          var uluru = {lat: 32.913894, lng: 35.282818};
-          // The map, centered at Uluru
-          var map = new google.maps.Map(
-              document.getElementById('map'), {zoom: 15, center: uluru});
-          // The marker, positioned at Uluru
-          var marker = new google.maps.Marker({position: uluru, map: map});
-        }
-    </script>
-    <script async defer
-         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94xIXApRugxl7okJ-z0OYPEdpv3MyHGQ&callback=initMap">
-    </script>
+        <script>
+            // Initialize and add the map
+            function initMap() {
+                // The location of Uluru
+                var uluru = { lat: 32.913894, lng: 35.282818 };
+                // The map, centered at Uluru
+                var map = new google.maps.Map(
+                    document.getElementById('map'), { zoom: 15, center: uluru });
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({ position: uluru, map: map });
+            }
+        </script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94xIXApRugxl7okJ-z0OYPEdpv3MyHGQ&callback=initMap">
+            </script>
 </body>
 
 </html>
