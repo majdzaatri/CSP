@@ -46,7 +46,6 @@ exports.sendConfirmation = function(user){
   );
 }
 
-<<<<<<< HEAD
 exports.sendPurchaseDetails = function(user, callback) {
 
   var mailOptions = {
@@ -65,7 +64,6 @@ exports.sendPurchaseDetails = function(user, callback) {
       callback(200);
     }
   });
-=======
 exports.dataUpdateConfirmation = function(userEmail){
   console.log(userEmail)
 
@@ -106,5 +104,4 @@ exports.PasswordUpdateConfirmation = function(userEmail){
   });
 
 
->>>>>>> aboutpage
 }

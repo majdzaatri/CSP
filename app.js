@@ -19,14 +19,8 @@ const redirectLogin = (req, res, next) => {
     }
 }
 
-<<<<<<< HEAD
 const redirectHome  = (req, res, next) =>{
     if(req.session.user){
-=======
-const redirectHome = (req, res, next) => {
-    if (req.session.user) {
-
->>>>>>> aboutpage
         res.redirect('/dashboard')
     } else {
         next();
@@ -216,10 +210,8 @@ app.get('/dashboard', redirectLogin, function (req, res) {
     // res.sendFile(__dirname + '/views/dashboard.html');
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
-<<<<<<< HEAD
-    let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('dashboard', {user : userName, phones : phonesData});
-=======
+    // let userName = userJson.FirstName + " " + userJson.LastName;
+    // res.render('dashboard', {user : userName, phones : phonesData});
     if(userJson[0]){
      var userName = userJson[0].FirstName + " " + userJson[0].LastName;
      req.session.user=userJson[0];
@@ -227,8 +219,7 @@ app.get('/dashboard', redirectLogin, function (req, res) {
     else {
         var userName = userJson.FirstName + " " + userJson.LastName;
     }
-    res.render('dashboard', { user: userName });
->>>>>>> aboutpage
+    res.render('dashboard', { user: userName, phones : phonesData });
 });
 
 
@@ -239,7 +230,6 @@ app.get('/buy-cell-phone', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-<<<<<<< HEAD
     AM.fetchPurchasesData(function(result){
         console.log(JSON.parse(JSON.stringify(result)))
         purchaseJson = JSON.parse(JSON.stringify(result))
@@ -247,9 +237,6 @@ app.get('/buy-cell-phone', redirectLogin, function (req, res) {
         console.log(result)
         res.render('buyphone', {user : userName, phones : phonesData, purchases : purchaseJson});    
     })
-=======
-    res.render('buyphone', { user: userName, phones: phonesData });
->>>>>>> aboutpage
 });
 
 
@@ -275,11 +262,7 @@ app.get('/profile', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     // let userName = userJson.FirstName + " " + userJson.LastName;
-<<<<<<< HEAD
     res.render('profile', {user : userJson, phones : phonesData});
-=======
-    res.render('profile', { user: userJson });
->>>>>>> aboutpage
 });
 
 app.post('/profileInfo', function (req, res) {
@@ -311,11 +294,7 @@ app.get('/about', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-<<<<<<< HEAD
     res.render('about', {user : userName, phones : phonesData});
-=======
-    res.render('about', { user: userName });
->>>>>>> aboutpage
 });
 
 
@@ -324,11 +303,7 @@ app.get('/about', redirectLogin, function (req, res) {
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-<<<<<<< HEAD
 app.listen(process.env.PORT || 3000, () => {
-=======
-app.listen(process.env.PORT || 4000, () => {
->>>>>>> aboutpage
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
