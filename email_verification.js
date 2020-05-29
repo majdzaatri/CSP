@@ -45,3 +45,23 @@ exports.sendConfirmation = function(user){
     },
   );
 }
+
+exports.sendPurchaseDetails = function(user, callback) {
+
+  var mailOptions = {
+    from: 'majdz-1@live.com',
+    to: user.Email,
+    subject: 'Order Confirmation',
+    html: "<h1> Hello " + user.FirstName +",</h1> <h3>Thank you for shopping with us, We'll send a confirmation when your item delivers.</h3>"
+  }
+
+  transporter.sendMail(mailOptions, function(err, info){
+    if(err){
+      console.log("error occurred, sending purchase details mail: " + err);
+      callback(500);
+    } else {
+      console.log("Email sent: " + info.response);
+      callback(200);
+    }
+  });
+}

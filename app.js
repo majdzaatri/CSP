@@ -20,7 +20,6 @@ const redirectLogin  = (req, res, next) =>{
 
 const redirectHome  = (req, res, next) =>{
     if(req.session.user){
-
         res.redirect('/dashboard')
     } else {
         next();
@@ -143,7 +142,7 @@ app.get('/dashboard',redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('dashboard', {user : userName});
+    res.render('dashboard', {user : userName, phones : phonesData});
 });
 
 
@@ -154,26 +153,29 @@ app.get('/buy-cell-phone',redirectLogin, function(req,res){
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('buyphone', {user : userName, phones : phonesData});
+    AM.fetchPurchasesData(function(result){
+        console.log(JSON.parse(JSON.stringify(result)))
+        purchaseJson = JSON.parse(JSON.stringify(result))
+        console.log(phonesData)
+        console.log(result)
+        res.render('buyphone', {user : userName, phones : phonesData, purchases : purchaseJson});    
+    })
 });
 
 
 app.post('/buy-cell-phone',redirectLogin, function(req,res){
-    // console.log("yyyeeeyyy i got a request");
-    // console.log(req.body);
-    // console.log(req.session.user);
-    
-    // AM.addPurchase(req.body,req.session.user,function(status){
-    //     if(status === 500){
-    //         res.redirect(301,'/buy-cell-phone');
-    //     } else {
-    //         res.redirect(301,'/buy-cell-phone');
-    //     }
-    // });
+    var string = JSON.stringify(req.session.user);
+    var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    AM.addPurchase(req.body,req.session.user,function(status,result){
+        if(status === 500){
+            res.redirect(301,'/buy-cell-phone');
+        } else {
+            phonesPur = result;
 
-
-
-    console.log(req.body.phone);
+            res.render('buyphone', {user : userName,phones : phonesData,purchases : res});
+        }
+    });
 })
 
 
@@ -183,7 +185,7 @@ app.get('/profile',redirectLogin, function(req,res){
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     // let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('profile', {user : userJson});
+    res.render('profile', {user : userJson, phones : phonesData});
 });
 
 app.post('/profileInfo', function(req,res){
@@ -215,7 +217,7 @@ app.get('/about',redirectLogin, function(req,res){
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('about', {user : userName});
+    res.render('about', {user : userName, phones : phonesData});
 });
 
 
@@ -224,7 +226,7 @@ app.get('/about',redirectLogin, function(req,res){
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
