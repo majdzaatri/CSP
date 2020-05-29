@@ -3,10 +3,11 @@ const jwt = require("jsonwebtoken");
 
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 const ID_SECRET = 'dsfsdflksjf2sd5f156sdf16sd51sdlkfmnsdkljfnsdf'
-const EMAIL = 'fbi.228@hotmail.co.il'
-const EMAIL_PASS = '284561443'
+const EMAIL = 'cspbraudeproject@hotmail.com'
+const EMAIL_PASS = 'Aa200200'
 
     var transporter = nodemailer.createTransport({
+      name: 'heroku',
       service: 'hotmail',
       auth: {
         user: EMAIL,
