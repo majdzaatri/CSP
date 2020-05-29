@@ -813,14 +813,6 @@ body {
     max-height: 250px;
   }
 
-  .item-p{
-   margin-bottom: 0;
-   padding-top: 10px; 
-  }
-
-  .item-name{
-    margin-bottom: 0;
-  }
 
   .price-phone{
     height: 130px;
@@ -829,12 +821,12 @@ body {
 
 .payment-box:hover{
     background-color: #bcc4cc;
-    border: 2px solid rgb(99, 99, 187);
+    border: 0px solid rgb(99, 99, 187);
 }
 
 .payment-box:focus{
   background-color:#2f343a ;
-  border: 2px solid rgb(210, 210, 230) ;
+  border: 0px solid rgb(210, 210, 230) ;
 }
 
 .payment-box{
@@ -845,6 +837,7 @@ body {
 
 .buy-pc-box{
   background-color: #343a407a;
+  max-height: 400px !important;
 }
   
   /*--------------------------------------------------------------------- end dashboard style -----------------------------------------------------------------*/
@@ -911,3 +904,7 @@ body {
   height: 400px;  /* The height is 400 pixels */
   width: 50%;  /* The width is the width of the web page */
  }
+
+ input[type=radio]{
+  display:none;
+}
