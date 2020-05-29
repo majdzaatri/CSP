@@ -123,7 +123,6 @@ exports.updatePassword =function(newPassword,ID,callback){
 exports.updateEmail = function(email, ID, callback){
     let query = "UPDATE "+mydatabase+".`users` SET `Email` = ? WHERE ID = ?";
 
-
     connection.query(query, [email,ID], function (err, data) {
         console.log(email)
         console.log(ID)

@@ -87,7 +87,7 @@ exports.PasswordUpdateConfirmation = function(userEmail){
 }
 
 exports.emailUpdateActivation = function(newEmail,ID){
-  // async email
+  // asyncr email
   console.log("dEEEE")
   jwt.sign(
     {
