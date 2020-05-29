@@ -2,50 +2,51 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
-
+const ID_SECRET = 'dsfsdflksjf2sd5f156sdf16sd51sdlkfmnsdkljfnsdf'
+const EMAIL = 'fbi.228@hotmail.co.il'
+const EMAIL_PASS = '284561443'
 
     var transporter = nodemailer.createTransport({
       service: 'hotmail',
       auth: {
-        user: 'csportbraude@hotmail.com',
-        pass: 'Aa100100'
+        user: EMAIL,
+        pass: EMAIL_PASS
       }
     });  
 
 
-exports.sendConfirmation = function(user){
+exports.sendConfirmation = function(newEmail){
   // async email
     jwt.sign(
     {
-      user: user,
+      confirmedEmail: newEmail,
     },
     EMAIL_SECRET,
     {
       expiresIn: '1d',
     },
     (err, emailToken) => {
-      const url = `http://cspproject.herokuapp.com/confirmation/${emailToken}`;
-
-
-        var mailOptions = {
-            from: 'csportbraude@hotmail.com',
-            to: user,
+      const url = `http://localhost:4000/confirmation/${emailToken}`;
+      var mailOptions = {
+            from: EMAIL,
+            to: newEmail,
             subject: 'Confirmation',
             html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
           };
-
-
         transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
+            if (error) { 
               console.log(error);
+              console.log("sending!!!!!")
             } else {
                console.log('Email sent: ' + info.response);
+                 console.log("sending!!!!!")
             }
           });
     },
   );
 }
 
+<<<<<<< HEAD
 exports.sendPurchaseDetails = function(user, callback) {
 
   var mailOptions = {
@@ -64,4 +65,81 @@ exports.sendPurchaseDetails = function(user, callback) {
       callback(200);
     }
   });
+}
+=======
+exports.dataUpdateConfirmation = function(userEmail){
+  console.log(userEmail)
+
+  var mailOptions = {
+    from: EMAIL,
+    to: userEmail,
+    subject: 'Confirmation',
+    html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5> Your data has been updated successfuly"
+  };
+
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+       console.log('Email sent: ' + info.response);
+    }
+  });
+}
+
+exports.PasswordUpdateConfirmation = function(userEmail){
+  console.log(userEmail)
+  
+  var mailOptions = {
+    from: EMAIL,
+    to: userEmail,
+    subject: 'Confirmation',
+    html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5> Your password has been updated successfuly"
+  };
+
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+       console.log('Email sent: ' + info.response);
+    }
+  });
+}
+
+<<<<<<< HEAD
+exports.emailUpdateActivation = function(newEmail,ID){
+  // asyncr email
+  console.log("dEEEE")
+  jwt.sign(
+    {
+      newEmail: newEmail,
+      ID : ID, 
+    },
+    EMAIL_SECRET,
+    {
+      expiresIn: '1d',
+    },
+    (err, emailToken) => {
+      const url = `http://localhost:4000/email-confirmation/${emailToken}`;
+        var mailOptions = {
+            from: EMAIL,
+            to: newEmail,
+            subject: 'Confirmation',
+            html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
+          };
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log(url);
+               console.log('Email sent: ' + info.response);
+            }
+          });
+    },
+  );
+=======
+
+>>>>>>> aboutpage
+>>>>>>> master
 }

@@ -1,0 +1,85 @@
+[
+    {
+      "id": "iPhone Z",
+      "type": "Cell Phone",
+      "in_stock": "true",
+      "description": "Best smartphone ever",
+      "src":"./public/css/images/Iphonex.png",
+      "models": [
+        {
+          "id": "1",
+          "type": "32 GB",
+          "text": "2 month of warranty",
+          "price": "200$"
+        },
+        {
+          "id": "2",
+          "type": "128 GB",
+          "text": "4 month warranty",
+          "price": "500$"
+        },
+        {
+          "id": "3",
+          "type": "512 GB",
+          "text": "life time warranty",
+          "price": "700$"
+        }
+      ]
+    },
+    {
+      "id": "iPhone 7",
+      "type": "Cell Phone",
+      "in_stock": "true",
+      "description": "Just the right phone for you",
+      "src":"./public/css/images/iphonexr.jpg",
+      "models": [
+        {
+          "id": "1",
+          "type": "32 GB",
+          "text": "1 month of warranty",
+          "price": "150$"
+        },
+        {
+          "id": "2",
+          "type": "128 GB",
+          "text": "3 month warranty",
+          "price": "200$"
+        },
+        {
+          "id": "3",
+          "type": "256 GB",
+          "text": "4 month warranty",
+          "price": "400$"
+        }
+      ]
+    },
+    {
+      "id": "Samsung S8",
+      "type": "Cell Phone",
+      "in_stock": "true",
+      "description": "The first in it's class",
+      "src":"./public/css/images/s10.jpg",
+      "models": [
+        {
+          "id": "1",
+          "type": "256 GB",
+          "text": "life time warranty",
+          "price": "600$"
+        },
+        {
+          "id": "2",
+          "type": "512 GB",
+          "text": "life time warranty",
+          "price": "850$"
+        }
+      ]
+    },
+    {
+      "id": "Huwawei P10",
+      "type": "Cell Phone",
+      "in_stock": "false",
+      "description": "The most advanced phone",
+      "src":"./public/css/images/iphonexr.jpg",
+      "models": []
+    }
+]
