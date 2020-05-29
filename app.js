@@ -9,6 +9,11 @@ const session = require('express-session')
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 const phonesData = require(__dirname + "/cell_phone_data.json");
 const cookieParser = require('cookie-parser')
+const fetch = require("node-fetch")
+const { stringify } = require('querystring');
+var Request = require("request");
+
+
 
 // redirect the user to login page if he didn't log in // 
 const redirectLogin = (req, res, next) => {
@@ -59,8 +64,6 @@ app.get('/', function (req, res) {
 
 //    sign-in      //
 app.get('/sign-in', function (req, res) {
-    
-    console.log(req.cookies.RememberMe)
     if(req.cookies.RememberMe != null){
         AM.automaticLogin(req.cookies.RememberMe[0],req.cookies.RememberMe[1], function(result,user){
             if(result==200)   {
@@ -79,10 +82,76 @@ app.get('/sign-in', function (req, res) {
 
 });
 
+
+// app.post('/sign-in', async (req, res) => {
+//     if (!req.body.captcha)
+//       return res.json({ success: false, msg: 'Please select captcha' });
+  
+//     // Secret key
+//     const secretKey = '6LduZv0UAAAAADpTdpaVet0pyWLc4hghhBW0bohF';
+  
+//     // Verify URL
+//     const query = stringify({
+//       secret: secretKey,
+//       response: req.body.captcha,
+//       remoteip: req.connection.remoteAddress
+//     });
+//     const verifyURL = `https://google.com/recaptcha/api/siteverify?${query}`;
+  
+//     // Make a request to verifyURL
+//     const body = await fetch(verifyURL).then(res => res.json());
+  
+//     // If not successful
+//     if (body.success !== undefined && !body.success){
+//         console.log(body.success)
+//         console.log(body)
+//         return res.json({ success: false, msg: 'Failed captcha verification' });
+//     }
+  
+//     // If successful
+//      var email = req.body.email;
+//      var password = req.body.password;
+ 
+//      AM.checkLogin(email, password, function (err, result) {
+//          if (err) {
+//              res.redirect(301, '/sign-in');
+//          } else {
+//              if (result) {
+//                  req.session.user = result;
+//                  if (req.session.user.active == 1) {
+//                      /*checks if the user checked remember me*/
+//                      if(req.body.checkbox){
+//                          console.log(req.body.checkbox);
+//                      res.cookie('RememberMe', [req.session.user.Email,req.session.user.Password])
+//                      }
+//                      res.redirect(301, '/dashboard');
+//                  } else {
+//                      console.log("please confirm your email");
+//                  }
+//              } else {
+//                  res.redirect(301, '/sign-in');
+//              }
+//          }
+//      })
+    
+//   });
+
 app.post('/sign-in', function (req, res) {
+    var recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?";
+    const secretKey = '6LfsdP0UAAAAANR9olaXiXnk7mPZwOMbh-TYFJ4x';
+    recaptcha_url += "secret=" + secretKey + "&";
+    recaptcha_url += "response=" + req.body["g-recaptcha-response"] + "&";
+    recaptcha_url += "remoteip=" + req.connection.remoteAddress;
+    Request(recaptcha_url, function(error, resp, body) {
+        body = JSON.parse(body);
+        if(body.success !== undefined && !body.success) {
+            return res.send({ "message": "Captcha validation failed" });
+        }
+    });
+
     var email = req.body.email;
     var password = req.body.password;
-    
+
     AM.checkLogin(email, password, function (err, result) {
         if (err) {
             res.redirect(301, '/sign-in');
@@ -187,18 +256,33 @@ app.post('/change-password', function (req, res) {
     })
 });
 
+app.get('/email-confirmation/:token', async (req, res) => {
+    try {
+        const decryptedData = jwt.verify(req.params.token, EMAIL_SECRET);
+        console.log(decryptedData.newEmail);
+        console.log(decryptedData.ID);
+        AM.updateEmail(decryptedData.newEmail, decryptedData.ID)
+        res.clearCookie('RememberMe')
+        res.redirect('/sign-in');
+    } catch (e) {
+        res.send('error');
+    }
+
+   
+});
+
 app.get('/confirmation/:token', async (req, res) => {
     try {
         const email = jwt.verify(req.params.token, EMAIL_SECRET);
-        console.log(email.user);
-        AM.emailConfirmed(email);
-        console.log("confirmed");
+        console.log(email);
+        AM.emailConfirmed(email.confirmedEmail);
     } catch (e) {
         res.send('error');
     }
 
     return res.redirect('/sign-in');
 });
+
 
 
 app.get('/reset-password', function (req, res) {
@@ -255,12 +339,17 @@ app.post('/profileInfo', function (req, res) {
         req.session.user.ID
     ];
 
+    //if(req.session.user.Email !== req.body.email){
+        let email = req.body.email;
+        let ID = req.session.user.ID
+        EV.emailUpdateActivation(email,ID)
+    //}
     AM.updateUserInfo(newUserInfo, function (err, result) {
         if (result) {
             req.session.user = result;
             res.redirect(301, '/profile');
             emailToConfirm=req.session.user.Email
-            EV.dataUpdateConfirmation(emailToConfirm)
+         //   EV.dataUpdateConfirmation(emailToConfirm,req.session.user.ID)
         }
     });
 });
@@ -274,13 +363,41 @@ app.get('/about', redirectLogin, function (req, res) {
     res.render('about', { user: userName });
 });
 
+app.post('/subscribe',(req,res)=>{
+
+    if(!req.body.captcha){
+        console.log("err");
+        return res.json({"success":false, "msg":"Capctha is not checked"});
+    }
+    const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}`;
+
+    request(verifyUrl,(err,response,body)=>{
+
+        if(err){console.log(err); }
+
+        body = JSON.parse(body);
+
+        if(!body.success && body.success === undefined){
+            return res.json({"success":false, "msg":"captcha verification failed"});
+        }
+        else if(body.score < 0.5){
+            return res.json({"success":false, "msg":"you might be a bot, sorry!", "score": body.score});
+        }
+        
+            // return json message or continue with your function. Example: loading new page, ect
+            return res.json({"success":true, "msg":"captcha verification passed", "score": body.score});
+
+    })
+
+});
+
 
 
 
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 4000, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 

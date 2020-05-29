@@ -26,7 +26,7 @@
 
 </head>
 
-<body id="page-top">
+<body onload="validateInput()" id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -184,7 +184,7 @@
                     <div class="row">
                         <h1 class="ml-3">Profile details</h1>
                     </div>
-                    <form action="/profileInfo" method="POST" class="needs-validation">
+                    <form  action="/profileInfo" method="POST" class="needs-validation">
                         <div class="row ml-5 mt-5">
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
@@ -348,7 +348,50 @@
                 </div>
             </div>
         </div>
-</body>
+
+<script>
+    function validateInput(){
+    const firstname = document.getElementsByName('firstname');
+    const lastname = document.getElementsByName('lastname');
+    const phonenumber = document.getElementsByName('phonenumber');
+    const country = document.getElementsByName('country');
+    const email = document.getElementsByName('email');
+    const City = document.getElementsByName('City');
+    const Street = document.getElementsByName('Street');
+    const Zipcode = document.getElementsByName('Zipcode');
+
+    console.log(firstname[0].value)
+    if(firstname[0].value){
+        jQuery(firstname).attr('required', '');  
+    }
+    if(lastname[0].value){
+        jQuery(lastname).attr('required', '');  
+    }
+    if(phonenumber[0].value){
+        jQuery(phonenumber).attr('required', '');  
+    }
+    if(country[0].value){
+        jQuery(country).attr('required', '');  
+    }
+    if(email[0].value){
+        jQuery(email).attr('required', '');  
+    }
+    if(City[0].value){
+        jQuery(City).attr('required', '');  
+    }
+    if(Street[0].value){
+        jQuery(Street).attr('required', '');  
+    }
+    if(Zipcode[0].value){
+        jQuery(Zipcode).attr('required', '');  
+    }
+}
+
+
+
+</script>
+
+    </body>
 
 </html>
 
