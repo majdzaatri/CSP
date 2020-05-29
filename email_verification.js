@@ -9,8 +9,8 @@ const EMAIL_PASS = '284561443'
     var transporter = nodemailer.createTransport({
       service: 'hotmail',
       auth: {
-        user: EMAIL,
-        pass: EMAIL_PASS
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
       }
     });  
 
@@ -49,7 +49,7 @@ exports.sendConfirmation = function(newEmail){
 exports.sendPurchaseDetails = function(user, callback) {
 
   var mailOptions = {
-    from: EMAIL,
+    from: process.env.EMAIL,
     to: user.Email,
     subject: 'Order Confirmation',
     html: "<h1> Hello " + user.FirstName +",</h1> <h3>Thank you for shopping with us, We'll send a confirmation when your item delivers.</h3>"
