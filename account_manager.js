@@ -1,7 +1,8 @@
 const crypto = require("crypto");
 const mysql = require("mysql");
-
-const EV = require(__dirname + "/email_verification.js")
+const https = require("https");
+const EV = require(__dirname + "/email_verification.js");
+const phonesData = require(__dirname + "/cell_phone_data.json");
 const mydatabase = "heroku_98861de8c1925bc";
 const PORT = 4000;
 
@@ -96,6 +97,77 @@ exports.updateUserInfo = function(newUserInfo, callback) {
     });
 }
 
+
+// add purchases queries //
+exports.addPurchase = function(phoneDetails, user, callback) {
+    console.log(phoneDetails);
+    const phone = phoneDetails.phone;
+    const model = phoneDetails.model;
+    const phones = phonesData;
+    const price =phones[phone].models[model].price;
+
+
+    const url = "https://currencyapi.net/api/v1/rates?key=0kpdBfiRT9ktw04EApqJbDIx55SU7aHabaes"
+
+    https.get(url,function(res){
+        
+        res.setEncoding('utf8');
+        let rawData = '';
+        res.on('data', (chunk) => { rawData += chunk; });
+        res.on('end', () => {
+
+          try {
+            const parsedData = JSON.parse(rawData);
+            const ilsRate = parsedData.rates.ILS;
+            // const phonePrice = JSON.parse(phonesData[phoneDetails.phone])
+            const priceInFloat = parseFloat(price.replace('$',''));
+            console.log(priceInFloat);
+            const priceInIls = priceInFloat*ilsRate;
+            data = [
+                phones[phone].id,
+                phones[phone].models[model].type,
+                user.Email,
+                price,
+                (priceInIls.toFixed(2)) + " ILS",
+                (priceInIls+(priceInIls*0.17)).toFixed(2) + " ILS",
+                phoneDetails.cardNum,
+                phoneDetails.cardName,
+                phoneDetails.exp,
+                phoneDetails.cvv,
+                phoneDetails.cvv
+            ]
+
+
+            let query = "INSERT INTO `transactions` SET Product = ?, Model = ?, Date = NOW(), User = ?, Price = ?, LocalPrice = ?, TotalPriceIncludingVAT = ?, Number = ?, Name = ?, ExperationDate = ?, CVV = ?, Memo = ?";
+            connection.query(query,data,function(err, res, fields) {
+                if(err){
+                    console.log("Failed to add purchase detail: " + err);
+                    callback(500,null);
+                } else {
+                    EV.sendPurchaseDetails(user, function(response){
+                        if(response === 200){
+                            callback(response,res);
+                        } else {
+                            //resend
+                        }
+                    })
+                }
+            })
+          } catch (e) {
+            console.error(e.message);
+          }
+        });
+    })
+}
+
+
+exports.fetchPurchasesData = function(callback) {
+    let query = "SELECT Product ,COUNT(*) AS cnt FROM transactions GROUP BY Product";
+    connection.query(query, function(err, res){
+        console.log("purchases details fetched successfuly!");
+        callback(res);
+    })
+}
 
 
 exports.updatePassword =function(newPassword,ID,callback){

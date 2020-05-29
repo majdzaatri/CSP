@@ -24,9 +24,8 @@ const redirectLogin = (req, res, next) => {
     }
 }
 
-const redirectHome = (req, res, next) => {
-    if (req.session.user) {
-
+const redirectHome  = (req, res, next) =>{
+    if(req.session.user){
         res.redirect('/dashboard')
     } else {
         next();
@@ -34,6 +33,7 @@ const redirectHome = (req, res, next) => {
 }
 
 app.use(bodyParser.json());
+app.use(express.json({ limit: '1mb'}));
 app.use(bodyParser.urlencoded({
     urlencoded: true
 }));
@@ -82,59 +82,6 @@ app.get('/sign-in', function (req, res) {
 
 });
 
-
-// app.post('/sign-in', async (req, res) => {
-//     if (!req.body.captcha)
-//       return res.json({ success: false, msg: 'Please select captcha' });
-  
-//     // Secret key
-//     const secretKey = '6LduZv0UAAAAADpTdpaVet0pyWLc4hghhBW0bohF';
-  
-//     // Verify URL
-//     const query = stringify({
-//       secret: secretKey,
-//       response: req.body.captcha,
-//       remoteip: req.connection.remoteAddress
-//     });
-//     const verifyURL = `https://google.com/recaptcha/api/siteverify?${query}`;
-  
-//     // Make a request to verifyURL
-//     const body = await fetch(verifyURL).then(res => res.json());
-  
-//     // If not successful
-//     if (body.success !== undefined && !body.success){
-//         console.log(body.success)
-//         console.log(body)
-//         return res.json({ success: false, msg: 'Failed captcha verification' });
-//     }
-  
-//     // If successful
-//      var email = req.body.email;
-//      var password = req.body.password;
- 
-//      AM.checkLogin(email, password, function (err, result) {
-//          if (err) {
-//              res.redirect(301, '/sign-in');
-//          } else {
-//              if (result) {
-//                  req.session.user = result;
-//                  if (req.session.user.active == 1) {
-//                      /*checks if the user checked remember me*/
-//                      if(req.body.checkbox){
-//                          console.log(req.body.checkbox);
-//                      res.cookie('RememberMe', [req.session.user.Email,req.session.user.Password])
-//                      }
-//                      res.redirect(301, '/dashboard');
-//                  } else {
-//                      console.log("please confirm your email");
-//                  }
-//              } else {
-//                  res.redirect(301, '/sign-in');
-//              }
-//          }
-//      })
-    
-//   });
 
 app.post('/sign-in', function (req, res) {
     var recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?";
@@ -294,14 +241,16 @@ app.get('/dashboard', redirectLogin, function (req, res) {
     // res.sendFile(__dirname + '/views/dashboard.html');
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
-    if(userJson[0]){
-     var userName = userJson[0].FirstName + " " + userJson[0].LastName;
-     req.session.user=userJson[0];
-    }
-    else {
-        var userName = userJson.FirstName + " " + userJson.LastName;
-    }
-    res.render('dashboard', { user: userName });
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    res.render('dashboard', {user : userName, phones : phonesData});
+    // if(userJson[0]){
+    //     var userName = userJson[0].FirstName + " " + userJson[0].LastName;
+    //     req.session.user=userJson[0];
+    //    }
+    //    else {
+    //        var userName = userJson.FirstName + " " + userJson.LastName;
+    //    }
+    //    res.render('dashboard', { user: userName });
 });
 
 
@@ -312,9 +261,30 @@ app.get('/buy-cell-phone', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('buyphone', { user: userName, phones: phonesData });
+    AM.fetchPurchasesData(function(result){
+        console.log(JSON.parse(JSON.stringify(result)))
+        purchaseJson = JSON.parse(JSON.stringify(result))
+        console.log(phonesData)
+        console.log(result)
+        res.render('buyphone', {user : userName, phones : phonesData, purchases : purchaseJson});    
+    })
 });
 
+
+app.post('/buy-cell-phone',redirectLogin, function(req,res){
+    var string = JSON.stringify(req.session.user);
+    var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    AM.addPurchase(req.body,req.session.user,function(status,result){
+        if(status === 500){
+            res.redirect(301,'/buy-cell-phone');
+        } else {
+            phonesPur = result;
+
+            res.render('buyphone', {user : userName,phones : phonesData,purchases : res});
+        }
+    });
+})
 
 
 
@@ -323,7 +293,7 @@ app.get('/profile', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     // let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('profile', { user: userJson });
+    res.render('profile', {user : userJson, phones : phonesData});
 });
 
 app.post('/profileInfo', function (req, res) {
@@ -360,7 +330,7 @@ app.get('/about', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('about', { user: userName });
+    res.render('about', {user : userName, phones : phonesData});
 });
 
 
