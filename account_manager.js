@@ -4,7 +4,7 @@ const https = require("https");
 const EV = require(__dirname + "/email_verification.js");
 const phonesData = require(__dirname + "/cell_phone_data.json");
 const mydatabase = "heroku_98861de8c1925bc";
-
+const PORT = 4000;
 
 const connection = mysql.createPool({
     connectionLimit : 10,
@@ -62,6 +62,7 @@ exports.addNewAccount = function (newUser, callback) {
                         } else {
                             console.log('sending email from account manager');
                             EV.sendConfirmation(newUser.email);
+                            console.log('sending email from account manager');
                             callback(200);
                         }
                     });
@@ -118,7 +119,6 @@ exports.addPurchase = function(phoneDetails, user, callback) {
           try {
             const parsedData = JSON.parse(rawData);
             const ilsRate = parsedData.rates.ILS;
-            // const phonePrice = JSON.parse(phonesData[phoneDetails.phone])
             const priceInFloat = parseFloat(price.replace('$',''));
             console.log(priceInFloat);
             const priceInIls = priceInFloat*ilsRate;
@@ -133,7 +133,7 @@ exports.addPurchase = function(phoneDetails, user, callback) {
                 phoneDetails.cardName,
                 phoneDetails.exp,
                 phoneDetails.cvv,
-                phoneDetails.cvv
+                phoneDetails.cardMemo
             ]
 
 
@@ -191,10 +191,23 @@ exports.updatePassword =function(newPassword,ID,callback){
 
 }
 
+exports.updateEmail = function(email, ID, callback){
+    let query = "UPDATE "+mydatabase+".`users` SET `Email` = ? WHERE ID = ?";
+
+    connection.query(query, [email,ID], function (err, data) {
+        console.log(email)
+        console.log(ID)
+        if (err) {
+            console.log("Failed activating the account");
+        } else {
+            console.log("email confirmed successfuly");
+        }
+    });
+}
 
 exports.emailConfirmed = function (email, callback) {
     let query = "UPDATE " + mydatabase + ".`users` SET `active` = '1' WHERE (`Email` = ?)";
-    connection.query(query, email.user, function (err, data) {
+    connection.query(query, email, function (err, data) {
         if (err) {
             console.log("Failed activating the account");
         } else {

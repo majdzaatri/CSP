@@ -72,25 +72,30 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Cell Phone</h6>
-                        <% for(var i=0; i<phones.length ;i++){ %>
+                        <% if(purchases.length !== 0) { %>
+                        <% for(var i=0; i<purchases.length ;i++){ %>
                         <div class="row">
                             <div class="col-sm-3">
-                                <img class="img-resposnsive" src=<%= phones[i].src %>>
-                            </div>
-                            <div class="col-sm">
-                                <p class="item-name"><%= phones[i].id %></p> 
-                                 <%= JSON.stringify(purchases[i]) %> 
-                                <% if(purchases[i] === phones[i].id) { %>
-                                <p class="item-p"><%=p[i]['cnt']%> units</p>
-                                <% } else { %>
-                                    <p class="item-p">0 units</p>
+                                <% for(var j=0; j<phones.length; j++) { %>
+                                <% if(purchases[i].Product === phones[j].id) { %>
+                                <img class="img-resposnsive" src=<%= phones[j].src %>>
+                                <% } %>
                                 <% } %>
                             </div>
+                            <div class="col-sm">
+                                <p class="item-name"><%= purchases[i].Product %></p>
+                                <p class="item-p"><%=purchases[i].cnt%> units</p>
+                            </div>
                         </div>
-                        <% if(i+1 !== phones.length){ %> 
+                        <% if(i+1 !== purchases.length){ %>
                         <hr>
                         <% } %>
-                    <% } %>
+                        <% } %>
+                        <% } else { %>
+                        <div class="row justify-content-center">
+                            <div class="display-5">No purchases yet</div>
+                        </div>
+                        <% } %>
 
                     </div>
                 </div>
@@ -168,97 +173,98 @@
                         <h1 class="ml-3">Buy Cell Phone:</h1>
                     </div>
                     <form action="/buy-cell-phone" method="POST">
-                    <div class="row my-5">
-                        <!------------------------ phones list --------------------------->
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="btn-group-vertical d-flex" data-toggle="buttons">
+                        <div class="row my-5">
+                            <!------------------------ phones list --------------------------->
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="btn-group-vertical d-flex" data-toggle="buttons">
 
-                                <% for(var i=0; i<phones.length ;i++){ %>
-                                <label class="btn btn-secondary col-12 flex-fill">
-                                <input type="radio" id="list-phone<%= i %>-list"
-                                     name="phone" value="<%=i%>" onclick="Clicked('list-phone<%= i %>-list')">
-                                    
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <img class="img-resposnsive" src=<%= phones[i].src %>>
+                                    <% for(var i=0; i<phones.length ;i++){ %>
+                                    <label class="btn btn-secondary col-12 flex-fill">
+                                        <input type="radio" id="list-phone<%= i %>-list" name="phone" value="<%=i%>"
+                                            onclick="Clicked('list-phone<%= i %>-list')">
+
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <img class="img-resposnsive" src=<%= phones[i].src %>>
+                                            </div>
+                                            <div class="col-sm">
+                                                <p class="item-name"><%= phones[i].id %></p>
+                                                <p class="h6 pt-3 text-center"><%= phones[i].description %></p>
+                                                <% if(phones[i].in_stock === 'true'){ %>
+                                                <p class="item-p text-right text-success">In Stock</p>
+                                                <% } else { %>
+                                                <p class="item-p text-right text-danger">Out of stock</p>
+                                                <% } %>
+                                            </div>
                                         </div>
-                                        <div class="col-sm">
-                                            <p class="item-name"><%= phones[i].id %></p>
-                                            <p class="h6 pt-3 text-center"><%= phones[i].description %></p>
-                                            <% if(phones[i].in_stock === 'true'){ %>
-                                            <p class="item-p text-right text-success">In Stuck</p>
-                                            <% } else { %>
-                                            <p class="item-p text-right text-danger">Out of stuck</p>
+                                    </label>
+                                    <% } %>
+
+                                </div>
+                            </div>
+                            <!------------------------ End phones list ----------------------->
+
+                            <!------------------------ model and payment method ----------------------->
+                            <div class="col-12 col-md-6 col-lg-7">
+                                <!------------------------phones models --------------------------->
+                                <div id="nothing-clicked" class="row justify-content-center">
+                                    <h1 class="text-center">CHOOSE YOUR PHONE</h1>
+                                </div>
+
+                                <% for(var i=0, c=0; i<phones.length ;i++){ %>
+                                <% if(phones[i].in_stock === 'true') {%>
+                                <div class="row mt-5" id="phone<%= i %>-list" style="display: none;">
+                                    <div class="row justify-content-center">
+                                        <h3 class="ml-3">Select model one of the <%= phones[i].models.length %> models
+                                        </h3>
+                                    </div>
+
+                                    <div class="row mt-5 justify-content-center">
+                                        <div class="row justify-content-center btn-group btn-group-toggle"
+                                            data-toggle="buttons">
+                                            <% for(var j=0; j<phones[i].models.length ;j++){ %>
+                                            <!-- <a role="button"> -->
+                                            <label class="btn btn-outline-secondary col-6 mb-2 payment-box">
+                                                <input type="radio" name="model" value="<%= j %>" id="mod<%= c++ %>"
+                                                    onclick="continuePay('mod<%= c %>')">
+                                                <div class="h2 text-center text-dark">
+                                                    <%= phones[i].models[j].type %>
+                                                </div>
+                                                <div class="h5 text-center text-info"><%= phones[i].models[j].text %>
+                                                </div>
+                                                <div class="h4 text-center text-danger"><%= phones[i].models[j].price %>
+                                                    <%var price = phones[i].models[j].price %>
+                                                </div>
+                                            </label>
+                                            <!-- </button> -->
+                                            <!-- </a> -->
                                             <% } %>
                                         </div>
                                     </div>
-                                </label>
-                                <% } %>
-
-                            </div>
-                        </div>
-                        <!------------------------ End phones list ----------------------->
-                        
-                        <!------------------------ model and payment method ----------------------->
-                        <div class="col-12 col-md-6 col-lg-7">
-                            <!------------------------phones models --------------------------->
-                            <div id="nothing-clicked" class="row justify-content-center">
-                                <h1 class="text-center">CHOOSE YOUR PHONE</h1>
-                            </div>
-                            
-                            <% for(var i=0, c=0; i<phones.length ;i++){ %>
-                                <% if(phones[i].in_stock === 'true') {%>
-                                    <div class="row mt-5" id="phone<%= i %>-list" style="display: none;">
-                                        <div class="row justify-content-center">
-                                            <h3 class="ml-3">Select model one of the <%= phones[i].models.length %> models </h3>
-                                        </div>
-                                        
-                                         <div class="row mt-5 justify-content-center">
-                                             <div class="row justify-content-center btn-group btn-group-toggle" data-toggle="buttons">
-                                                <% for(var j=0; j<phones[i].models.length ;j++){ %>
-                                                  <!-- <a role="button"> -->
-                                                    <label class="btn btn-outline-secondary col-6 mb-2 payment-box">
-                                                    <input type="radio" name="model" value="<%= j %>" id="mod<%= c++ %>" onclick="continuePay('mod<%= c %>')">
-                                                        <div class="h2 text-center text-dark">
-                                                            <%= phones[i].models[j].type %>
-                                                        </div>
-                                                        <div class="h5 text-center text-info"><%= phones[i].models[j].text %>
-                                                        </div>
-                                                        <div class="h4 text-center text-danger"><%= phones[i].models[j].price %>
-                                                            <%var price = phones[i].models[j].price %>
-                                                        </div>
-                                                    </label>
-                                                    <!-- </button> -->
-                                                  <!-- </a> -->
-                                                  <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                            <% } else { %>
+                                </div>
+                                <% } else { %>
                                 <div class="row mt-5" id="phone<%= i %>-list" style="display: none;">
                                     <h1 class="text-center">coming soon</h1>
                                 </div>
                                 <% } %>
-                            <% } %>
-                            <!------------------------ End phones models --------------------------->
+                                <% } %>
+                                <!------------------------ End phones models --------------------------->
 
-
-                            <% var bla = phones %> 
-
-                            <!---------------- payment method form ------------------->
-                            <!-- <div class="row mt-5 justify-content-center"> -->
-                                <div class="row mt-5 justify-content-center ml-5" style="display: none;" id="payment-form">
+                                <!---------------- payment method form ------------------->
+                                <!-- <div class="row mt-5 justify-content-center"> -->
+                                <div class="row mt-5 justify-content-center ml-5" style="display: none;"
+                                    id="payment-form">
                                     <div class="col-10 text-center ml-4">
                                         <h2>Checkout form</h2>
                                     </div>
                                     <div class="row justify-content-center mt-5 mr-5">
-                                    <div class="col-8 order-md-5">
-                                        <!-- <form class="needs-validation" novalidate> -->
+                                        <div class="col-8 order-md-5">
+                                            <!-- <form class="needs-validation" novalidate> -->
                                             <div class="row">
                                                 <div class="col-md-12 mb-6">
                                                     <label for="cc-name">Name on card</label>
-                                                    <input type="text" class="form-control" name="cardName" id="cc-name" placeholder=""
-                                                        required>
+                                                    <input type="text" class="form-control" name="cardName" id="cc-name"
+                                                        placeholder="" required>
                                                     <div class="invalid-feedback">
                                                         Name on card is required
                                                     </div>
@@ -267,8 +273,8 @@
                                             <div class="row">
                                                 <div class="col-md-12 mb-6">
                                                     <label for="cc-number">Credit card number</label>
-                                                    <input type="text" class="form-control" name="cardNum" id="cc-number"
-                                                        placeholder="" required>
+                                                    <input type="text" class="form-control" name="cardNum"
+                                                        id="cc-number" placeholder="" required>
                                                     <div class="invalid-feedback">
                                                         Credit card number is required
                                                     </div>
@@ -277,119 +283,129 @@
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
                                                     <label for="cc-expiration">Expiration</label>
-                                                    <input type="text" class="form-control" name="exp" id="cc-expiration"
-                                                        placeholder="" required>
+                                                    <input type="text" class="form-control" name="exp"
+                                                        id="cc-expiration" placeholder="" required>
                                                     <div class="invalid-feedback">
                                                         Expiration date required
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="cc-cvv">CVV</label>
-                                                    <input type="text" class="form-control" name="cvv" id="cc-cvv" placeholder=""
-                                                        required>
+                                                    <input type="text" class="form-control" name="cvv" id="cc-cvv"
+                                                        placeholder="" required>
                                                     <div class="invalid-feedback">
                                                         Security code required
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-6">
+                                                    <label for="cc-memo">Memo</label>
+                                                    <input type="text" class="form-control" name="cardMemo"
+                                                        id="cc-memo" placeholder="" required>
+                                                    <div class="invalid-feedback">
+                                                        Memo is required
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <hr class="mb-4">
-                                            <button class="btn btn-primary btn-lg btn-block" type="submit" onclick="pay_clicked()">Pay</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                </div>
-                            <!-- </div> -->
-                            <!---------------- End payment method form ------------------->
-
-                        </div>
-                        <div class="col-2 col-md-4 col-lg-2 buy-pc-box d-lg-block d-none">
-                                <img class="img-resposnsive2 mb-3 img-fluid" src="./public/css/images/PC.png">
-                                <div class="h5 text-center text-light">Buy PC now</div>
-                                <div class="text-center">
-                                    <button class="h4 text-center btn btn-primary">Buy now</button>
-                                </div>
-                        </div>
-                    </div>
-                </form>
-                </div>
-                <!-- .container-fluid -->
-
-            </div>
-            <!-------------------------------- End of Main Content ------------------------->
-            <!-- End of Content Wrapper -->
-        </div>
-        <!-- End of Page Wrapper -->
-
-
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <form action="/logout" method="POST">
-                            <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
-                        </form>
-                    </div>
+                                            <button class="btn btn-primary btn-lg btn-block" type="submit"
+                                                onclick="pay_clicked()">Pay</button>
+                    </form>
                 </div>
             </div>
         </div>
+        <!-- </div> -->
+        <!---------------- End payment method form ------------------->
 
-        <script>
-            function Clicked(elementID) {
+    </div>
+    <div class="col-2 col-md-4 col-lg-2 buy-pc-box d-lg-block d-none">
+        <img class="img-resposnsive2 mb-3 img-fluid" src="./public/css/images/PC.png">
+        <div class="h5 text-center text-light">Buy PC now</div>
+        <div class="text-center">
+            <button class="h4 text-center btn btn-primary">Buy now</button>
+        </div>
+    </div>
+    </div>
+    </form>
+    </div>
+    <!-- .container-fluid -->
 
-                var models = {};
-                document.getElementById("nothing-clicked").style.display = "none";
+    </div>
+    <!-------------------------------- End of Main Content ------------------------->
+    <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
 
-                for (var i = 0; i < 4; i++) {
-                    models["phone" + i] = document.getElementById("phone" + i + "-list");
-                }
 
-                var pay = document.getElementById('payment-form');
 
-                for (var i = 0; i < 4; i++) {
-                    if (elementID === "list-phone" + i + "-list") {
-                        for (var j = 0; j < 4; j++) {
-                            if (i === j) {
-                                models["phone" + j].style.display = "block";
-                            } else {
-                                
-                                models["phone" + j].style.display = "none";
-                            }
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="/logout" method="POST">
+                        <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function Clicked(elementID) {
+
+            var models = {};
+            document.getElementById("nothing-clicked").style.display = "none";
+
+            for (var i = 0; i < 4; i++) {
+                models["phone" + i] = document.getElementById("phone" + i + "-list");
+            }
+
+            var pay = document.getElementById('payment-form');
+
+            for (var i = 0; i < 4; i++) {
+                if (elementID === "list-phone" + i + "-list") {
+                    for (var j = 0; j < 4; j++) {
+                        if (i === j) {
+                            models["phone" + j].style.display = "block";
+                        } else {
+
+                            models["phone" + j].style.display = "none";
                         }
-                    } else {
                     }
-                }
-                pay.style.display = "none";
-
-                for(var i=0; i<8;i++){
-                    document.getElementById('mod'+i).checked = false;
-                }
+                } else {}
             }
-        </script>
+            pay.style.display = "none";
 
-
-        <script>
-            function continuePay(elementID) {
-                document.getElementById('payment-form').style.display = "block";
+            for (var i = 0; i < 8; i++) {
+                document.getElementById('mod' + i).checked = false;
             }
-            // function continuePay(elementID) {
-            //     document.getElementById('payment-form').style.display = "block";
-            // }
-        </script>
+        }
+    </script>
+
+
+    <script>
+        function continuePay(elementID) {
+            document.getElementById('payment-form').style.display = "block";
+        }
+        // function continuePay(elementID) {
+        //     document.getElementById('payment-form').style.display = "block";
+        // }
+    </script>
 
 
 
-        <!-- <script>
+    <!-- <script>
             function pay_clicked() {
                 const phone = '<//%= phone %>';
 
