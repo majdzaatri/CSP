@@ -274,10 +274,15 @@
                     <div class="row ">
                         <!-------------------- Profile details ----------------------->
                         <div class="col">
+                          
                             <div class="row justify-content-center">
                                 <h1 class="ml-3">Change password</h1>
-                            </div>
-
+                            </div><div id="validation">
+                                
+                            <passlength>Password's length must be 6 at least </passlength><br>
+                             <passmatch>Password must match </passmatch><br>
+                            <passnum>Password must contain at least one number</passnum>
+                        </div>
                             <div class="row justify-content-center">
                                 <form class="ml-5" action="/change-password" method="POST">
                                     <div class="form-label-group mt-5">
@@ -285,27 +290,34 @@
                                             placeholder="Old password" required>
                                         <label for="oldPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
                                             Old password</label>
+                                            
                                     </div>
                                     <div class="form-row mt-4">
                                         <div class="form-label-group col-md-6 col-sm">
                                             <input type="password" id="newPassword" name="newPassword"
                                                 class="form-control" placeholder="New password" required>
-                                            <label for="newPssword"><i class="fas fa-lock" style="font-size: 20px;"></i>
+                                            <label for="newPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
                                                 New password</label>
+                                               
                                         </div>
                                         <div class="form-label-group col-md-6 col-sm">
                                             <input type="password" id="confirmPass" name="confirmPass"
                                                 class="form-control" placeholder="Old password" required>
                                             <label for="confirmPass"><i class="fas fa-lock"
                                                     style="font-size: 20px;"></i> Confirm password</label>
+                                                    
                                         </div>
 
                                     </div>
                                     <div class="row mt-3 justify-content-center">
-                                        <button
+                                        <button 
                                             class="btn btn-primary btn-block text-uppercase font-weight-bold sign-in-up-btn col-8"
-                                            type="submit" style="height: 4rem;">Change password</button>
+                                            type="submit" id="changeBtn" style="height: 4rem;">Change password</button>
                                     </div>
+                                    <div class="row mt-3 justify-content-center"></div>
+                                    
+                                    
+                                </div>
                                 </form>
                                 
                             </div>
@@ -348,6 +360,7 @@
                 </div>
             </div>
         </div>
+        <script src="/public/javascript/profileValidation.js"></script>
 </body>
 
 </html>

@@ -284,5 +284,9 @@ app.listen(process.env.PORT || 4000, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
+app.get('/forgot-password', function(req,res){
+    res.sendFile(__dirname + "/views/forgot-password.html")
+})
+
 
 
