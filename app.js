@@ -64,6 +64,8 @@ app.get('/', function (req, res) {
 
 //    sign-in      //
 app.get('/sign-in', function (req, res) {
+    console.log(process.env.EMAIL)
+    console.log(process.env.PASSWORD)
     if(req.cookies.RememberMe != null){
         AM.automaticLogin(req.cookies.RememberMe[0],req.cookies.RememberMe[1], function(result,user){
             if(result==200)   {
@@ -338,7 +340,7 @@ app.get('/about', redirectLogin, function (req, res) {
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 7080, () => {
+app.listen(process.env.PORT || 8030, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 

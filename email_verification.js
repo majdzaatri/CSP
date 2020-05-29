@@ -9,8 +9,8 @@ const EMAIL_PASS = '284561443'
     var transporter = nodemailer.createTransport({
       service: 'hotmail',
       auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
+        user: EMAIL,
+        pass: EMAIL_PASS
       }
     });  
 
