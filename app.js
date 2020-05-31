@@ -137,59 +137,6 @@ app.post('/sign-in', function (req, res) {
     })
 });
 
-
-
-
-// Passport session setup.
-passport.serializeUser(function(user, done) {
-done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-done(null, obj);
-});
-
-
-
-
-
-
-//  Facebook Auth //
-
-passport.use(new facebookStrategy({
-    clientID: '2480750618889915',
-    clientSecret: '85c5b1b9a54a6083d0470da00a1b0fe3',
-    callbackURL: "https://localhost:9070/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-            console.log('accessToken:',accessToken);
-            console.log('refreshToken:',refreshToken);
-            console.log('profile:',profile);
-}))
-
-
-app.get('/auth/facebook', passport.authenticate('facebook',{scope:'email'}));
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login' }),
-  function(req, res) {
-      console.log("entered here")
-    res.redirect('/');
-  });
-
-  app.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
-  });
-  
-  
-  function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login')
-  }
-
-
-
 //    sign-up      //
 
 app.get('/sign-up', redirectHome, function (req, res) {
@@ -224,10 +171,6 @@ app.post('/sign-up', function (req, res) {
         active: 0
     };
 
-
-
-
-
     var promoCode = req.body.promocode;
     if (promoCode) {
         AM.checkPromoCode(promoCode, function (response) {
@@ -237,6 +180,8 @@ app.post('/sign-up', function (req, res) {
             }
         });
     }
+
+
     AM.addNewAccount(newUser, function (status) {
         if (status === 500) {
             console.log("Failed to add user");
@@ -376,16 +321,21 @@ app.get('/confirmation/:token', async (req, res) => {
 app.get('/dashboard', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    AM.fetchPurchasesData(function(result){
+        purchaseJson = JSON.parse(JSON.stringify(result))
+        res.render('dashboard', {user : userName, phones : phonesData, purchases : purchaseJson});    
+    })
     // let userName = userJson.FirstName + " " + userJson.LastName;
     // res.render('dashboard', {user : userName, phones : phonesData});
-    if(userJson[0]){
-     var userName = userJson[0].FirstName + " " + userJson[0].LastName;
-     req.session.user=userJson[0];
-    }
-    else {
-        var userName = userJson.FirstName + " " + userJson.LastName;
-    }
-    res.render('dashboard', { user: userName, phones : phonesData });
+    // if(userJson[0]){
+    //  var userName = userJson[0].FirstName + " " + userJson[0].LastName;
+    //  req.session.user=userJson[0];
+    // }
+    // else {
+    //     var userName = userJson.FirstName + " " + userJson.LastName;
+    // }
+    // res.render('dashboard', { user: userName, phones : phonesData, purchases : purchaseJson });
 });
 
 
@@ -426,8 +376,12 @@ app.get('/payment-success', function (req, res) {
 app.get('/profile', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
-    // let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('profile', { user: userJson, phones: phonesData });
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    AM.fetchPurchasesData(function(result){
+        purchaseJson = JSON.parse(JSON.stringify(result))
+        res.render('profile', {user : userJson, phones : phonesData, purchases : purchaseJson});    
+    })
+    // res.render('profile', { user: userJson, phones: phonesData });
 });
 
 
@@ -511,7 +465,10 @@ app.get('/about', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    res.render('about', { user: userName, phones: phonesData });
+    AM.fetchPurchasesData(function(result){
+        purchaseJson = JSON.parse(JSON.stringify(result))
+        res.render('about', {user : userName, phones : phonesData, purchases : purchaseJson});    
+    })
 });
 
 
@@ -524,7 +481,7 @@ app.get('*', function (req, res) {
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 9080, () => {
+app.listen(process.env.PORT || 8050, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 

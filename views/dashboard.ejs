@@ -72,17 +72,30 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Cell Phone</h6>
+                        <% if(purchases.length !== 0) { %>
+                        <% for(var i=0; i<purchases.length ;i++){ %>
                         <div class="row">
                             <div class="col-sm-3">
-                                <img class="img-resposnsive" src="./public/css/images/Iphonex.png">
+                                <% for(var j=0; j<phones.length; j++) { %>
+                                <% if(purchases[i].Product === phones[j].id) { %>
+                                <img class="img-resposnsive" src=<%= phones[j].src %>>
+                                <% } %>
+                                <% } %>
                             </div>
                             <div class="col-sm">
-                                <p class="item-name">Iphone X </p>
-                                <p class="item-p">Read more...</p>
-
+                                <p class="item-name"><%= purchases[i].Product %></p>
+                                <p class="item-p"><%=purchases[i].cnt%> units</p>
                             </div>
                         </div>
+                        <% if(i+1 !== purchases.length){ %>
                         <hr>
+                        <% } %>
+                        <% } %>
+                        <% } else { %>
+                        <div class="row justify-content-center">
+                            <div class="display-5">No purchases yet</div>
+                        </div>
+                        <% } %>
 
                     </div>
                 </div>
