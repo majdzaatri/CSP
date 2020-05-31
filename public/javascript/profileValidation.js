@@ -13,7 +13,9 @@ submit.addEventListener('click' , (e) => {
 
 function checkInput()
 {
-    
+   const passlength = formlabelgroup.querySelector('passlength').style.display = "block";
+   const passnum= formlabelgroup.querySelector('passnum').style.display = "block";
+   const passmatch = formlabelgroup.querySelector('passmatch').style.display = "block";
          let passwordregx= /^(?=.*\d)[a-zA-Z\d]{1,}$/;
          let passwordlength=/^.{6,25}$/;
          if(passwordlength.test(password.value)==0)

@@ -9,17 +9,20 @@ const submit=document.getElementById('submitBtn')
 
 
 submit.addEventListener('click' , (e) => {
-  e.preventDefault();
-  checkInput();      
+  if(!checkInput()){
+     e.preventDefault();
+  }      
 })
 
 
 function checkInput()
 {
+   let valid = 1;
     let regx=/^[a-z ,.'-,A-Z]+$/;
     if(!regx.test(lastName.value))
     {
         setErrorFor(lastName,' Last name must be in letters only');
+        valid=0;
     }
     else
         setSuccessFor(lastName);
@@ -27,6 +30,7 @@ function checkInput()
      if(!regx.test(firstName.value))
      {
         setErrorFor(firstName,'First name must be in letters only');
+        valid=0;
      }
      else
         setSuccessFor(firstName);
@@ -37,6 +41,7 @@ function checkInput()
          if(!regx.test(email.value))
          {
             setErrorFor(email,' Email must be in xxx@yyy.zzz format');
+            valid=0;
          }
          else
             setSuccessFor(email);
@@ -45,25 +50,35 @@ function checkInput()
          if(password.value==='' || password.value===null)
          {
             setErrorFor(password,' Password is blank');
+            valid=0;
          }
         else if(!passwordregx.test(password.value))
          {
             setErrorFor(password," Password's length must be at least 6 and must include at least 1 digit");
+            valid=0;
          }
          else
             setSuccessFor(password);
          if(confirmPass.value==='' || confirmPass.value===null)
          {
             setErrorFor(confirmPass," Confirm Password is blank");
+            valid=0;
+
          }
         else if(confirmPass.value!==password.value)
          {
              setErrorFor(confirmPass," Please make sure it matches your password");
+            valid=0;
+
          }
          else {
             console.log('success');
                setSuccessFor(confirmPass);
         }
+        if(!valid){
+         return false;
+        }
+        return true;
 }
 function setErrorFor(input, message) {
 	const formlabelgroup = input.parentElement;

@@ -37,18 +37,20 @@
                                 <form id='verify-form' method="POST">
                                     <div class="form-label-group">
                                         <input id="inputEmail" name="email" class="form-control"
-                                            placeholder="Email address" value="majdz-1@live.com" required autofocus>
+                                            placeholder="Email address" value="<%= typeof email != 'undefined' ? email : '' %>" required autofocus>
                                         <label for="inputEmail"><i class="far fa-envelope" style="font-size: 20px;"></i>
                                             Email address</label>
                                     </div>
 
                                     <div class="form-label-group">
                                         <input type="password" id="inputPassword" name="password" class="form-control"
-                                            placeholder="Password" value="majd" required>
+                                            placeholder="Password" value="<%= typeof password != 'undefined' ? password : '' %>" required>
                                         <label for="inputPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
                                             Password</label>
                                     </div>
-
+                                    <% if (typeof error != 'undefined') { %>
+                                        <div class="invalid-feedback"><%= error %></div>
+                                      <% } %>
                                     <div class="g-recaptcha" data-sitekey="6LfsdP0UAAAAAOrqd6tg9l9ve3Q-OsoRvb_hDxrb">
                                     </div>
 
@@ -63,7 +65,7 @@
                                         type="submit"><i class="fas fa-sign-in-alt" style="font-size: 20px;"></i>Sign
                                         in</button>
                                     <div class="text-center">
-                                        <a class="small" href="/reset-password">Forgot password?</a>
+                                        <a class="small" href="/forgot-password">Forgot password?</a>
                                     </div>
                                 </form>
                                 <!----------------------- End Form --------------------->

@@ -27,6 +27,7 @@ exports.checkLogin = function (email, password, callback) {
                 let hashPass = rows[0].Password;
 
                 validatePassword(password, hashPass, function (err, res) {
+                    console.log(res)
                     if (res) {
                         callback(null, rows[0]);
 
@@ -182,8 +183,6 @@ exports.fetchPurchasesData = function (callback) {
 
 
 exports.updatePassword = function (newPassword, ID, callback) {
-
-
     saltAndHash(newPassword, function (hash) {
         newPassword = hash;
         connection.query("UPDATE " + mydatabase + ".`users` SET Password = ? where ID = ?", [newPassword, ID], function (err, res, fields) {
@@ -200,8 +199,29 @@ exports.updatePassword = function (newPassword, ID, callback) {
 
         });
     })
-
 }
+
+
+
+exports.updateNewPassword = function (newPassword, email, callback) {
+    saltAndHash(newPassword, function (hash) {
+        newPassword = hash;
+        connection.query("UPDATE " + mydatabase + ".`users` SET Password = ? where Email = ?", [newPassword, email], function (err, res, fields) {
+            console.log(newPassword)
+            if (err) {
+                console.log("Failed to update password: " + err);
+                callback(500); //TODO: Check if it's OK
+
+            }
+            else {
+                console.log("Password has been updated successfully")
+                callback(200);
+            }
+
+        });
+    })
+}
+
 
 exports.updateEmail = function (email, ID, callback) {
     let query = "UPDATE " + mydatabase + ".`users` SET `Email` = ? WHERE ID = ?";

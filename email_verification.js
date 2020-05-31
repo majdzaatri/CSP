@@ -139,3 +139,36 @@ exports.emailUpdateActivation = function(newEmail,ID){
   );
 
 }
+
+exports.forgetPassword = function(email){
+
+    // async email
+    jwt.sign(
+      {
+        userEmail: email,
+      },
+      EMAIL_SECRET,
+      {
+        expiresIn: '1d',
+      },
+      (err, emailToken) => {
+        const url = `http://localhost:5000/reset-password/${emailToken}`;
+        var mailOptions = {
+              from: EMAIL,
+              to: email,
+              subject: 'Forget Password',
+              html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
+            };
+          transporter.sendMail(mailOptions, function(error, info){
+              if (error) { 
+                console.log(error);
+               
+              } else {
+                 console.log('Email sent: ' + info.response);
+              }
+            });
+      },
+    );
+
+
+}

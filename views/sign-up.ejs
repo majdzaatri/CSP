@@ -16,7 +16,7 @@
     <!------------------------------- Font Awesome CDN -------------------------------->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
-  
+
     <!------------------------------- reCAPTCHA -------------------------------->
     <script src="https://www.google.com/recaptcha/api.js"></script>
 
@@ -35,17 +35,20 @@
                             <div class="col-md-8 col-lg-8 mx-auto">
                                 <h1 class="ml-3 login-heading mb-5 col-12">Create an Account!</h1>
                                 <!----------------------- Start Form --------------------->
-                                <form id="form-signup" action="" class="needs-validation" novalidate>
+                                <form id="form-signup" action="/sign-up" method="POST" class="needs-validation"
+                                    novalidate>
                                     <div class="row">
                                         <div class="col">
                                             <!----------------------- firstname input ------------------------>
                                             <div class="form-label-group">
-                                                <input type="text" name="firstname" id="firstname" class="form-control ml-3"
-                                                    placeholder="First Name" required autofocus >
+                                                <input type="text" name="firstname" id="firstname"
+                                                    class="form-control ml-3" placeholder="First Name"  value="<%= typeof firstname != 'undefined' ? firstname : '' %>" required
+                                                    autofocus>
                                                 <label for="firstname" class="ml-2"><i class="fa fa-address-card-o"
-                                                        style="font-size: 20px; visibility: visible;right:0;top:0;"></i>First Name</label>
-                                                        <i class="fas fa-check-circle"></i>
-                                                    <i class="fas fa-exclamation-circle"></i>
+                                                        style="font-size: 20px; visibility: visible;right:0;top:0;"></i>First
+                                                    Name</label>
+                                                <i class="fas fa-check-circle"></i>
+                                                <i class="fas fa-exclamation-circle"></i>
                                                 <div class="invalid-feedback">please enter your first name</div>
                                                 <small>Error Message</small>
                                             </div>
@@ -56,17 +59,17 @@
                                         <div class="col">
                                             <!------------------------ lastname input ------------------------>
                                             <div class="form-label-group">
-                                                <input type="text" name="lastname" id="lastname" class="form-control col-11"
-                                                    placeholder="Last Name" required>
+                                                <input type="text" name="lastname" id="lastname"
+                                                    class="form-control col-11" placeholder="Last Name"  value="<%= typeof lastname != 'undefined' ? lastname : '' %>" required>
                                                 <label for="lastname"><i class="fa fa-address-card-o"
                                                         style="font-size: 20px;"></i>Last Name</label>
-                                                        <i class="fas fa-check-circle"></i>
-                                                    <i class="fas fa-exclamation-circle"></i>
+                                                <i class="fas fa-check-circle"></i>
+                                                <i class="fas fa-exclamation-circle"></i>
                                                 <div class="invalid-feedback">please enter your last name</div>
                                                 <small>Error Message</small>
                                             </div>
                                             <div class="row ml-3 pb-1">
-                                                
+
                                                 <div id="errorLastname"></div>
                                             </div>
                                         </div>
@@ -75,12 +78,12 @@
                                         <!---------------------------- email input ---------------------------->
                                         <div class="form-label-group">
                                             <input type="email" name="email" id="email" class="form-control"
-                                                placeholder="Email Address" required>
-                                               
+                                                placeholder="Email Address"  value="<%= typeof email != 'undefined' ? email : '' %>" required>
+
                                             <label for="email"><i class="far fa-envelope"
                                                     style="font-size: 20px;"></i>Email Address</label>
-                                                    <i class="fas fa-check-circle"></i>
-                                                <i class="fas fa-exclamation-circle"></i>
+                                            <i class="fas fa-check-circle"></i>
+                                            <i class="fas fa-exclamation-circle"></i>
                                             <div class="invalid-feedback">invalid email</div>
                                             <div id="errorEmail"></div>
                                             <small>Error Message</small>
@@ -88,11 +91,11 @@
                                         <!--------------------------- password input -------------------------->
                                         <div class="form-label-group">
                                             <input type="password" name="password" id="password" class="form-control"
-                                                placeholder="Password" required>
+                                                placeholder="Password"  value="<%= typeof password != 'undefined' ? password : '' %>" required>
                                             <label for="password"><i class="fas fa-lock"
                                                     style="font-size: 20px;"></i>Password</label>
-                                                    <i class="fas fa-check-circle"></i>
-                                                    <i class="fas fa-exclamation-circle"></i>
+                                            <i class="fas fa-check-circle"></i>
+                                            <i class="fas fa-exclamation-circle"></i>
                                             <div class="invalid-feedback">your password must contain 6 characters</div>
                                             <div id="errorPassword"></div>
                                             <small>Error Message</small>
@@ -100,25 +103,29 @@
                                         <!------------------------ confirm password input --------------------->
                                         <div class="form-label-group">
                                             <input type="password" name="confirmPass" id="confirmPass"
-                                                class="form-control" placeholder="Confirm Password" required>
-                                                
+                                                class="form-control" placeholder="Confirm Password"  value="<%= typeof confirmpassword != 'undefined' ? confirmpassword : '' %>" required>
+
                                             <label for="confirmPass"><i class="fas fa-lock"
                                                     style="font-size: 20px;"></i>Confirm Password</label>
-                                                    <i class="fas fa-check-circle"></i>
-                                                <i class="fas fa-exclamation-circle"></i>
-                                                    <div id="errorPasswordConformation"></div>
-                                                    <small>Error Message</small>
+                                            <i class="fas fa-check-circle"></i>
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            <div id="errorPasswordConformation"></div>
+                                            <small>Error Message</small>
                                         </div>
                                         <!-------------------------- promocode input -------------------------->
                                         <div class="form-label-group">
                                             <input type="text" name="promocode" id="promocode"
-                                                class="form-control col-lg-6" placeholder="Promo Code">
+                                                class="form-control col-lg-6" value="<%= typeof promocode != 'undefined' ? promocode : '' %>" placeholder="Promo Code" >
                                             <label for="promocode"><i class="fas fa-percent"
                                                     style="font-size: 20px;"></i>Have a promo code?</label>
                                         </div>
                                         <!-------------------------- reCAPTCHA -------------------------->
-                                        <div class="g-recaptcha" data-sitekey="6LfsdP0UAAAAAOrqd6tg9l9ve3Q-OsoRvb_hDxrb">
+                                        <div class="g-recaptcha"
+                                            data-sitekey="6LfsdP0UAAAAAOrqd6tg9l9ve3Q-OsoRvb_hDxrb">
                                         </div>
+                                        <% if (typeof error != 'undefined') { %>
+                                            <div><%= error %></div>
+                                          <% } %>
                                         <!----------------------- register account button --------------------->
                                         <button type="submit" id="submitBtn"
                                             class="glyphicon glyphicon-search btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 my-5">
@@ -138,7 +145,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        particlesJS.load('particles-js', '/public/json/particles.json', function(){
+        particlesJS.load('particles-js', '/public/json/particles.json', function () {
             console.log("particles.js loaded...");
         })
     </script>
