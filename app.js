@@ -435,30 +435,28 @@ app.post('/profileInfo', function (req, res) {
         req.body.Zipcode ? req.body.Zipcode : null,
         req.session.user.ID
     ];
+    var UserInfo = [
+        req.session.user.FirstName,
+        req.session.user.LastName,
+        req.session.user.PhoneNumber,
+        req.session.user.Country,
+        req.session.user.City,
+        req.session.user.Street,
+        req.session.user.ZipCode,
+        req.session.user.ID
+    ];
 
-    //if(req.session.user.Email !== req.body.email){
-        // let email = req.body.email;
-        // let ID = req.session.user.ID
-        // EV.emailUpdateActivation(email,ID)
-    //}
-    // AM.updateUserInfo(newUserInfo, function (err, result) {
-    //     if (result) {
-    //         req.session.user = result;
-    //         res.redirect(301, '/profile');
-    //         emailToConfirm=req.session.user.Email
-         //   EV.dataUpdateConfirmation(emailToConfirm,req.session.user.ID)
+
 
     if (!_.isEqual(UserInfo, newUserInfo)) {
         AM.updateUserInfo(newUserInfo, function (err, result) {
             if (result) {
                 req.session.user = result;
-                res.redirect(301, '/profile');
                 emailToConfirm = req.session.user.Email
-                EV.dataUpdateConfirmation(emailToConfirm, req.session.user.ID)  
+                EV.dataUpdateConfirmation(emailToConfirm, req.session.user.ID)
             }
         });
     }
-
     if (req.session.user.Email !== req.body.email) {
         var email = req.body.email;
         var ID = req.session.user.ID
@@ -479,7 +477,6 @@ app.post('/profileInfo', function (req, res) {
         res.redirect('/profile');
     }
 });
-
 app.get('/forgot-password', function (req, res) {
     res.sendFile(__dirname + "/views/forgot-password.html")
 })
@@ -523,6 +520,10 @@ app.get('/buy-pc', redirectLogin, function(req, res){
 });
 
 
+app.get('*', function (req, res) {
+    res.sendfile(__dirname+'/views/404.html')
+});
+
 
 
 
@@ -530,7 +531,7 @@ app.get('/buy-pc', redirectLogin, function(req, res){
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 1080, () => {
+app.listen(process.env.PORT || 3090, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
