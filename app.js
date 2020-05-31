@@ -14,6 +14,7 @@ const { stringify } = require('querystring');
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook').Strategy;
 var Request = require("request");
+const _ = require("lodash");
 
 
 
@@ -308,11 +309,6 @@ app.get('/confirmation/:token', async (req, res) => {
 });
 
 
-
-app.get('/reset-password', function (req, res) {
-    res.sendFile(__dirname + '/views/reset-password.html');
-});
-
 app.get('/dashboard', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
@@ -385,6 +381,48 @@ app.get('/profile', redirectLogin, function (req, res) {
     // res.render('profile', { user: userJson, phones: phonesData });
 });
 
+
+app.get('/reset-password/:token', async (req, res) => {
+    try {
+
+        console.log('ffsdff')
+        res.clearCookie('RememberMe')
+        res.render('reset-password', { token: req.params.token });
+    } catch (e) {
+        res.send('error');
+    }
+});
+
+app.post('/reset-password/:token', async (req, res) => {
+    try {
+        const decryptedData = jwt.verify(req.params.token, EMAIL_SECRET);
+        var userEmail = decryptedData.userEmail
+        var newPass = req.body.newpassword;
+        var confirmPass = req.body.confirmpassword;
+        AM.emailExist(userEmail, function (result) {
+            if (result === 200) {
+                if (newPass === confirmPass) {
+                    AM.updateNewPassword(newPass, userEmail, function (result) {
+                        if (result === 200) {
+                            console.log('Password has been updated succeffuly')
+                            return res.redirect('/sign-in');
+                        }
+                        else {
+                            console.log('something went wrong')
+
+                        }
+                    })
+                }
+            }
+
+        })
+
+
+    } catch (e) {
+        res.send('error');
+    }
+});
+
 app.post('/profileInfo', function (req, res) {
 
     var newUserInfo = [
@@ -399,16 +437,64 @@ app.post('/profileInfo', function (req, res) {
     ];
 
     //if(req.session.user.Email !== req.body.email){
-        let email = req.body.email;
-        let ID = req.session.user.ID
-        EV.emailUpdateActivation(email,ID)
+        // let email = req.body.email;
+        // let ID = req.session.user.ID
+        // EV.emailUpdateActivation(email,ID)
     //}
-    AM.updateUserInfo(newUserInfo, function (err, result) {
-        if (result) {
-            req.session.user = result;
-            res.redirect(301, '/profile');
-            emailToConfirm=req.session.user.Email
+    // AM.updateUserInfo(newUserInfo, function (err, result) {
+    //     if (result) {
+    //         req.session.user = result;
+    //         res.redirect(301, '/profile');
+    //         emailToConfirm=req.session.user.Email
          //   EV.dataUpdateConfirmation(emailToConfirm,req.session.user.ID)
+
+    if (!_.isEqual(UserInfo, newUserInfo)) {
+        AM.updateUserInfo(newUserInfo, function (err, result) {
+            if (result) {
+                req.session.user = result;
+                res.redirect(301, '/profile');
+                emailToConfirm = req.session.user.Email
+                EV.dataUpdateConfirmation(emailToConfirm, req.session.user.ID)  
+            }
+        });
+    }
+
+    if (req.session.user.Email !== req.body.email) {
+        var email = req.body.email;
+        var ID = req.session.user.ID
+        AM.emailExist(email, function (result) {
+            console.log(result)
+            if (result === 200) {
+                var string = JSON.stringify(req.session.user);
+                var userJson = JSON.parse(string);
+                res.render('profile', { user: userJson, phones: phonesData, error: 'The Email you entered is already exist' });
+            }
+            else {
+                console.log('changing email!!')
+                EV.emailUpdateActivation(email, ID)
+            }
+        })
+    }
+    else{
+        res.redirect('/profile');
+    }
+});
+
+app.get('/forgot-password', function (req, res) {
+    res.sendFile(__dirname + "/views/forgot-password.html")
+})
+
+
+
+app.post('/forgot-password', function (req, res) {
+
+
+    var email = req.body.email;
+    EV.forgetPassword(email, function (status) {
+        if (status) {
+            res.redirect(301, 'thank-you');
+        } else {
+            console.log('ERROR sending an email')
         }
     });
 });
@@ -444,7 +530,7 @@ app.get('/buy-pc', redirectLogin, function(req, res){
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 1050, () => {
+app.listen(process.env.PORT || 1080, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
