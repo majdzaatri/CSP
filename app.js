@@ -135,12 +135,14 @@ app.get('/sign-in', function (req, res) {
             }
             else{
                 res.clearCookie('RememberMe')
-                res.sendFile(__dirname + '/views/sign-in.html');
+                // res.sendFile(__dirname + '/views/sign-in.html');
+                res.render('sign-in');
             }
 
         })
     }else{
-        res.sendFile(__dirname + '/views/sign-in.html');
+        // res.sendFile(__dirname + '/views/sign-in.html');
+        res.render('sign-in');
     }
 
 });
