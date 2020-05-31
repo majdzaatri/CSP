@@ -7,7 +7,6 @@ const EMAIL = 'cspbraudeproject@hotmail.com'
 const EMAIL_PASS = 'Aa200200'
 
     var transporter = nodemailer.createTransport({
-      name: 'heroku',
       service: 'hotmail',
       auth: {
         user: EMAIL,

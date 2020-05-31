@@ -11,6 +11,8 @@ const phonesData = require(__dirname + "/cell_phone_data.json");
 const cookieParser = require('cookie-parser')
 const fetch = require("node-fetch")
 const { stringify } = require('querystring');
+const passport = require('passport');
+const facebookStrategy = require('passport-facebook').Strategy;
 var Request = require("request");
 
 
@@ -64,8 +66,6 @@ app.get('/', function (req, res) {
 
 //    sign-in      //
 app.get('/sign-in', function (req, res) {
-    console.log(process.env.EMAIL)
-    console.log(process.env.PASSWORD)
     if(req.cookies.RememberMe != null){
         AM.automaticLogin(req.cookies.RememberMe[0],req.cookies.RememberMe[1], function(result,user){
             if(result==200)   {
@@ -123,6 +123,59 @@ app.post('/sign-in', function (req, res) {
         }
     })
 });
+
+
+
+
+// Passport session setup.
+passport.serializeUser(function(user, done) {
+done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+done(null, obj);
+});
+
+
+
+
+
+
+//  Facebook Auth //
+
+passport.use(new facebookStrategy({
+    clientID: '2480750618889915',
+    clientSecret: '85c5b1b9a54a6083d0470da00a1b0fe3',
+    callbackURL: "https://localhost:9070/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+            console.log('accessToken:',accessToken);
+            console.log('refreshToken:',refreshToken);
+            console.log('profile:',profile);
+}))
+
+
+app.get('/auth/facebook', passport.authenticate('facebook',{scope:'email'}));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login' }),
+  function(req, res) {
+      console.log("entered here")
+    res.redirect('/');
+  });
+
+  app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
+  
+  
+  function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login')
+  }
+
+
 
 //    sign-up      //
 
@@ -340,7 +393,7 @@ app.get('/about', redirectLogin, function (req, res) {
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 8040, () => {
+app.listen(process.env.PORT || 9070, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
