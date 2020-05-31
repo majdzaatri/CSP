@@ -32,35 +32,39 @@
                 <div class="login d-flex align-items-center py-5">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-8 col-lg-8 mx-auto">
-                                <h1 class="ml-3 login-heading mb-5 col-12">Create an Account!</h1>
+                            <div class="col-md-8 col-lg-8 mt-5 mx-auto">
+                                <h1 class="sign-in-up-heading mb-5 text-center">Create an Account!</h1>
                                 <!----------------------- Start Form --------------------->
-                                <form id="form-signup" action="/sign-up" method="POST" class="needs-validation"
+                                <form id="form-signup" action="/sign-up" method="POST" class="needs-validation" onsubmit="checkCaptcha(event)"
                                     novalidate>
                                     <div class="row">
-                                        <div class="col">
+                                        <div class="col-6">
                                             <!----------------------- firstname input ------------------------>
                                             <div class="form-label-group">
-                                                <input type="text" name="firstname" id="firstname"
-                                                    class="form-control ml-3" placeholder="First Name"  value="<%= typeof firstname != 'undefined' ? firstname : '' %>" required
-                                                    autofocus>
+                                                <input type="text" name="firstname" id="firstname" class="form-control"
+                                                    placeholder="First Name"
+                                                    value="<%= typeof firstname != 'undefined' ? firstname : '' %>"
+                                                    required autofocus>
                                                 <label for="firstname" class="ml-2"><i class="fa fa-address-card-o"
-                                                        style="font-size: 20px; visibility: visible;right:0;top:0;"></i>First
+                                                        style="font-size: 20px;"></i>First
                                                     Name</label>
                                                 <i class="fas fa-check-circle"></i>
                                                 <i class="fas fa-exclamation-circle"></i>
-                                                <div class="invalid-feedback">please enter your first name</div>
+                                                <div class="invalid-feedback mr-5 pr-5">please enter your first name
+                                                </div>
                                                 <small>Error Message</small>
                                             </div>
-                                            <div class="row ml-3 pb-1">
-                                                <div id="errorFirstname"></div>
+                                            <div class="row mr-5 pr-5">
+                                                <div id="errorFirstname" style="display: none;"></div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-6">
                                             <!------------------------ lastname input ------------------------>
                                             <div class="form-label-group">
                                                 <input type="text" name="lastname" id="lastname"
-                                                    class="form-control col-11" placeholder="Last Name"  value="<%= typeof lastname != 'undefined' ? lastname : '' %>" required>
+                                                    class="form-control mr-5" placeholder="Last Name"
+                                                    value="<%= typeof lastname != 'undefined' ? lastname : '' %>"
+                                                    required>
                                                 <label for="lastname"><i class="fa fa-address-card-o"
                                                         style="font-size: 20px;"></i>Last Name</label>
                                                 <i class="fas fa-check-circle"></i>
@@ -76,9 +80,10 @@
                                     </div>
                                     <div class="container">
                                         <!---------------------------- email input ---------------------------->
-                                        <div class="form-label-group">
+                                        <div class="form-label-group row">
                                             <input type="email" name="email" id="email" class="form-control"
-                                                placeholder="Email Address"  value="<%= typeof email != 'undefined' ? email : '' %>" required>
+                                                placeholder="Email Address"
+                                                value="<%= typeof email != 'undefined' ? email : '' %>" required>
 
                                             <label for="email"><i class="far fa-envelope"
                                                     style="font-size: 20px;"></i>Email Address</label>
@@ -89,9 +94,10 @@
                                             <small>Error Message</small>
                                         </div>
                                         <!--------------------------- password input -------------------------->
-                                        <div class="form-label-group">
+                                        <div class="form-label-group row">
                                             <input type="password" name="password" id="password" class="form-control"
-                                                placeholder="Password"  value="<%= typeof password != 'undefined' ? password : '' %>" required>
+                                                placeholder="Password"
+                                                value="<%= typeof password != 'undefined' ? password : '' %>" required>
                                             <label for="password"><i class="fas fa-lock"
                                                     style="font-size: 20px;"></i>Password</label>
                                             <i class="fas fa-check-circle"></i>
@@ -101,9 +107,11 @@
                                             <small>Error Message</small>
                                         </div>
                                         <!------------------------ confirm password input --------------------->
-                                        <div class="form-label-group">
+                                        <div class="form-label-group row">
                                             <input type="password" name="confirmPass" id="confirmPass"
-                                                class="form-control" placeholder="Confirm Password"  value="<%= typeof confirmpassword != 'undefined' ? confirmpassword : '' %>" required>
+                                                class="form-control" placeholder="Confirm Password"
+                                                value="<%= typeof confirmpassword != 'undefined' ? confirmpassword : '' %>"
+                                                required>
 
                                             <label for="confirmPass"><i class="fas fa-lock"
                                                     style="font-size: 20px;"></i>Confirm Password</label>
@@ -113,25 +121,31 @@
                                             <small>Error Message</small>
                                         </div>
                                         <!-------------------------- promocode input -------------------------->
-                                        <div class="form-label-group">
+                                        <div class="form-label-group row">
                                             <input type="text" name="promocode" id="promocode"
-                                                class="form-control col-lg-6" value="<%= typeof promocode != 'undefined' ? promocode : '' %>" placeholder="Promo Code" >
+                                                class="form-control col-lg-6"
+                                                value="<%= typeof promocode != 'undefined' ? promocode : '' %>"
+                                                placeholder="Promo Code">
                                             <label for="promocode"><i class="fas fa-percent"
                                                     style="font-size: 20px;"></i>Have a promo code?</label>
                                         </div>
                                         <!-------------------------- reCAPTCHA -------------------------->
-                                        <div class="g-recaptcha"
+                                        <div class="g-recaptcha row"
                                             data-sitekey="6LfsdP0UAAAAAOrqd6tg9l9ve3Q-OsoRvb_hDxrb">
                                         </div>
                                         <% if (typeof error != 'undefined') { %>
-                                            <div><%= error %></div>
-                                          <% } %>
+                                        <div><%= error %></div>
+                                        <% } %>
                                         <!----------------------- register account button --------------------->
-                                        <button type="submit" id="submitBtn"
-                                            class="glyphicon glyphicon-search btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 my-5">
-                                            <i class="fa fa-user-plus" style="font-size: 20px;"></i>
-                                            Register Account
-                                        </button>
+                                        <div class="row justify-content-center">
+                                            <button type="submit" id="submitBtn"
+                                                class="glyphicon glyphicon-search btn btn-primary btn-block btn-login text-uppercase font-weight-bold my-5">
+                                                <i class="fa fa-user-plus" style="font-size: 20px;"></i>
+                                                Register Account
+                                            </button>
+                                        </div>
+                                        <p class="d-flex justify-content-center h4">Already have an account?<a href="/sign-in"
+                                            class="card-link ml-2"> Sign in</a></p>
                                     </div>
                             </div>
                             </form>
@@ -150,6 +164,18 @@
         })
     </script>
     <script src="/public/javascript/validation.js"></script>
+
+    <script>
+        function checkCaptcha(e) {
+            if (grecaptcha && grecaptcha.getResponse().length > 0) {
+                return true;
+            } else {
+                e.preventDefault();
+                alert('Oops, you have to check the recaptcha !');
+                return false;
+            }
+        }
+    </script>
 </body>
 
 </html>

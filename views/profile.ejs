@@ -48,7 +48,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="/buy-pc">
                     <i class="fas fa-laptop"></i>
                     <span>PC</span></a>
                 <a class="nav-link" href="/buy-cell-phone">
@@ -125,7 +125,7 @@
                                 <a class="nav-link" href="/buy-cell-phone">Buy Cell Phone</a>
                             </li>
                             <li class="nav-item mr-5">
-                                <a class="nav-link" href="">Buy PC</a>
+                                <a class="nav-link" href="/buy-pc">Buy PC</a>
                             </li>
 
                             <div class="topbar-divider d-none d-lg-block"></div>
@@ -182,7 +182,7 @@
                                     <h5>First name</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="firstname" value=<%= user.FirstName %>>
+                                    <input type="text" name="firstname" class="profileField" value=<%= user.FirstName %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -191,7 +191,7 @@
                                     <h5>Last name</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="lastname" value=<%= user.LastName %>>
+                                    <input type="text" name="lastname" class="profileField" value=<%= user.LastName %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -200,7 +200,7 @@
                                     <h5>Phone number</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="phonenumber" value=<%= user.PhoneNumber %>>
+                                    <input type="text" name="phonenumber" class="profileField" value=<%= user.PhoneNumber %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -209,7 +209,7 @@
                                     <h5>Country</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="country" value=<%= user.Country %>>
+                                    <input type="text" name="country" class="profileField" value=<%= user.Country %>>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +220,7 @@
                                     <h5>E-mail</h5>
                                 </div>
                                 <div class="row">
-                                    <input type="text" name="email" value=<%= user.Email %>></a>
+                                    <input type="text" name="email" class="profileField" value=<%= user.Email %>></a>
                                 </div>
                                 <% if (typeof error != 'undefined') { %>
                                     <div><%= error %></div>
@@ -232,7 +232,7 @@
                                     <h5>City</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="City" value=<%= user.City %>>
+                                    <input type="text" name="City" class="profileField" value=<%= user.City %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -241,7 +241,7 @@
                                     <h5>Street</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="Street" value=<%= user.Street %>>
+                                    <input type="text" name="Street" class="profileField" value=<%= user.Street %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -250,7 +250,7 @@
                                     <h5>Zip code</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="Zipcode" value=<%= user.ZipCode %>>
+                                    <input type="text" name="Zipcode" class="profileField" value=<%= user.ZipCode %>>
                                 </div>
                             </div>
                         </div>

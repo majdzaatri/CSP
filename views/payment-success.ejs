@@ -16,7 +16,7 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-        </script>
+    </script>
 
     <!------------------------------- Font Awesome CDN -------------------------------->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -27,9 +27,11 @@
 </head>
 
 <body id="page-top">
+    
 
     <!-- Page Wrapper -->
     <div id="wrapper">
+
 
         <!-------------------- Sidebar ------------------->
         <ul class="navbar-nav bg-dark bg-gradient-primary sidebar sidebar-dark accordion collapse-inner collapse show"
@@ -78,7 +80,7 @@
                             <div class="col-sm-3">
                                 <% for(var j=0; j<phones.length; j++) { %>
                                 <% if(purchases[i].Product === phones[j].id) { %>
-                                <img class="img-resposnsive" src=<%= phones[j].src %>>
+                                <img class="img-resposnsive" src=<%= phones[i].src %>>
                                 <% } %>
                                 <% } %>
                             </div>
@@ -93,7 +95,7 @@
                         <% } %>
                         <% } else { %>
                         <div class="row justify-content-center">
-                            <div class="display-5">No purchases yet</div>
+                            <div class="display-5">No purchase yet</div>
                         </div>
                         <% } %>
 
@@ -167,117 +169,69 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!------------------------ Begin Page Content --------------------------->
-                <div class="container-fluid">
-                    <div class="row justify-content-center font-weight-bold">
-                        <h1 class="ml-3" style="font-size: 5rem;">About</h1>
+                    <div class="text-center">
+                        <h1 class="display-3">Thank You for your payment!</h1>
+                        <br>
+                        <h2 class="lead"><strong>Email with your payment details was sent to your email.</strong></h2>
+                        <br>
+                        <hr>
+                        <p>continue shopping with our vast variety of devices</p>
+                        
+                        <p class="lead">
+                            <a class="btn btn-primary btn-sm" href="/dashboard" role="button">Go back to dashboard</a>
+                        </p>
                     </div>
 
-                    <div class="row justify-content-center mt-5">
-                        <h2><u>HQ office address</u></h2>
-                    </div>
-                    <div class="row justify-content-center">
-                        <h4>Karmiel, Ort Braude College</h4>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div id="map"></div>
-                    </div>
-                    <div class="row mt-5 justify-content-center">
-                        <h2><u>E-mail</u></h2>
-                    </div>
-                    <div class="row justify-content-center">
-                        <a href="mailto:csportbraude@hotmail.com"
-                            style="font-size: 1.5rem;">csportbraude@hotmail.com</a>
-                    </div>
-                    <div class="row justify-content-center mt-5">
-                        <h2><u>Website</u></h2>
-                    </div>
-                    <div class="row justify-content-center">
-                        <a href="https://www.google.com" style="font-size: 1.5rem;">www.google.com</a>
-                    </div>
-                    <div class="row mt-5 ml-5 justify-content-center">
-                        <div class="col-12 col-md-2 col-lg-2">
-                            <button class="button" onclick="windowlocation.href = 'https://www.facebook.com';"
-                                data-hover="Facebook">
-                                <div><i class="fab fa-facebook" style="font-size: 3rem;"></i></div>
-                            </button>
-
-                        </div>
-                        <div class="col-12 col-md-2 col-lg-2">
-                            <button class="button" onclick="window.location.href = 'https://www.twitter.com';"
-                                data-hover="Twitter">
-                                <div><i class="fab fa-twitter" style="font-size: 3rem;"></i></div>
-                            </button>
-                        </div>
-                        <div class="col-12 col-md-2 col-lg-2">
-                            <button class="button" onclick="window.location.href = 'https://www.facebook.com';"
-                                data-hover="Telegram">
-                                <div><i class="fa fa-telegram" style="font-size: 3rem;"></i></div>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="container-fluid col-sm-1">
-                        <div class="row mb-2 justify-content-center">
-                            <button onclick=" window.open('/public/files/privacy.pdf'); return true;" type="button"
-                                class="btn btn-primary btn-block">
-                                privacy policy
-                            </button>
-
-                        </div>
-                        <div class="row mb-4 justify-content-center">
-                            <button onclick=" window.open('/public/files/terms-of-use.pdf'); return true;" type="button"
-                                class="btn btn-block btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-                                Terms of use
-                            </button>
+                    <!-- Logout Modal-->
+                    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <form action="/logout" method="POST">
+                                    <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- .container-fluid -->
-
             </div>
-            <!-------------------------------- End of Main Content ------------------------->
-            <!-- End of Content Wrapper -->
-
         </div>
-        <!-- End of Page Wrapper -->
+    </div>
+    </div>
+    
+
 
         <!-- Logout Modal-->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <form action="/logout" method="POST">
-                            <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
-                        </form>
-                    </div>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="/logout" method="POST">
+                        <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
+                    </form>
                 </div>
             </div>
-        </div>
+    </div>
 
-        <script>
-            // Initialize and add the map
-            function initMap() {
-                // The location of Uluru
-                var uluru = { lat: 32.913894, lng: 35.282818 };
-                // The map, centered at Uluru
-                var map = new google.maps.Map(
-                    document.getElementById('map'), { zoom: 15, center: uluru });
-                // The marker, positioned at Uluru
-                var marker = new google.maps.Marker({ position: uluru, map: map });
-            }
-        </script>
-        <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB94xIXApRugxl7okJ-z0OYPEdpv3MyHGQ&callback=initMap">
-            </script>
+
+
 </body>
-
 </html>

@@ -110,12 +110,19 @@ bottom: 0;
 left: 0;
 
 }
-.form-label-group i {
+.form-label-group i.fa-check-circle {
 visibility: hidden;
 position: absolute;
 top: 20px;
 right: 15px;
 }
+
+.form-label-group i.fa-exclamation-circle {
+  visibility: hidden;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  }
 
 .form-label-group.success i.fa-check-circle {
 color: #2ecc71;
@@ -385,17 +392,27 @@ box-shadow: 0px 25px 10px 20px gray;
   right: 10px;
   bottom: 10%;
   left: 10px;
-  content: "";
-  background-color: rgba(255, 255, 255, .1);
   border-radius: 5px;
 }
 
 .product-device-2 {
-  top: -25%;
-  right: auto;
+  position: absolute;
+  top: 25%;
+  right: 75%;
+  bottom: 25%;
   bottom: 0;
-  left: 5%;
+  width: 300px;
+  height: 540;
   background-color: #e5e5e5;
+}
+
+.product-device-2::before {
+  position: absolute;
+  top: 10%;
+  right: 10px;
+  bottom: 10%;
+  left: 10px;
+  border-radius: 5px;
 }
 
 
@@ -844,7 +861,7 @@ cursor: pointer;
 }
 
 .buy-pc-box{
-background-color: #343a407a;
+background-color: rgba(52, 58, 64, 0.30);
 }
 
 /*--------------------------------------------------------------------- end dashboard style -----------------------------------------------------------------*/
@@ -910,4 +927,133 @@ border-color: grey !important;
 #map {
 height: 400px;  /* The height is 400 pixels */
 width: 50%;  /* The width is the width of the web page */
+}
+
+
+
+
+
+
+.hover01 figure img {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.hover01 figure:hover img {
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}
+
+
+
+
+input[type="radio"]{
+  visibility: hidden;
+}
+
+
+
+
+.frame {
+  overflow-y: auto;
+  border: 0px solid grey;
+  height: 3em;
+  width: 10em;
+  line-height: 1em;
+  border-radius: 5px;
+}
+
+.frame::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.frame::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+
+.frame::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+
+.frame::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white; /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, .5);
+}
+
+
+/*    spinner    */
+
+body {
+  margin: 0;
+  padding: 0;
+  width:100vw;
+  height: 100vh;
+  background-color: #eee;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height:100%;
+}
+.loader-wrapper {
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255,255,255,0.5);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid grey;
+  animation: loader 2s infinite ease;
+}
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: grey;
+  animation: loader-inner 2s infinite ease-in;
+}
+@keyframes loader {
+  0% { transform: rotate(0deg);}
+  25% { transform: rotate(180deg);}
+  50% { transform: rotate(180deg);}
+  75% { transform: rotate(360deg);}
+  100% { transform: rotate(360deg);}
+}
+@keyframes loader-inner {
+  0% { height: 0%;}
+  25% { height: 0%;}
+  50% { height: 100%;}
+  75% { height: 100%;}
+  100% { height: 0%;}
+}
+
+.profileField {
+  -webkit-appearance: textfield;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  padding: 1px;
+  border-width: 2px;
+  border-style: inset; /* This rule adds the inset border */
+  border-color: initial;
+  border-image: initial;
+  border-radius: 10px;
+  width: auto;
+  height: 40px;
+  padding-left: 10px;
 }

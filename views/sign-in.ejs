@@ -34,7 +34,7 @@
                             <div class="col-md-8 col-lg-6 mx-auto">
                                 <h1 class="mx-auto sign-in-up-heading mb-5 col-6">Sign in</h1>
                                 <!----------------------- Start Form --------------------->
-                                <form id='verify-form' method="POST">
+                                <form id='verify-form' method="POST" onsubmit="return checkCaptcha(event)">
                                     <div class="form-label-group">
                                         <!-- <input id="inputEmail" name="email" class="form-control"
                                             placeholder="Email address" value="<//%= typeof email != 'undefined' ? email : '' %>" required autofocus> -->
@@ -51,15 +51,16 @@
                                             placeholder="Password" value="majd" required>
                                         <label for="inputPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
                                             Password</label>
+                                            <div class="text-left">
+                                                <a class="small" href="/reset-password">Forgot password?</a>
+                                            </div>
                                     </div>
                                     <% if (typeof error != 'undefined') { %>
                                         <div class="invalid-feedback"><%= error %></div>
                                       <% } %>
                                     <div class="g-recaptcha" data-sitekey="6LfsdP0UAAAAAOrqd6tg9l9ve3Q-OsoRvb_hDxrb">
-                                        <% if (typeof err != 'undefined') { %>
-                                            <div class="invalid-feedback"><%= err %></div>
-                                          <% } %>
                                     </div>
+
 
                                     <div class="custom-control custom-switch mb-3">
                                         <input type="radio" class="custom-control-input" id="customCheck1"
@@ -75,13 +76,11 @@
                                         <!-- <div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div> -->
                                         <a href="/auth/facebook">Login with Facebook</a>
                                         </div>
-                                    <div class="text-center">
-                                        <a class="small" href="/forgot-password">Forgot password?</a>
-                                    </div>
+
                                 </form>
                                 <!----------------------- End Form --------------------->
-                                <p class="d-flex justify-content-center">Don't have an account yet?<a href="/sign-up"
-                                        class="card-link"> Sign up</a></p>
+                                <p class="d-flex justify-content-center h5 mt-2 row">Don't have an account yet?<a href="/sign-up"
+                                        class="card-link ml-2">Sign up</a></p>
                             </div>
                         </div>
                     </div>
@@ -97,6 +96,22 @@
             console.log("particles.js loaded...");
         })
     </script>
+
+    <script>
+function checkCaptcha(e){
+    if(grecaptcha && grecaptcha.getResponse().length > 0)
+    {
+        return true;
+    }
+    else
+    {
+        e.preventDefault();
+        alert('Oops, you have to check the recaptcha !');
+        return false;
+    }
+}
+    </script>
+
 
 
 <!-- <script>

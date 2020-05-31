@@ -81,5 +81,64 @@
       "description": "The most advanced phone",
       "src":"./public/css/images/iphonexr.jpg",
       "models": []
+    },
+    {
+      "id": "Samsung S10",
+      "type": "Cell Phone",
+      "in_stock": "true",
+      "description": "The first in it's class",
+      "src":"./public/css/images/s10.jpg",
+      "models": [
+        {
+          "id": "1",
+          "type": "256 GB",
+          "text": "life time warranty",
+          "price": "600$"
+        },
+        {
+          "id": "2",
+          "type": "512 GB",
+          "text": "life time warranty",
+          "price": "850$"
+        },
+        {
+          "id": "2",
+          "type": "512 GB",
+          "text": "life time warranty",
+          "price": "850$"
+        },
+        {
+          "id": "2",
+          "type": "512 GB",
+          "text": "life time warranty",
+          "price": "850$"
+        },
+        {
+          "id": "2",
+          "type": "512 GB",
+          "text": "life time warranty",
+          "price": "850$"
+        },
+        {
+          "id": "2",
+          "type": "512 GB",
+          "text": "life time warranty",
+          "price": "850$"
+        },
+        {
+          "id": "2",
+          "type": "512 GB",
+          "text": "life time warranty",
+          "price": "850$"
+        }
+      ]
+    },
+    {
+      "id": "Huwawei P10",
+      "type": "Cell Phone",
+      "in_stock": "false",
+      "description": "The most advanced phone",
+      "src":"./public/css/images/iphonexr.jpg",
+      "models": []
     }
 ]

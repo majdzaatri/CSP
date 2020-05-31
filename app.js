@@ -127,6 +127,7 @@ passport.serializeUser(function(user, done) {
 
 //    sign-in      //
 app.get('/sign-in', function (req, res) {
+    console.log(req.session.error)
     if(req.cookies.RememberMe != null){
         AM.automaticLogin(req.cookies.RememberMe[0],req.cookies.RememberMe[1], function(result,user){
             if(result==200)   {
@@ -136,13 +137,13 @@ app.get('/sign-in', function (req, res) {
             else{
                 res.clearCookie('RememberMe')
                 // res.sendFile(__dirname + '/views/sign-in.html');
-                res.render('sign-in');
+                res.render('sign-in', {err : req.session.error});
             }
 
         })
     }else{
         // res.sendFile(__dirname + '/views/sign-in.html');
-        res.render('sign-in');
+        res.render('sign-in', {err : req.session.error});
     }
 
 });
@@ -157,7 +158,7 @@ app.post('/sign-in', function (req, res) {
     Request(recaptcha_url, function(error, resp, body) {
         body = JSON.parse(body);
         if(body.success !== undefined && !body.success) {
-            return res.send({ "message": "Captcha validation failed" });
+            res.redirect('/sign-in');
         }
     });
 
@@ -190,7 +191,7 @@ app.post('/sign-in', function (req, res) {
 //    sign-up      //
 
 app.get('/sign-up', redirectHome, function (req, res) {
-    res.sendFile(__dirname + '/views/sign-up.html');
+    res.render('sign-up');
 });
 
 app.get('/thank-you', function (req, res) {
@@ -361,7 +362,13 @@ app.post('/buy-cell-phone', function(req,res){
 })
 
 app.get('/payment-success', function (req, res) {
-    res.sendFile(__dirname + '/views/payment-success.html');
+    var string = JSON.stringify(req.session.user);
+    var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    AM.fetchPurchasesData(function(result){
+        purchaseJson = JSON.parse(JSON.stringify(result))
+        res.render('payment-success', {user : userName, phones : phonesData, purchases : purchaseJson});    
+    })
 });
 
 
@@ -419,6 +426,17 @@ app.get('/about', redirectLogin, function (req, res) {
 });
 
 
+app.get('/buy-pc', redirectLogin, function(req, res){
+    var string = JSON.stringify(req.session.user);
+    var userJson = JSON.parse(string);
+    let userName = userJson.FirstName + " " + userJson.LastName;
+    AM.fetchPurchasesData(function(result){
+        purchaseJson = JSON.parse(JSON.stringify(result))
+        res.render('coming-soon', {user : userName, phones : phonesData, purchases : purchaseJson});    
+    })
+});
+
+
 
 
 
@@ -426,7 +444,7 @@ app.get('/about', redirectLogin, function (req, res) {
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 8050, () => {
+app.listen(process.env.PORT || 8090, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
