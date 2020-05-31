@@ -411,6 +411,7 @@ app.post('/profileInfo', function (req, res) {
                 res.redirect(301, '/profile');
                 emailToConfirm = req.session.user.Email
                 EV.dataUpdateConfirmation(emailToConfirm, req.session.user.ID)
+                
             }
         });
     }
@@ -429,6 +430,10 @@ app.post('/profileInfo', function (req, res) {
                 EV.emailUpdateActivation(email, ID)
             }
         })
+    }
+    else{
+        res.redirect('/profile');
+
     }
 });
 
