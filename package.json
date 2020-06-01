@@ -29,8 +29,7 @@
   "main": "account_manager.js",
   "devDependencies": {},
   "scripts": {
-    "start": "node app.js",
-    "build": "npm run build"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
