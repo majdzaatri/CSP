@@ -73,7 +73,7 @@ exports.addNewAccount = function (newUser, callback) {
     });
 }
 
-exports.emailExist = function(email, callback){
+exports.emailExist = function (email, callback) {
     let query = "SELECT COUNT(*) AS cnt FROM users WHERE email = ?";
     connection.query(query, email, function (err, data) {
         if (err) {
@@ -81,6 +81,9 @@ exports.emailExist = function(email, callback){
         } else {
             if (data[0].cnt > 0) {
                 callback(200); //TODO: Check if it's OK
+            }
+            else{
+                callback(300)
             }
         }
     });
@@ -128,41 +131,41 @@ exports.addPurchase = function (phoneDetails, user, callback) {
         res.on('data', (chunk) => { rawData += chunk; });
         res.on('end', () => {
 
-          try {
-            const parsedData = JSON.parse(rawData);
-            const ilsRate = parsedData.rates.ILS;
-            const priceInFloat = parseFloat(price.replace('$',''));
-            console.log(priceInFloat);
-            const priceInIls = priceInFloat*ilsRate;
-            data = [
-                phones[phone].id,
-                phones[phone].models[model].type,
-                user.Email,
-                price,
-                (priceInIls.toFixed(2)) + " ILS",
-                (priceInIls+(priceInIls*0.17)).toFixed(2) + " ILS",
-                phoneDetails.cardNum,
-                phoneDetails.cardName,
-                phoneDetails.exp,
-                phoneDetails.cvv,
-                phoneDetails.cardMemo
-            ]
+            try {
+                const parsedData = JSON.parse(rawData);
+                const ilsRate = parsedData.rates.ILS;
+                const priceInFloat = parseFloat(price.replace('$', ''));
+                console.log(priceInFloat);
+                const priceInIls = priceInFloat * ilsRate;
+                data = [
+                    phones[phone].id,
+                    phones[phone].models[model].type,
+                    user.Email,
+                    price,
+                    (priceInIls.toFixed(2)) + " ILS",
+                    (priceInIls + (priceInIls * 0.17)).toFixed(2) + " ILS",
+                    phoneDetails.cardNum,
+                    phoneDetails.cardName,
+                    phoneDetails.exp,
+                    phoneDetails.cvv,
+                    phoneDetails.cardMemo
+                ]
 
 
-            let query = "INSERT INTO `transactions` SET Product = ?, Model = ?, Date = NOW(), User = ?, Price = ?, LocalPrice = ?, TotalPriceIncludingVAT = ?, Number = ?, Name = ?, ExperationDate = ?, CVV = ?, Memo = ?";
-            connection.query(query,data,function(err, res, fields) {
-                if(err){
-                    console.log("Failed to add purchase detail: " + err);
-                    callback(500,null);
-                } else {
-                    EV.sendPurchaseDetails(user, function(response){
-                            callback(response,res);
-                    })
-                }
-            })
-          } catch (e) {
-            console.error(e.message);
-          }
+                let query = "INSERT INTO `transactions` SET Product = ?, Model = ?, Date = NOW(), User = ?, Price = ?, LocalPrice = ?, TotalPriceIncludingVAT = ?, Number = ?, Name = ?, ExperationDate = ?, CVV = ?, Memo = ?";
+                connection.query(query, data, function (err, res, fields) {
+                    if (err) {
+                        console.log("Failed to add purchase detail: " + err);
+                        callback(500, null);
+                    } else {
+                        EV.sendPurchaseDetails(user, function (response) {
+                            callback(response, res);
+                        })
+                    }
+                })
+            } catch (e) {
+                console.error(e.message);
+            }
         });
     })
 }
@@ -327,4 +330,21 @@ exports.checkPromoCode = function (promoCode, callback) {
         }
     });
 
+}
+
+exports.fetchData = function (email, callback) {
+    let query = "SELECT * FROM users WHERE email = ?";
+
+    connection.query(query, email, async function (err, rows) {
+        if (err) {
+            console.log("Failed to fetch data: " + err);
+            //TODO: check what we have to return in the callback if something failed
+        } else {
+            if (rows.length > 0) {
+                let hashPass = rows[0].Password;
+                callback(null, rows[0])
+            }
+        }
+
+});
 }

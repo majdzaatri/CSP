@@ -11,8 +11,6 @@ const phonesData = require(__dirname + "/cell_phone_data.json");
 const cookieParser = require('cookie-parser')
 const fetch = require("node-fetch")
 const { stringify } = require('querystring');
-const passport = require('passport');
-const facebookStrategy = require('passport-facebook').Strategy;
 var Request = require("request");
 const _ = require("lodash");
 
@@ -21,14 +19,19 @@ const _ = require("lodash");
 // redirect the user to login page if he didn't log in // 
 const redirectLogin = (req, res, next) => {
     if (!req.session.user) {
+        console.log(req.session.user)
+        console.log(req.cookies.RememberMe + "cookies")
+
         res.redirect('/sign-in')
     } else {
         next();
     }
 }
 
-const redirectHome  = (req, res, next) =>{
-    if(req.session.user){
+const redirectHome = (req, res, next) => {
+    if (req.session.user) {
+        console.log(req.session.user)
+        console.log(req.cookies + "cookies")
         res.redirect('/dashboard')
     } else {
         next();
@@ -36,7 +39,7 @@ const redirectHome  = (req, res, next) =>{
 }
 
 app.use(bodyParser.json());
-app.use(express.json({ limit: '1mb'}));
+app.use(express.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({
     urlencoded: true
 }));
@@ -44,9 +47,6 @@ app.use(bodyParser.urlencoded({
 app.use('/public', express.static(__dirname + '/public'));
 
 app.use(cookieParser());
-
-
-
 app.use(session({
     key: 'user_sid',
     secret: '1123FfdSSs23335',
@@ -55,9 +55,8 @@ app.use(session({
 }));
 
 app.set('view engine', 'ejs');
-
 app.get('/', function (req, res) {
-    
+
     console.log(req.cookies.Rememeber)
     res.redirect(301, '/sign-in');
 
@@ -65,68 +64,84 @@ app.get('/', function (req, res) {
 
 
 
-// Passport session setup.
-passport.serializeUser(function(user, done) {
-    done(null, user);
-    });
-    
-    passport.deserializeUser(function(obj, done) {
-    done(null, obj);
-    });
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
-    //  Facebook Auth //
-    
-    passport.use(new facebookStrategy({
-        clientID: '2480750618889915',
-        clientSecret: '85c5b1b9a54a6083d0470da00a1b0fe3',
-        callbackURL: "https://cspproject.herokuapp.com/auth/facebook/callback"
-      },
-      function(accessToken, refreshToken, profile, done) {
-                console.log('accessToken:',accessToken);
-                console.log('refreshToken:',refreshToken);
-                console.log('profile:',profile);
-    }))
-    
-    
-    app.get('/auth/facebook', passport.authenticate('facebook'));
-    
-    app.get('/auth/facebook/callback',
-      passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login' }),
-      function(req, res) {
-          console.log("entered here")
-        res.redirect('/');
-      });
-    
-      app.get('/logout', function(req, res){
-        req.logout();
-        res.redirect('/');
-      });
-      
-      
-      function ensureAuthenticated(req, res, next) {
-        if (req.isAuthenticated()) { return next(); }
-        res.redirect('/login')
-      }
-    
+
+// function ensureAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) { return next(); }
+//     res.redirect('/login')
+// }
+
+
+
+var passport = require('passport')
+    , FacebookStrategy = require('passport-facebook').Strategy;
+
+passport.use(new FacebookStrategy({
+    clientID: '978507335946498',
+    clientSecret: '6680fb4eb4e4a3879b51a94e966ac353',
+    callbackURL: "http://localhost:5000/auth/facebook/callback",
+    profileFields : ['id', 'displayName', 'email']
+
+},
+    function (accessToken, refreshToken, profile, done) {
+            var User= { ID: profile.id, Name: profile.displayName, } 
+           console.log(profile) 
+        
+
+    }
+));
+
+// Redirect the user to Facebook for authentication.  When complete,
+// Facebook will redirect the user back to the application at
+//     /auth/facebook/callback
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+// Facebook will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect: '/sign-in',
+        failureRedirect: '/login'
+    }));
+
+app.get('/auth/facebook',   
+    passport.authenticate('facebook', { scope: 'read_stream' })
+);
+
+app.get('/auth/facebook',
+    passport.authenticate('facebook', { scope: ['read_stream', 'publish_actions'] })
+);
+
+
+
+
+
 //    sign-in      //
-app.get('/sign-in', function (req, res) {
-    console.log(req.session.error)
-    if(req.cookies.RememberMe != null){
-        AM.automaticLogin(req.cookies.RememberMe[0],req.cookies.RememberMe[1], function(result,user){
-            if(result==200)   {
-            req.session.user = user;
-            res.redirect(301, '/dashboard');
+app.get('/sign-in', redirectHome, function (req, res) {
+    if (req.cookies.RememberMe != null) {
+        AM.automaticLogin(req.cookies.RememberMe[0], req.cookies.RememberMe[1], function (result, user) {
+
+            if (result == 200) {
+                req.session.user = purchaseJson = JSON.parse(JSON.stringify(user[0]))
+                console.log(req.session.user)
+                res.redirect(301, '/dashboard');
             }
-            else{
+            else {
                 res.clearCookie('RememberMe')
                 // res.sendFile(__dirname + '/views/sign-in.html');
-                res.render('sign-in', {err : req.session.error});
+                res.render('sign-in', { err: req.session.error });
             }
 
         })
-    }else{
+    } else {
         // res.sendFile(__dirname + '/views/sign-in.html');
-        res.render('sign-in', {err : req.session.error});
+        res.render('sign-in', { err: req.session.error });
     }
 
 });
@@ -138,9 +153,9 @@ app.post('/sign-in', function (req, res) {
     recaptcha_url += "secret=" + secretKey + "&";
     recaptcha_url += "response=" + req.body["g-recaptcha-response"] + "&";
     recaptcha_url += "remoteip=" + req.connection.remoteAddress;
-    Request(recaptcha_url, function(error, resp, body) {
+    Request(recaptcha_url, function (error, resp, body) {
         body = JSON.parse(body);
-        if(body.success !== undefined && !body.success) {
+        if (body.success !== undefined && !body.success) {
             res.redirect('/sign-in');
         }
     });
@@ -156,9 +171,9 @@ app.post('/sign-in', function (req, res) {
                 req.session.user = result;
                 if (req.session.user.active == 1) {
                     /*checks if the user checked remember me*/
-                    if(req.body.checkbox){
+                    if (req.body.checkbox) {
                         console.log(req.body.checkbox);
-                    res.cookie('RememberMe', [req.session.user.Email,req.session.user.Password])
+                        res.cookie('RememberMe', [req.session.user.Email, req.session.user.Password])
                     }
                     res.redirect(301, '/dashboard');
                 } else {
@@ -234,7 +249,7 @@ app.post('/change-password', function (req, res) {
 
     var oldPassword = req.body.oldPassword;
     var newPassword = req.body.newPassword;
-
+    var passwordchanged = [];
     var currentPass = (req.session.user.Password)
 
     AM.checkPassword(oldPassword, currentPass, function (resultCheckManager, err) {
@@ -244,20 +259,24 @@ app.post('/change-password', function (req, res) {
         else {
             AM.updatePassword(newPassword, req.session.user.ID, function (result) {
                 if (result == 200) {
-                    emailToConfirm=req.session.user.Email
+                    emailToConfirm = req.session.user.Email
                     EV.PasswordUpdateConfirmation(emailToConfirm)
-                    if(req.cookies.RememberMe != null){
-                    res.clearCookie('RememberMe')
-                    return res.redirect('/profile')
-                    }else{
-                        return res.redirect('/profile')
-                    }
-                }
-                else{
-                    return res.redirect('/profile')
+                    if (req.cookies.RememberMe != null)
+                        res.clearCookie('RememberMe')
+                    passwordchanged.push('Password has been changed successfuly');
                 }
             })
-           
+
+            AM.fetchPurchasesData(function (result) {
+                purchaseJson = JSON.parse(JSON.stringify(result))
+                AM.fetchData(req.session.user.Email, function (err, result) {
+                    userData = JSON.parse(JSON.stringify(result))
+                    return res.render('profile', { user: userData, phones: phonesData, purchases: purchaseJson, passwordchanged });
+                })
+
+            })
+
+
 
         }
     })
@@ -275,7 +294,7 @@ app.get('/email-confirmation/:token', async (req, res) => {
         res.send('error');
     }
 
-   
+
 });
 
 app.get('/confirmation/:token', async (req, res) => {
@@ -295,46 +314,36 @@ app.get('/dashboard', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function(result){
+    AM.fetchPurchasesData(function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
-        res.render('dashboard', {user : userName, phones : phonesData, purchases : purchaseJson});    
-    })
-    // let userName = userJson.FirstName + " " + userJson.LastName;
-    // res.render('dashboard', {user : userName, phones : phonesData});
-    // if(userJson[0]){
-    //  var userName = userJson[0].FirstName + " " + userJson[0].LastName;
-    //  req.session.user=userJson[0];
-    // }
-    // else {
-    //     var userName = userJson.FirstName + " " + userJson.LastName;
-    // }
-    // res.render('dashboard', { user: userName, phones : phonesData, purchases : purchaseJson });
+        res.render('dashboard', { user: userName, phones: phonesData, purchases: purchaseJson });
+    });
 });
 
 
- 
+
 //---------------------- buy cell phone -------------------------
 
 app.get('/buy-cell-phone', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function(result){
+    AM.fetchPurchasesData(function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
-        res.render('buyphone', {user : userName, phones : phonesData, purchases : purchaseJson});    
+        res.render('buyphone', { user: userName, phones: phonesData, purchases: purchaseJson });
     })
 });
 
 
-app.post('/buy-cell-phone', function(req,res){
+app.post('/buy-cell-phone', function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.addPurchase(req.body,req.session.user,function(status,result){
-        if(status === 500){
-            res.redirect(301,'/buy-cell-phone');
+    AM.addPurchase(req.body, req.session.user, function (status, result) {
+        if (status === 500) {
+            res.redirect(301, '/buy-cell-phone');
         } else {
-            res.redirect(301,'/payment-success');
+            res.redirect(301, '/payment-success');
         }
     });
 })
@@ -343,9 +352,9 @@ app.get('/payment-success', function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function(result){
+    AM.fetchPurchasesData(function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
-        res.render('payment-success', {user : userName, phones : phonesData, purchases : purchaseJson});    
+        res.render('payment-success', { user: userName, phones: phonesData, purchases: purchaseJson });
     })
 });
 
@@ -353,12 +362,18 @@ app.get('/payment-success', function (req, res) {
 
 //---------------------- profile -------------------------
 app.get('/profile', redirectLogin, function (req, res) {
+
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function(result){
+    AM.fetchPurchasesData(function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
-        res.render('profile', {user : userJson, phones : phonesData, purchases : purchaseJson});    
+
+        AM.fetchData(req.session.user.Email, function (err, result) {
+            userData = JSON.parse(JSON.stringify(result))
+            res.render('profile', { user: userData, phones: phonesData, purchases: purchaseJson });
+        })
+
     })
     // res.render('profile', { user: userJson, phones: phonesData });
 });
@@ -428,14 +443,17 @@ app.post('/profileInfo', function (req, res) {
         req.session.user.ID
     ];
 
-
+    var messages = []
 
     if (!_.isEqual(UserInfo, newUserInfo)) {
         AM.updateUserInfo(newUserInfo, function (err, result) {
             if (result) {
-                req.session.user = result;
+                var string = JSON.stringify(result);
+                var userJson = JSON.parse(string);
                 emailToConfirm = req.session.user.Email
                 EV.dataUpdateConfirmation(emailToConfirm, req.session.user.ID)
+                console.log('changing your data!')
+                messages.push('your data has been updated successfuly');
             }
         });
     }
@@ -447,17 +465,27 @@ app.post('/profileInfo', function (req, res) {
             if (result === 200) {
                 var string = JSON.stringify(req.session.user);
                 var userJson = JSON.parse(string);
-                res.render('profile', { user: userJson, phones: phonesData, error: 'The Email you entered is already exist' });
+                messages.push('the email you entered is already exist')
             }
-            else {
-                console.log('changing email!!')
+            if (result === 300) {
                 EV.emailUpdateActivation(email, ID)
+                messages.push('Please confirm your new email by clicking on the link that we are sending to you these moments')
             }
         })
     }
-    else{
-        res.redirect('/profile');
-    }
+
+
+
+    AM.fetchPurchasesData(function (result) {
+        purchaseJson = JSON.parse(JSON.stringify(result))
+
+        AM.fetchData(req.session.user.Email, function (err, result) {
+            userData = JSON.parse(JSON.stringify(result))
+            return res.render('profile', { user: userData, phones: phonesData, purchases: purchaseJson, messages });
+        })
+
+    })
+
 });
 app.get('/forgot-password', function (req, res) {
     res.sendFile(__dirname + "/views/forgot-password.html")
@@ -484,36 +512,38 @@ app.get('/about', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function(result){
+    AM.fetchPurchasesData(function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
-        res.render('about', {user : userName, phones : phonesData, purchases : purchaseJson});    
+        res.render('about', { user: userName, phones: phonesData, purchases: purchaseJson });
     })
 });
 
 
-app.get('/buy-pc', redirectLogin, function(req, res){
+app.get('/buy-pc', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function(result){
+    AM.fetchPurchasesData(function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
-        res.render('coming-soon', {user : userName, phones : phonesData, purchases : purchaseJson});    
+        res.render('coming-soon', { user: userName, phones: phonesData, purchases: purchaseJson });
     })
 });
 
 
 app.get('*', function (req, res) {
-    res.sendfile(__dirname+'/views/404.html')
+    res.sendfile(__dirname + '/views/404.html')
 });
 
 
 
 
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 3040, () => {
+
+app.listen(process.env.PORT || 5000, () => {
+
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
