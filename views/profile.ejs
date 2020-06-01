@@ -174,7 +174,7 @@
                     <div class="row">
                         <h1 class="ml-3">Profile details</h1>
                     </div>
-                    <form  action="/profileInfo" method="POST" class="needs-validation">
+                    <form action="/profileInfo" method="POST" class="needs-validation">
                         <div class="row ml-5 mt-5">
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
@@ -182,7 +182,8 @@
                                     <h5>First name</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="firstname" class="profileField" value=<%= user.FirstName %>>
+                                    <input type="text" name="firstname" class="profileField"
+                                        value=<%= user.FirstName %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -200,7 +201,8 @@
                                     <h5>Phone number</h5>
                                 </div>
                                 <div class="row form-group">
-                                    <input type="text" name="phonenumber" class="profileField" value=<%= user.PhoneNumber %>>
+                                    <input type="text" name="phonenumber" class="profileField"
+                                        value=<%= user.PhoneNumber %>>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -223,8 +225,8 @@
                                     <input type="text" name="email" class="profileField" value=<%= user.Email %>></a>
                                 </div>
                                 <% if (typeof error != 'undefined') { %>
-                                    <div><%= error %></div>
-                                  <% } %>
+                                <div><%= error %></div>
+                                <% } %>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="row form-group">
@@ -261,151 +263,158 @@
                             </div>
                         </div>
                     </form>
-                    <!--------------------End Profile details ----------------------->
-                    <hr>
+                </div>
+                
+                <% for(var j=0; j < (typeof messages != 'undefined' ? messages.length : 0); j++) { %>
+                <div> <%= messages[j] %> </div>
+                <% } %>
+                <!--------------------End Profile details ----------------------->
+                <hr>
 
-                    <div class="row ">
-                        <!-------------------- Profile details ----------------------->
-                        <div class="col">
-                          
-                            <div class="row justify-content-center">
-                                <h1 class="ml-3">Change password</h1>
-                            </div><div id="validation">
-                                
+                <div class="row ">
+                    <!-------------------- Profile details ----------------------->
+                    <div class="col">
+
+                        <div class="row justify-content-center">
+                            <h1 class="ml-3">Change password</h1>
+                        </div>
+                        <div id="validation">
+
                             <passlength>Password's length must be 6 at least </passlength><br>
-                             <passmatch>Password must match </passmatch><br>
+                            <passmatch>Password must match </passmatch><br>
                             <passnum>Password must contain at least one number</passnum>
                         </div>
-                            <div class="row justify-content-center">
-                                <form class="ml-5" action="/change-password" method="POST">
-                                    <div class="form-label-group mt-5">
-                                        <input type="password" id="oldPassword" name="oldPassword" class="form-control"
-                                            placeholder="Old password" required>
-                                        <label for="oldPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
-                                            Old password</label>
-                                            
-                                    </div>
-                                    <div class="form-row mt-4">
-                                        <div class="form-label-group col-md-6 col-sm">
-                                            <input type="password" id="newPassword" name="newPassword"
-                                                class="form-control" placeholder="New password" required>
-                                            <label for="newPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
-                                                New password</label>
-                                               
-                                        </div>
-                                        <div class="form-label-group col-md-6 col-sm">
-                                            <input type="password" id="confirmPass" name="confirmPass"
-                                                class="form-control" placeholder="Old password" required>
-                                            <label for="confirmPass"><i class="fas fa-lock"
-                                                    style="font-size: 20px;"></i> Confirm password</label>
-                                                    
-                                        </div>
+                        <div class="row justify-content-center">
+                            <form class="ml-5" action="/change-password" method="POST">
+                                <div class="form-label-group mt-5">
+                                    <input type="password" id="oldPassword" name="oldPassword" class="form-control"
+                                        placeholder="Old password" required>
+                                    <label for="oldPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
+                                        Old password</label>
 
-                                    </div>
-                                    <div class="row mt-3 justify-content-center">
-                                        <button 
-                                            class="btn btn-primary btn-block text-uppercase font-weight-bold sign-in-up-btn col-8"
-                                            type="submit" id="changeBtn" style="height: 4rem;">Change password</button>
-                                    </div>
-                                    <div class="row mt-3 justify-content-center"></div>
-                                    
-                                    
                                 </div>
-                                </form>
-                                
-                            </div>
+                                <div class="form-row mt-4">
+                                    <div class="form-label-group col-md-6 col-sm">
+                                        <input type="password" id="newPassword" name="newPassword" class="form-control"
+                                            placeholder="New password" required>
+                                        <label for="newPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
+                                            New password</label>
+
+                                    </div>
+                                    <div class="form-label-group col-md-6 col-sm">
+                                        <input type="password" id="confirmPass" name="confirmPass" class="form-control"
+                                            placeholder="Old password" required>
+                                        <label for="confirmPass"><i class="fas fa-lock" style="font-size: 20px;"></i>
+                                            Confirm password</label>
+                                    </div>
+
+
+                                    <% if (typeof passwordchanged != 'undefined') { %>
+                                    <div><%= passwordchanged %></div>
+                                    <% } %>
+
+                                </div>
+                                <div class="row mt-3 justify-content-center">
+                                    <button
+                                        class="btn btn-primary btn-block text-uppercase font-weight-bold sign-in-up-btn col-8"
+                                        type="submit" id="changeBtn" style="height: 4rem;">Change password</button>
+                                </div>
+                                <div class="row mt-3 justify-content-center"></div>
+
+
                         </div>
-
-                    </div>
-
-
-
-                </div>
-                <!-- .container-fluid -->
-
-            </div>
-            <!-------------------------------- End of Main Content ------------------------->
-            <!-- End of Content Wrapper -->
-
-        </div>
-        <!-- End of Page Wrapper -->
-
-
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <form action="/logout" method="POST">
-                            <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
                         </form>
+
                     </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <!-- .container-fluid -->
+
+    </div>
+    <!-------------------------------- End of Main Content ------------------------->
+    <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="/logout" method="POST">
+                        <button type="submit" class="btn btn-primary" href="login.html">Logout</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <script src="/public/javascript/profileValidation.js"></script>
- 
-<script>
-    function validateInput(){
-    const firstname = document.getElementsByName('firstname');
-    const lastname = document.getElementsByName('lastname');
-    const phonenumber = document.getElementsByName('phonenumber');
-    const country = document.getElementsByName('country');
-    const email = document.getElementsByName('email');
-    const City = document.getElementsByName('City');
-    const Street = document.getElementsByName('Street');
-    const Zipcode = document.getElementsByName('Zipcode');
+    </div>
+    <script src="/public/javascript/profileValidation.js"></script>
 
-    console.log(firstname[0].value)
-    if(firstname[0].value){
-        jQuery(firstname).attr('required', '');  
-    }
-    if(lastname[0].value){
-        jQuery(lastname).attr('required', '');  
-    }
-    if(phonenumber[0].value){
-        jQuery(phonenumber).attr('required', '');  
-    }
-    if(country[0].value){
-        jQuery(country).attr('required', '');  
-    }
-    if(email[0].value){
-        jQuery(email).attr('required', '');  
-    }
-    if(City[0].value){
-        jQuery(City).attr('required', '');  
-    }
-    if(Street[0].value){
-        jQuery(Street).attr('required', '');  
-    }
-    if(Zipcode[0].value){
-        jQuery(Zipcode).attr('required', '');  
-    }
+    <script>
+        function validateInput() {
+            const firstname = document.getElementsByName('firstname');
+            const lastname = document.getElementsByName('lastname');
+            const phonenumber = document.getElementsByName('phonenumber');
+            const country = document.getElementsByName('country');
+            const email = document.getElementsByName('email');
+            const City = document.getElementsByName('City');
+            const Street = document.getElementsByName('Street');
+            const Zipcode = document.getElementsByName('Zipcode');
 
-    const formlabelgroup = document.getElementById('validation').parentElement;
-    const passlength = formlabelgroup.querySelector('passlength').style.display = "none";
-    const passnum= formlabelgroup.querySelector('passnum').style.display = "none";
-    const passmatch = formlabelgroup.querySelector('passmatch').style.display = "none";
+            console.log(firstname[0].value)
+            if (firstname[0].value) {
+                jQuery(firstname).attr('required', '');
+            }
+            if (lastname[0].value) {
+                jQuery(lastname).attr('required', '');
+            }
+            if (phonenumber[0].value) {
+                jQuery(phonenumber).attr('required', '');
+            }
+            if (country[0].value) {
+                jQuery(country).attr('required', '');
+            }
+            if (email[0].value) {
+                jQuery(email).attr('required', '');
+            }
+            if (City[0].value) {
+                jQuery(City).attr('required', '');
+            }
+            if (Street[0].value) {
+                jQuery(Street).attr('required', '');
+            }
+            if (Zipcode[0].value) {
+                jQuery(Zipcode).attr('required', '');
+            }
 
-}
+            const formlabelgroup = document.getElementById('validation').parentElement;
+            const passlength = formlabelgroup.querySelector('passlength').style.display = "none";
+            const passnum = formlabelgroup.querySelector('passnum').style.display = "none";
+            const passmatch = formlabelgroup.querySelector('passmatch').style.display = "none";
+
+        }
 
 
 
-</script>
+    </script>
 
-    </body>
+</body>
 
 </html>
-
-
-

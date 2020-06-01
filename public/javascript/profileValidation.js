@@ -6,13 +6,15 @@ const formlabelgroup = document.getElementById('validation').parentElement;
 
 
 submit.addEventListener('click' , (e) => {
-  e.preventDefault();
-  checkInput();      
+   if(!checkInput()){
+      e.preventDefault();  
+   } 
 })
 
 
 function checkInput()
 {
+   var valid = 1;
    const passlength = formlabelgroup.querySelector('passlength').style.display = "block";
    const passnum= formlabelgroup.querySelector('passnum').style.display = "block";
    const passmatch = formlabelgroup.querySelector('passmatch').style.display = "block";
@@ -21,6 +23,7 @@ function checkInput()
          if(passwordlength.test(password.value)==0)
          {
             const passlength = formlabelgroup.querySelector('passlength').style.color='red';
+            valid=0;
          }
          else{
             const passlength = formlabelgroup.querySelector('passlength').style.color='green';
@@ -28,6 +31,7 @@ function checkInput()
          if(passwordregx.test(password.value)==0)
          {
             const passnum= formlabelgroup.querySelector('passnum').style.color='red';
+            valid=0;
          }
          else{
             const passnum= formlabelgroup.querySelector('passnum').style.color='green';
@@ -35,8 +39,11 @@ function checkInput()
         if(confirmPass.value!==password.value)
          {
             const passmatch = formlabelgroup.querySelector('passmatch').style.color='red';
+            valid=0;
          }
          else{
             const passmatch = formlabelgroup.querySelector('passmatch').style.color='green';
         }
+
+        return valid;
 }
