@@ -65,9 +65,6 @@ app.get('/', function (req, res) {
 
 
 
-
-
-
 // Passport session setup.
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -76,12 +73,7 @@ passport.serializeUser(function(user, done) {
     passport.deserializeUser(function(obj, done) {
     done(null, obj);
     });
-    
-    
-    
-    
-    
-    
+
     //  Facebook Auth //
     
     passport.use(new facebookStrategy({
@@ -116,16 +108,6 @@ passport.serializeUser(function(user, done) {
         res.redirect('/login')
       }
     
-    
-
-
-
-
-
-
-
-
-
 //    sign-in      //
 app.get('/sign-in', function (req, res) {
     console.log(req.session.error)
@@ -531,7 +513,7 @@ app.get('*', function (req, res) {
 const port = process.env.PORT || 8000;
 const host = "localhost";
 
-app.listen(process.env.PORT || 3090, () => {
+app.listen(process.env.PORT || 3040, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
