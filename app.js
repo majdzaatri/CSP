@@ -535,7 +535,9 @@ app.get('*', function (req, res) {
 });
 
 
-
+app.get('/.well-known/pki-validation/8F7BBC9A0E320E84FC8B107F547CBBBA.txt', function(res, req){
+    res.sendfile(__dirname + '/.well-known/pki-validation/8F7BBC9A0E320E84FC8B107F547CBBBA.txt');
+})
 
 
 const port = process.env.PORT || 5000;
