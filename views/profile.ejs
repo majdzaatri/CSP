@@ -175,91 +175,106 @@
                         <h1 class="ml-3">Profile details</h1>
                     </div>
                     <form action="/profileInfo" method="POST" class="needs-validation">
-                        <div class="row ml-5 mt-5">
-                            <div class="col-sm-6 col-md-3">
-                                <div class="row form-group">
-                                    <i class="fa fa-address-card-o mr-3" style="font-size: 20px;"></i>
-                                    <h5>First name</h5>
-                                </div>
-                                <div class="row form-group">
-                                    <input type="text" name="firstname" class="profileField"
-                                        value=<%= user.FirstName %>>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="row form-group">
-                                    <i class="fa fa-address-card-o mr-3" style="font-size: 20px;"></i>
-                                    <h5>Last name</h5>
-                                </div>
-                                <div class="row form-group">
-                                    <input type="text" name="lastname" class="profileField" value=<%= user.LastName %>>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="row form-group">
-                                    <i class="fa fa-phone mr-3" style="font-size: 20px;" aria-hidden="true"></i>
-                                    <h5>Phone number</h5>
-                                </div>
-                                <div class="row form-group">
-                                    <input type="text" name="phonenumber" class="profileField"
-                                        value=<%= user.PhoneNumber %>>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="row form-group">
-                                    <i class="fas fa-globe-europe mr-3" style="font-size: 20px;"></i>
-                                    <h5>Country</h5>
-                                </div>
-                                <div class="row form-group">
-                                    <input type="text" name="country" class="profileField" value=<%= user.Country %>>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row ml-5 mt-5">
-                            <div class="col-sm-6 col-md-3">
-                                <div class="row form-group">
-                                    <i class="far fa-envelope mr-3" style="font-size: 20px;"></i>
-                                    <h5>E-mail</h5>
-                                </div>
+                        <div class="row ml-3 form-inline">
+                            <div class="col-md-4 col-sm-5 mt-5">
                                 <div class="row">
-                                    <input type="text" name="email" class="profileField" value=<%= user.Email %>></a>
+                                    <div class="form-inline">
+                                        <h5 class="mr-5 bluish">First name</h5>
+                                        <div class="input-group ml-2 mb-2">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-address-card-o mr-3 bluish" style="font-size: 20px;"></i></div>
+                                            </div>
+                                            <input type="text" name="firstname" class="form-control" value=<%= user.FirstName %>>
+                                        </div>
+                                    </div>
                                 </div>
-                                <% if (typeof error != 'undefined') { %>
-                                <div><%= error %></div>
-                                <% } %>
+                                <div class="row mt-4">
+                                    <div class="form-inline">
+                                        <h5 class="mr-5 bluish">Last name</h5>
+                                        <div class="input-group ml-2 mb-2">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-address-card-o mr-3 bluish" style="font-size: 20px;"></i></div>
+                                            </div>
+                                            <input type="text" name="lastname" class="form-control" value=<%= user.LastName %>>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="form-inline">
+                                        <h5 class="bluish" style="margin-right: 12px;">Phone number</h5>
+                                        <div class="input-group ml-2 mb-2">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-phone mr-3 bluish" style="font-size: 20px;" aria-hidden="true"></i></div>
+                                            </div>
+                                            <input type="text" name="phonenumber" class="form-control" value=<%= user.PhoneNumber %>>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="row form-group">
-                                    <i class="fas fa-city mr-3" style="font-size: 20px;"></i>
-                                    <h5>City</h5>
+                            <div class="col-md-4 col-sm-6 mt-5 pl-md-5 divider">
+                                <div class="row">
+                                    <div class="form-inline">
+                                        <h5 class="mr-2 bluish">Country</h5>
+                                        <div class="input-group ml-2 mb-2">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-globe-europe mr-3 bluish" style="font-size: 20px;"></i></div>
+                                            </div>
+                                            <input type="text" name="country" class="form-control" value=<%= user.Country %>>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row form-group">
-                                    <input type="text" name="City" class="profileField" value=<%= user.City %>>
+                                <div class="row mt-4">
+                                    <div class="form-inline">
+                                        <h5 class="mr-4 bluish">E-mail</h5>
+                                        <div class="input-group ml-2 mb-2">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="far fa-envelope mr-3 bluish" style="font-size: 20px;"></i></div>
+                                            </div>
+                                            <input type="text" name="email" class="form-control" value=<%= user.Email %>>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="form-inline">
+                                        <h5 class="bluish" style="margin-right: 42px;">City</h5>
+                                        <div class="input-group ml-2 mb-2">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-city mr-3 bluish" style="font-size: 20px;"></i></div>
+                                            </div>
+                                            <input type="text" name="City" class="form-control" value=<%= user.City %>>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="row form-group">
-                                    <i class="fa fa-road mr-3" aria-hidden="true" style="font-size: 20px;"></i>
-                                    <h5>Street</h5>
+                            <div class="col-md-4 col-sm-6 mt-5 pl-md-5 divider">
+                                <div class="row">
+                                    <div class="form-inline">
+                                        <h5 class="mr-4 bluish">Street</h5>
+                                        <div class="input-group ml-2 mb-2">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-road mr-3 bluish" aria-hidden="true" style="font-size: 20px;"></i></div>
+                                            </div>
+                                            <input type="text" name="Street" class="form-control" value=<%= user.Street %>>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row form-group">
-                                    <input type="text" name="Street" class="profileField" value=<%= user.Street %>>
+                                <div class="row mt-4">
+                                    <div class="form-inline">
+                                        <h5 class="bluish">Zip code</h5>
+                                        <div class="input-group ml-2 mb-2">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-mail-bulk mr-3 bluish" style="font-size: 20px;"></i></div>
+                                            </div>
+                                            <input type="text" name="Zipcode" class="form-control" value=<%= user.ZipCode %>>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="row form-group">
-                                    <i class="fas fa-mail-bulk mr-3" style="font-size: 20px;"></i>
-                                    <h5>Zip code</h5>
+                                <div class="container pr-5 mt-4">
+                                    <div class="form-inline pr-2 w-100">
+                                        <button class="btn btn-primary text-uppercase font-weight-bold col-md-10 col-12"
+                                        type="submit">Update</button>
+                                    </div>
                                 </div>
-                                <div class="row form-group">
-                                    <input type="text" name="Zipcode" class="profileField" value=<%= user.ZipCode %>>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-5 justify-content-end">
-                            <div class="col-2">
-                                <button class="btn btn-primary text-uppercase font-weight-bold"
-                                    type="submit">Update</button>
                             </div>
                         </div>
                     </form>
