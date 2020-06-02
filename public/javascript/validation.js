@@ -21,7 +21,7 @@ function checkInput()
     let regx=/^[a-z ,.'-,A-Z]+$/;
     if(!regx.test(lastName.value))
     {
-        setErrorFor(lastName,' Last name must be in letters only');
+        setErrorFor(lastName,' Last name must ');
         valid=0;
     }
     else
@@ -29,7 +29,7 @@ function checkInput()
  
      if(!regx.test(firstName.value))
      {
-        setErrorFor(firstName,'First name must be in letters only');
+        setErrorFor(firstName,'First name must be');
         valid=0;
      }
      else
@@ -82,12 +82,22 @@ function checkInput()
 }
 function setErrorFor(input, message) {
 	const formlabelgroup = input.parentElement;
-	const small = formlabelgroup.querySelector('small');
-	formlabelgroup.className = 'form-label-group error';
+   const small = formlabelgroup.querySelector('small');
+   if(input==firstName||input==lastName)
+   formlabelgroup.className = 'form-label-group error';
+   else{
+      formlabelgroup.className = 'form-label-group error row';
+   }
+   
 	small.innerText = message;
 }
 
 function setSuccessFor(input) {
-	const formlabelgroup = input.parentElement;
-	formlabelgroup.className = 'form-label-group success';
+   const formlabelgroup = input.parentElement;
+   if(input==firstName||input==lastName)
+   formlabelgroup.className = 'form-label-group success';
+      else{
+      formlabelgroup.className = 'form-label-group success row';
+   }
+
 }
