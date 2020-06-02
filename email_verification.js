@@ -3,14 +3,14 @@ const jwt = require("jsonwebtoken");
 
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 const ID_SECRET = 'dsfsdflksjf2sd5f156sdf16sd51sdlkfmnsdkljfnsdf'
-const EMAIL = 'csportbraude@hotmail.com'
-const EMAIL_PASS = 'Aa100100'
+// const EMAIL = 'fbi.228@hotmail.co.il'
+// const EMAIL_PASS = '284561443'
 
     var transporter = nodemailer.createTransport({
       service: 'hotmail',
       auth: {
-        user: EMAIL,
-        pass: EMAIL_PASS
+        user: process.env.EMAIL,
+        pass: process.env.PASS
       }
     });  
 
@@ -26,9 +26,9 @@ exports.sendConfirmation = function(newEmail){
       expiresIn: '1d',
     },
     (err, emailToken) => {
-      const url = `http://localhost:4000/confirmation/${emailToken}`;
+      const url = `http://cspproject.herokuapp/confirmation/${emailToken}`;
       var mailOptions = {
-            from: EMAIL,
+            from: process.env.EMAIL,
             to: newEmail,
             subject: 'Confirmation',
             html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
@@ -36,7 +36,6 @@ exports.sendConfirmation = function(newEmail){
         transporter.sendMail(mailOptions, function(error, info){
             if (error) { 
               console.log(error);
-              console.log("sending!!!!!")
             } else {
                console.log('Email sent: ' + info.response);
                  console.log("sending!!!!!")
@@ -73,7 +72,7 @@ exports.dataUpdateConfirmation = function(userEmail){
   console.log(userEmail)
 
   var mailOptions = {
-    from: EMAIL,
+    from: process.env.EMAIL,
     to: userEmail,
     subject: 'Confirmation',
     html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5> Your data has been updated successfuly"
@@ -93,7 +92,7 @@ exports.PasswordUpdateConfirmation = function(userEmail){
   console.log(userEmail)
   
   var mailOptions = {
-    from: EMAIL,
+    from: process.env.EMAIL,
     to: userEmail,
     subject: 'Confirmation',
     html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5> Your password has been updated successfuly"
@@ -122,9 +121,9 @@ exports.emailUpdateActivation = function(newEmail,ID){
       expiresIn: '1d',
     },
     (err, emailToken) => {
-      const url = `http://localhost:4000/email-confirmation/${emailToken}`;
+      const url = `http://cspproject.herokuapp/email-confirmation/${emailToken}`;
         var mailOptions = {
-            from: EMAIL,
+            from: process.env.EMAIL,
             to: newEmail,
             subject: 'Confirmation',
             html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
@@ -154,9 +153,9 @@ exports.forgetPassword = function(email){
         expiresIn: '1d',
       },
       (err, emailToken) => {
-        const url = `http://localhost:5000/reset-password/${emailToken}`;
+        const url = `http://cspproject.herokuapp/reset-password/${emailToken}`;
         var mailOptions = {
-              from: EMAIL,
+              from: process.env.EMAIL,
               to: email,
               subject: 'Forget Password',
               html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url

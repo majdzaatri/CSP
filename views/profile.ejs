@@ -298,7 +298,7 @@
                 </div>
 
                 <% for(var j=0; j < (typeof messages != 'undefined' ? messages.length : 0); j++) { %>
-                <div> <%= messages[j] %> </div>
+                <div class="text-success"> <%= messages[j] %> </div>
                 <% } %>
                 <!--------------------End Profile details ----------------------->
                 <hr>
@@ -348,6 +348,7 @@
                                     <% if (typeof passwordchanged != 'undefined') { %>
                                     <div><%= passwordchanged %></div>
                                     <% } %>
+                                    
 
                                 </div>
                                 <div class="row mt-3 justify-content-center">

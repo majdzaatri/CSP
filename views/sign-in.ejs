@@ -32,7 +32,11 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-lg-6 mx-auto">
-                                <h1 class="mx-auto sign-in-up-heading mb-5 col-6">Sign in</h1>
+                                <div class="row justify-content-center mr-4 mb-5">
+                                    <img src="public/css/images/logo.png"  style="height: 6rem; width: 7rem;">
+                                </div>
+                                <!-- <h1 class="sign-in-up text-dark mb-5 text-center display-1">CSP</h1> -->
+                                <h1 class="mx-auto sign-in-up text-uppercase mb-5 col-6 text-dark">Sign in</h1>
                                 <!----------------------- Start Form --------------------->
                                 <form id='verify-form' method="POST" onsubmit="return checkCaptcha(event)">
                                     <div class="form-label-group">
@@ -69,7 +73,7 @@
                                     </div>
 
                                     <button
-                                        class="btn btn-primary btn-block text-uppercase font-weight-bold mb-2 sign-in-up-btn"
+                                        class="btn btn-secondary btn-block text-uppercase font-weight-bold mb-2 sign-in-up-btn"
                                         type="submit"><i class="fas fa-sign-in-alt" style="font-size: 20px;"></i>Sign
                                         in</button>
                                         <div class="row justify-content-center">

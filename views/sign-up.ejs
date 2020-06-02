@@ -32,8 +32,11 @@
                 <div class="login d-flex align-items-center py-5">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-8 col-lg-8 mt-5 mx-auto">
-                                <h1 class="sign-in-up-heading mb-5 text-center">Create an Account!</h1>
+                            <div class="col-md-8 col-lg-8 mx-auto">
+                                <div class="row justify-content-center mr-4 mb-3">
+                                    <img src="public/css/images/logo.png"  style="height: 6rem; width: 7rem;">
+                                </div>
+                                <h1 class="sign-in-up text-dark mb-5 text-center">Create an Account!</h1>
                                 <!----------------------- Start Form --------------------->
                                 <form id="form-signup" action="/sign-up" method="POST" class="needs-validation" onsubmit="checkCaptcha(event)"
                                     novalidate>
@@ -81,7 +84,7 @@
                                     </div>
                                     <div class="container">
                                         <!---------------------------- email input ---------------------------->
-                                        <div class="form-label-group">
+                                        <div class="form-label-group row">
                                             <input type="email" name="email" id="email" class="form-control"
                                                 placeholder="Email Address"
                                                 value="<%= typeof email != 'undefined' ? email : '' %>" required>
@@ -98,7 +101,7 @@
                                             <small>Error Message</small>
                                         </div>
                                         <!--------------------------- password input -------------------------->
-                                        <div class="form-label-group">
+                                        <div class="form-label-group row">
                                             <input type="password" name="password" id="password" class="form-control"
                                                 placeholder="Password"
                                                 value="<%= typeof password != 'undefined' ? password : '' %>" required>
@@ -111,7 +114,7 @@
                                             <small>Error Message</small>
                                         </div>
                                         <!------------------------ confirm password input --------------------->
-                                        <div class="form-label-group">
+                                        <div class="form-label-group row">
                                             <input type="password" name="confirmPass" id="confirmPass"
                                                 class="form-control" placeholder="Confirm Password"
                                                 value="<%= typeof confirmpassword != 'undefined' ? confirmpassword : '' %>"
@@ -125,22 +128,26 @@
                                             <small>Error Message</small>
                                         </div>
                                         <!-------------------------- promocode input -------------------------->
-                                        <div class="form-label-group">
+                                        <div class="form-label-group row mb-0 pb-0">
                                             <input type="text" name="promocode" id="promocode"
                                                 class="form-control col-lg-6"
                                                 value="<%= typeof promocode != 'undefined' ? promocode : '' %>"
                                                 placeholder="Promo Code">
                                             <label for="promocode"><i class="fas fa-percent"
                                                     style="font-size: 20px;"></i>Have a promo code?</label>
+                                            <% if (typeof prommoError != 'undefined') { %>
+                                                <div class="text-danger mb-3 col-12"><%= prommoError %></div>
+                                                <% } %>
                                         </div>
+
                                         <!-------------------------- reCAPTCHA -------------------------->
                                         <div class="g-recaptcha row"
                                             data-sitekey="6LfsdP0UAAAAAOrqd6tg9l9ve3Q-OsoRvb_hDxrb">
                                         </div>
                                         <!----------------------- register account button --------------------->
                                         <div class="row justify-content-center">
-                                            <button type="submit" id="submitBtn"
-                                                class="glyphicon glyphicon-search btn btn-primary btn-block btn-login text-uppercase font-weight-bold my-5">
+                                            <button type="submit" id="submitBtn" style="border: none; height: 3.2rem;"
+                                                class="glyphicon bg-secondary glyphicon-search btn btn-primary btn-block btn-login text-uppercase font-weight-bold my-5">
                                                 <i class="fa fa-user-plus" style="font-size: 20px;"></i>
                                                 Register Account
                                             </button>

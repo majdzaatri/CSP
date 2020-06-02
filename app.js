@@ -203,7 +203,6 @@ app.get('/thank-you', function (req, res) {
     res.sendFile(__dirname + '/views/thank-you.html');
 });
 
-
 app.post('/sign-up', function (req, res) {
 
     var newUser = {
@@ -214,33 +213,46 @@ app.post('/sign-up', function (req, res) {
         promoCode: req.body.promocode ? req.body.promocode : null,
         active: 0
     };
-
+    var prommoError;
+    var promostatus =0;
+    var error;
     var promoCode = req.body.promocode;
     if (promoCode) {
         AM.checkPromoCode(promoCode, function (response) {
             if (response == 500) {
+                prommoError = 'Promo code does not exist!';
                 //promo code does not exist in the the database
-                return;
+                promostatus=1;
             }
         });
     }
 
-
+if(!promostatus){
     AM.addNewAccount(newUser, function (status) {
         if (status === 500) {
             console.log("Failed to add user");
-        } else if (status === 0) {
+        } else if (status === 0 || promostatus) {
+            if (status===0){
+                error= 'This email is already exist';
+            }
             console.log("user already exist");
             res.render('sign-up', {
                 firstname: newUser.firstName, lastname: newUser.firstName, email: newUser.email,
-                password: newUser.password, confirmpassword: req.body.confirmPass, error: 'This email is already exist'
+                password: req.body.password, confirmpassword: req.body.confirmPass, error, prommoError
             });
         } else {
             console.log("user added succesfuly");
             res.redirect(301, '/thank-you');
         }
     });
+}
+else{
+    res.render('sign-up', {
+        firstname: newUser.firstName, lastname: newUser.firstName, email: newUser.email,
+        password: req.body.password, confirmpassword: req.body.confirmPass, error, prommoError
+    });
 
+}
 });
 
 app.post('/logout', function (req, res) {
