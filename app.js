@@ -196,6 +196,8 @@ app.post('/sign-in', function (req, res) {
 //    sign-up      //
 
 app.get('/sign-up', redirectHome, function (req, res) {
+    console.log(process.env.EMAIL);
+    console.log(process.env.PASS);
     res.render('sign-up');
 });
 
