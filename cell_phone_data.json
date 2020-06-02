@@ -4,7 +4,7 @@
       "type": "Cell Phone",
       "in_stock": "true",
       "description": "Best smartphone ever",
-      "src":"./public/css/images/Iphonex.png",
+      "src":"./public/css/images/iphonex.png",
       "models": [
         {
           "id": "1",
