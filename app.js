@@ -525,7 +525,7 @@ app.post('/forgot-password', function (req, res) {
     var email = req.body.email;
     EV.forgetPassword(email, function (status) {
         if (status) {
-            res.redirect(301, 'thank-you');
+            res.redirect('/thank-you');
         } else {
             console.log('ERROR sending an email')
         }

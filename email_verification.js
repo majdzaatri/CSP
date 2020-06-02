@@ -141,7 +141,7 @@ exports.emailUpdateActivation = function(newEmail,ID){
 
 }
 
-exports.forgetPassword = function(email){
+exports.forgetPassword = function(email,callback){
 
     // async email
     jwt.sign(
@@ -153,7 +153,7 @@ exports.forgetPassword = function(email){
         expiresIn: '1d',
       },
       (err, emailToken) => {
-        const url = `http://cspproject.herokuapp/reset-password/${emailToken}`;
+        const url = `http://localhost:4000/reset-password/${emailToken}`;
         var mailOptions = {
               from: EMAIL,
               to: email,
@@ -163,9 +163,10 @@ exports.forgetPassword = function(email){
           transporter.sendMail(mailOptions, function(error, info){
               if (error) { 
                 console.log(error);
-               
+                callback(0)
               } else {
                  console.log('Email sent: ' + info.response);
+                 callback(1)
               }
             });
       },
