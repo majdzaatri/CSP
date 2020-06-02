@@ -26,7 +26,7 @@ exports.sendConfirmation = function(newEmail){
       expiresIn: '1d',
     },
     (err, emailToken) => {
-      const url = `http://cspproject.herokuapp/confirmation/${emailToken}`;
+      const url = `http://cspproject.herokuapp.com/confirmation/${emailToken}`;
       var mailOptions = {
             from: EMAIL,
             to: newEmail,
@@ -121,7 +121,7 @@ exports.emailUpdateActivation = function(newEmail,ID){
       expiresIn: '1d',
     },
     (err, emailToken) => {
-      const url = `http://cspproject.herokuapp/email-confirmation/${emailToken}`;
+      const url = `http://cspproject.herokuapp.com/email-confirmation/${emailToken}`;
         var mailOptions = {
             from: EMAIL,
             to: newEmail,
@@ -153,7 +153,7 @@ exports.forgetPassword = function(email,callback){
         expiresIn: '1d',
       },
       (err, emailToken) => {
-        const url = `http://localhost:4000/reset-password/${emailToken}`;
+        const url = `http://cspproject.herokuapp.com/reset-password/${emailToken}`;
         var mailOptions = {
               from: EMAIL,
               to: email,

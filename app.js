@@ -461,6 +461,7 @@ app.post('/profileInfo', function (req, res) {
         req.body.Zipcode ? req.body.Zipcode : null,
         req.session.user.ID
     ];
+    
     var UserInfo = [
         req.session.user.FirstName,
         req.session.user.LastName,
