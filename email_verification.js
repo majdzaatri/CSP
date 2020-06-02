@@ -4,11 +4,7 @@ const jwt = require("jsonwebtoken");
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 const ID_SECRET = 'dsfsdflksjf2sd5f156sdf16sd51sdlkfmnsdkljfnsdf'
 const EMAIL = 'csportbraude@hotmail.com'
-<<<<<<< HEAD
 const EMAIL_PASS = 'Aa100100'
-=======
- const EMAIL_PASS = 'Aa100100'
->>>>>>> 9721dfb... fix some bugs
 
     var transporter = nodemailer.createTransport({
       service: 'hotmail',
