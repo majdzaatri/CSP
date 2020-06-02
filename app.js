@@ -166,7 +166,7 @@ app.post('/sign-in', function (req, res) {
     AM.checkLogin(email, password, function (err, result) {
         if (err) {
             console.log(err);
-            res.render('sign-in', { email: email, password: password, error: 'this Email or Password does not match any account' })
+            res.render('sign-in', { email: email, password: password, error: 'This Email or Password does not match any account' })
         } else {
             if (result) {
                 req.session.user = result;
@@ -180,11 +180,11 @@ app.post('/sign-in', function (req, res) {
                 } else {
 
                     console.log("please confirm your email");
-                    res.render('sign-in', { email, password, error: 'this Email or Password does not match any account' })
+                    res.render('sign-in', { email, password, error: 'This Email or Password does not match any account' })
                 }
             } else {
                 console.log('if2')
-                res.render('sign-in', { email: email, password: password, error: 'this Email or Password does not match any account' })
+                res.render('sign-in', { email: email, password: password, error: 'This Email or Password does not match any account' })
 
 
 
@@ -233,7 +233,7 @@ app.post('/sign-up', function (req, res) {
             console.log("user already exist");
             res.render('sign-up', {
                 firstname: newUser.firstName, lastname: newUser.firstName, email: newUser.email,
-                password: newUser.password, confirmpassword: req.body.confirmPass, error: 'this email is already exist'
+                password: newUser.password, confirmpassword: req.body.confirmPass, error: 'This email is already exist'
             });
         } else {
             console.log("user added succesfuly");
@@ -554,7 +554,7 @@ const port = process.env.PORT || 5000;
 const host = "localhost";
 
 
-app.listen(process.env.PORT || 4000, () => {
+app.listen(process.env.PORT || 3000, () => {
 
     console.log('server running on http://' + host + ':' + port + '/');
 });
