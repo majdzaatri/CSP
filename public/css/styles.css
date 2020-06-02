@@ -1057,3 +1057,14 @@ body {
   height: 40px;
   padding-left: 10px;
 }
+
+
+@media screen and (min-width: 800px) {
+  .divider{
+  border-left: 1px solid grey;
+  }
+}
+
+.bluish {
+  color: #2F7DF6 !important;
+}

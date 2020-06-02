@@ -165,7 +165,8 @@ app.post('/sign-in', function (req, res) {
 
     AM.checkLogin(email, password, function (err, result) {
         if (err) {
-            res.redirect(301, '/sign-in');
+            console.log(err);
+            res.render('sign-in', { email: email, password: password, error: 'this Email or Password does not match any account' })
         } else {
             if (result) {
                 req.session.user = result;
@@ -177,10 +178,16 @@ app.post('/sign-in', function (req, res) {
                     }
                     res.redirect(301, '/dashboard');
                 } else {
+
                     console.log("please confirm your email");
+                    res.render('sign-in', { email, password, error: 'this Email or Password does not match any account' })
                 }
             } else {
-                res.redirect(301, '/sign-in');
+                console.log('if2')
+                res.render('sign-in', { email: email, password: password, error: 'this Email or Password does not match any account' })
+
+
+
             }
         }
     })
@@ -224,7 +231,10 @@ app.post('/sign-up', function (req, res) {
             console.log("Failed to add user");
         } else if (status === 0) {
             console.log("user already exist");
-            res.redirect(301, '/sign-up');
+            res.render('sign-up', {
+                firstname: newUser.firstName, lastname: newUser.firstName, email: newUser.email,
+                password: newUser.password, confirmpassword: req.body.confirmPass, error: 'this email is already exist'
+            });
         } else {
             console.log("user added succesfuly");
             res.redirect(301, '/thank-you');
@@ -535,7 +545,7 @@ app.get('*', function (req, res) {
 });
 
 
-app.get('/.well-known/pki-validation/8F7BBC9A0E320E84FC8B107F547CBBBA.txt', function(res, req){
+app.get('/.well-known', function(res, req){
     res.sendfile(__dirname + '/.well-known/pki-validation/8F7BBC9A0E320E84FC8B107F547CBBBA.txt');
 })
 
