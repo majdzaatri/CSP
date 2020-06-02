@@ -321,13 +321,16 @@ app.get('/confirmation/:token', async (req, res) => {
 
 
 app.get('/dashboard', redirectLogin, function (req, res) {
-    var string = JSON.stringify(req.session.user);
-    var userJson = JSON.parse(string);
+
+
+    AM.fetchData(req.session.user.Email, function (err, result) {
+     var userJson = JSON.parse(JSON.stringify(result))
     let userName = userJson.FirstName + " " + userJson.LastName;
     AM.fetchPurchasesData(function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
         res.render('dashboard', { user: userName, phones: phonesData, purchases: purchaseJson });
     });
+});
 });
 
 
@@ -373,6 +376,8 @@ app.get('/payment-success', function (req, res) {
 //---------------------- profile -------------------------
 app.get('/profile', redirectLogin, function (req, res) {
 
+
+
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
@@ -382,7 +387,7 @@ app.get('/profile', redirectLogin, function (req, res) {
         AM.fetchData(req.session.user.Email, function (err, result) {
             userData = JSON.parse(JSON.stringify(result))
             res.render('profile', { user: userData, phones: phonesData, purchases: purchaseJson });
-        })
+        });
 
     })
     // res.render('profile', { user: userJson, phones: phonesData });
@@ -458,12 +463,10 @@ app.post('/profileInfo', function (req, res) {
     if (!_.isEqual(UserInfo, newUserInfo)) {
         AM.updateUserInfo(newUserInfo, function (err, result) {
             if (result) {
-                var string = JSON.stringify(result);
-                var userJson = JSON.parse(string);
-                emailToConfirm = req.session.user.Email
-                EV.dataUpdateConfirmation(emailToConfirm, req.session.user.ID)
-                console.log('changing your data!')
+                emailToConfirm = req.session.user.Email;
                 messages.push('your data has been updated successfuly');
+                EV.dataUpdateConfirmation(emailToConfirm, req.session.user.ID);
+                console.log('changing your data!');
             }
         });
     }
@@ -473,8 +476,6 @@ app.post('/profileInfo', function (req, res) {
         AM.emailExist(email, function (result) {
             console.log(result)
             if (result === 200) {
-                var string = JSON.stringify(req.session.user);
-                var userJson = JSON.parse(string);
                 messages.push('the email you entered is already exist')
             }
             if (result === 300) {
@@ -491,6 +492,7 @@ app.post('/profileInfo', function (req, res) {
 
         AM.fetchData(req.session.user.Email, function (err, result) {
             userData = JSON.parse(JSON.stringify(result))
+            console.log(messages)
             return res.render('profile', { user: userData, phones: phonesData, purchases: purchaseJson, messages });
         })
 
