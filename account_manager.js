@@ -171,10 +171,17 @@ exports.addPurchase = function (phoneDetails, user, callback) {
 }
 
 
-exports.fetchPurchasesData = function (callback) {
-    let query = "SELECT Product ,COUNT(*) AS cnt FROM transactions GROUP BY Product";
-    connection.query(query, function (err, res) {
+exports.fetchPurchasesData = function (email,callback) {
+    console.log(email);
+    let query = "SELECT Product ,COUNT(*) AS cnt FROM transactions WHERE User=? GROUP BY Product";
+    connection.query(query,[email],function (err, res) {
+        console.log(res);
+        if(res){
         callback(res);
+        } else {
+            console.log("errrrrrrr")
+            callback(0);
+        }
     })
 }
 

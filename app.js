@@ -291,7 +291,7 @@ app.post('/change-password', function (req, res) {
                 }
             })
 
-            AM.fetchPurchasesData(function (result) {
+            AM.fetchPurchasesData(req.session.user.Email,function (result) {
                 purchaseJson = JSON.parse(JSON.stringify(result))
                 AM.fetchData(req.session.user.Email, function (err, result) {
                     userData = JSON.parse(JSON.stringify(result))
@@ -340,7 +340,7 @@ app.get('/dashboard', redirectLogin, function (req, res) {
     AM.fetchData(req.session.user.Email, function (err, result) {
      var userJson = JSON.parse(JSON.stringify(result))
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function (result) {
+    AM.fetchPurchasesData(req.session.user.Email, function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
         res.render('dashboard', { user: userName, phones: phonesData, purchases: purchaseJson });
     });
@@ -355,8 +355,8 @@ app.get('/buy-cell-phone', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function (result) {
-        purchaseJson = JSON.parse(JSON.stringify(result))
+    AM.fetchPurchasesData(req.session.user.Email,function (result) {
+        // purchaseJson = JSON.parse(JSON.stringify(result))
         res.render('buyphone', { user: userName, phones: phonesData, purchases: purchaseJson });
     })
 });
@@ -379,7 +379,7 @@ app.get('/payment-success', function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function (result) {
+    AM.fetchPurchasesData(req.session.user.Email,function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
         res.render('payment-success', { user: userName, phones: phonesData, purchases: purchaseJson });
     })
@@ -395,7 +395,7 @@ app.get('/profile', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function (result) {
+    AM.fetchPurchasesData(req.session.user.Email,function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
 
         AM.fetchData(req.session.user.Email, function (err, result) {
@@ -461,7 +461,7 @@ app.post('/profileInfo', function (req, res) {
         req.body.Zipcode ? req.body.Zipcode : null,
         req.session.user.ID
     ];
-    
+
     var UserInfo = [
         req.session.user.FirstName,
         req.session.user.LastName,
@@ -502,7 +502,7 @@ app.post('/profileInfo', function (req, res) {
 
 
 
-    AM.fetchPurchasesData(function (result) {
+    AM.fetchPurchasesData(req.session.user.Email,function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
 
         AM.fetchData(req.session.user.Email, function (err, result) {
@@ -539,7 +539,7 @@ app.get('/about', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function (result) {
+    AM.fetchPurchasesData(req.session.user.Email,function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
         res.render('about', { user: userName, phones: phonesData, purchases: purchaseJson });
     })
@@ -550,7 +550,7 @@ app.get('/buy-pc', redirectLogin, function (req, res) {
     var string = JSON.stringify(req.session.user);
     var userJson = JSON.parse(string);
     let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(function (result) {
+    AM.fetchPurchasesData(req.session.user.Email,function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result))
         res.render('coming-soon', { user: userName, phones: phonesData, purchases: purchaseJson });
     })
