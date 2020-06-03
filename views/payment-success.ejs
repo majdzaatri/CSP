@@ -31,8 +31,10 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
-
+        <div id="spinner" class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+            <h3 class="ml-3">Just a minute, Please don't exit...</h3>
+        </div>
         <!-------------------- Sidebar ------------------->
         <ul class="navbar-nav bg-dark bg-gradient-primary sidebar sidebar-dark accordion collapse-inner collapse show"
             id="accordionSidebar">
@@ -71,7 +73,7 @@
                     <i class="fas fa-shopping-cart"></i>
                     <span>My Purchases</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" style="z-index: 99;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Cell Phone</h6>
                         <% if(purchases.length !== 0) { %>
@@ -80,7 +82,7 @@
                             <div class="col-sm-3">
                                 <% for(var j=0; j<phones.length; j++) { %>
                                 <% if(purchases[i].Product === phones[j].id) { %>
-                                <img class="img-resposnsive" src=<%= phones[i].src %>>
+                                <img class="img-resposnsive" src=<%= phones[j].src %>>
                                 <% } %>
                                 <% } %>
                             </div>
@@ -178,7 +180,7 @@
                         <p>continue shopping with our vast variety of devices</p>
                         
                         <p class="lead">
-                            <a class="btn btn-primary btn-sm" href="/dashboard" role="button">Go back to dashboard</a>
+                            <a class="btn btn-secondary btn-sm" href="/dashboard" role="button">Go back to dashboard</a>
                         </p>
                     </div>
 

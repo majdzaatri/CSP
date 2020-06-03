@@ -31,7 +31,7 @@
       "type": "Cell Phone",
       "in_stock": "true",
       "description": "Just the right phone for you",
-      "src":"./public/css/images/iphonexr.jpg",
+      "src":"./public/css/images/iphone7.png",
       "models": [
         {
           "id": "1",
@@ -58,7 +58,7 @@
       "type": "Cell Phone",
       "in_stock": "true",
       "description": "The first in it's class",
-      "src":"./public/css/images/s10.jpg",
+      "src":"./public/css/images/s8.png",
       "models": [
         {
           "id": "1",
@@ -79,66 +79,66 @@
       "type": "Cell Phone",
       "in_stock": "false",
       "description": "The most advanced phone",
-      "src":"./public/css/images/iphonexr.jpg",
+      "src":"./public/css/images/p10.png",
       "models": []
     },
     {
-      "id": "Samsung S10",
+      "id": "samsung a51",
       "type": "Cell Phone",
       "in_stock": "true",
       "description": "The first in it's class",
-      "src":"./public/css/images/s10.jpg",
+      "src":"./public/css/images/a51.png",
       "models": [
         {
           "id": "1",
-          "type": "256 GB",
+          "type": "64 GB",
+          "text": "life time warranty",
+          "price": "400$"
+        },
+        {
+          "id": "2",
+          "type": "128 GB",
+          "text": "life time warranty",
+          "price": "450$"
+        },
+        {
+          "id": "3",
+          "type": "white 512 GB",
+          "text": "life time warranty",
+          "price": "500$"
+        },
+        {
+          "id": "4",
+          "type": "black 512 GB",
+          "text": "life time warranty",
+          "price": "550$"
+        },
+        {
+          "id": "5",
+          "type": "space-grey 512 GB",
           "text": "life time warranty",
           "price": "600$"
         },
         {
-          "id": "2",
-          "type": "512 GB",
+          "id": "6",
+          "type": "green 512 GB",
           "text": "life time warranty",
-          "price": "850$"
+          "price": "650$"
         },
         {
-          "id": "2",
-          "type": "512 GB",
+          "id": "7",
+          "type": "blue 512 GB",
           "text": "life time warranty",
-          "price": "850$"
-        },
-        {
-          "id": "2",
-          "type": "512 GB",
-          "text": "life time warranty",
-          "price": "850$"
-        },
-        {
-          "id": "2",
-          "type": "512 GB",
-          "text": "life time warranty",
-          "price": "850$"
-        },
-        {
-          "id": "2",
-          "type": "512 GB",
-          "text": "life time warranty",
-          "price": "850$"
-        },
-        {
-          "id": "2",
-          "type": "512 GB",
-          "text": "life time warranty",
-          "price": "850$"
+          "price": "700$"
         }
       ]
     },
     {
-      "id": "Huwawei P10",
+      "id": "LG G8",
       "type": "Cell Phone",
       "in_stock": "false",
       "description": "The most advanced phone",
-      "src":"./public/css/images/iphonexr.jpg",
+      "src":"./public/css/images/lgl8.png",
       "models": []
     }
 ]
