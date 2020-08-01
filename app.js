@@ -574,6 +574,3 @@ const host = "localhost";
 app.listen(port, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
-
-
-

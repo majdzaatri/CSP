@@ -97,17 +97,8 @@ exports.updateUserInfo = function (newUserInfo, callback) {
         if (err) {
             console.log("Failed update user: " + err);
         } else {
-            let query = "SELECT * FROM users WHERE id = " + newUserInfo[7];
-            connection.query(query, function (err, rows, field) {
-                if (err) {
-                    console.log("Failed to fetch user data after updating:" + err);
-                } else {
-                    console.log("Data fetched after updating user...");
-                    callback(null, rows[0]);
-                }
-            })
             console.log("updated user successfuly!");
-            callback(result, fields);
+            callback(result, result);
         }
     });
 }
