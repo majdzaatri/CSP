@@ -571,7 +571,7 @@ const port = process.env.PORT || 5000;
 const host = "localhost";
 
 
-app.listen(process.env.PORT || 4000, () => {
+app.listen(port, () => {
     console.log('server running on http://' + host + ':' + port + '/');
 });
 
