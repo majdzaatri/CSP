@@ -1074,11 +1074,16 @@ body {
   filter: invert(100%);
 }
 
+
 /* #sale {
   font-size: 5rem;
   font-weight: bold;
 } */
 
+.text-responsive-1 {
+  font-size: calc(250% + 1vw);
+}
+
 .text-responsive {
-  font-size: calc(300% + 1vw + 1vh);
+  font-size: 4vw;
 }
