@@ -384,13 +384,11 @@ height: 100vh;
 
 .product-device-2 {
   position: absolute;
-  top: 25%;
-  right: 75%;
-  bottom: 25%;
-  bottom: 0;
+  top: 50%;
+  left: 0;
   width: 300px;
-  height: 540;
-  background-color: #e5e5e5;
+  height: 300px;
+  background-color: transparent;
 }
 
 .product-device-2::before {
@@ -1063,4 +1061,24 @@ body {
 
 .bluish {
   color: #2F7DF6 !important;
+}
+
+
+.heading {
+  padding: 7% 15%;
+  align-items: center;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  filter: invert(100%);
+}
+
+/* #sale {
+  font-size: 5rem;
+  font-weight: bold;
+} */
+
+.text-responsive {
+  font-size: calc(300% + 1vw + 1vh);
 }

@@ -16,6 +16,7 @@
     <!------------------------------- Font Awesome CDN -------------------------------->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+
     <!------------------------------- reCAPTCHA -------------------------------->
     <script src="https://www.google.com/recaptcha/api.js"></script>
 
@@ -31,19 +32,20 @@
                 <div class="div-100 d-flex align-items-center py-5">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-8 col-lg-6 mx-auto">
-                                <div class="row justify-content-center mr-4 mb-5">
-                                    <img src="public/css/images/logo.png"  style="height: 6rem; width: 7rem;">
-                                </div>
-                                <!-- <h1 class="sign-in-up text-dark mb-5 text-center display-1">CSP</h1> -->
-                                <h2 class="mx-auto sign-in-up text-uppercase mb-5 col-6 text-dark">Sign in</h2>
+                            <div class="col-md-10 col-lg-6 mx-auto">
+
+                                    <div class="col-12 d-flex justify-content-center mr-4 mb-5">
+                                        <img src="public/css/images/logo.png" style="height: 8rem; width: 9rem;">
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <h2 class="sign-in-up text-uppercase mb-5 text-dark" style="font-size: 3rem;">Sign in</h2>
+                                    </div>
+
                                 <!----------------------- Start Form --------------------->
                                 <form id='verify-form' method="POST" onsubmit="return checkCaptcha(event)">
                                     <div class="form-label-group">
                                         <input id="inputEmail" name="email" class="form-control"
                                             placeholder="Email address" value="<%= typeof email != 'undefined' ? email : '' %>" required autofocus>
-                                            <!-- <input id="inputEmail" name="email" class="form-control"
-                                            placeholder="Email address" value="majdz-1@live.com" required autofocus> -->
                                         <label for="inputEmail"><i class="far fa-envelope" style="font-size: 20px;"></i>
                                             Email address</label>
                                     </div>
@@ -51,17 +53,17 @@
                                     <div class="form-label-group">
                                         <input type="password" id="inputPassword" name="password" class="form-control"
                                             placeholder="Password" value="<%= typeof password != 'undefined' ? password : '' %>" required>
-                                            <!-- <input type="password" id="inputPassword" name="password" class="form-control"
-                                            placeholder="Password" value="majd" required> -->
                                         <label for="inputPassword"><i class="fas fa-lock" style="font-size: 20px;"></i>
                                             Password</label>
                                             <div class="text-left">
                                                 <a class="small" href="/forgot-password">Forgot password?</a>
                                             </div>
                                     </div>
+
                                     <% if (typeof error != 'undefined') { %>
                                         <div class="text-danger mb-3"><%= error %></div>
                                       <% } %>
+
                                     <div class="g-recaptcha" data-sitekey="6LfsdP0UAAAAAOrqd6tg9l9ve3Q-OsoRvb_hDxrb">
                                     </div>
 
@@ -69,31 +71,33 @@
                                     <div class="custom-control custom-switch mb-3">
                                         <input type="checkbox" class="custom-control-input" id="customCheck1"
                                             name="checkbox" value="fadi">
-                                        <label class="custom-control-label" for="customCheck1">Remember password</label>
+                                        <label class="custom-control-label h5" for="customCheck1">Remember password</label>
                                     </div>
 
                                     <button
                                         class="btn btn-secondary btn-block text-uppercase font-weight-bold mb-2 sign-in-up-btn"
                                         type="submit"><i class="fas fa-sign-in-alt" style="font-size: 20px;"></i>Sign
                                         in</button>
-                                        <div class="row justify-content-center">
-                                        <!-- <div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div> -->
+                                        <!-- <div class="row justify-content-center">
                                         <a href="/auth/facebook">Login with Facebook</a>
-                                        </div>
-
+                                        </div> -->
                                 </form>
                                 <!----------------------- End Form --------------------->
-                                <p class="d-flex justify-content-center h5 mt-2 row">Don't have an account yet?<a href="/sign-up"
+
+                                <p class="d-flex justify-content-center h5 mt-3 row">Don't have an account yet?<a href="/sign-up"
                                         class="card-link ml-2">Sign up</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!---------------------- Side Image -------------------->
             <div id="particles-js" class="d-none d-md-flex col-md-4 col-lg-6 bg-image-sign-in"></div>
         </div>
     </div>
+
+    <!--------------------- scripts --------------------->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
         particlesJS.load('particles-js', '/public/json/particles.json', function () {
@@ -115,40 +119,6 @@ function checkCaptcha(e){
     }
 }
     </script>
-
-
-
-<!-- <script>
-
-    function statusChangeCallback(response){
-        console.log(response);
-    }
-
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '2480750618889915',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v7.0'
-      });
-        
-      FB.AppEvents.logPageView();   
-
-
-    FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-    });
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script> -->
-
 </body>
 
 </html>

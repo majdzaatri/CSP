@@ -20,7 +20,7 @@
     <!------------------------------- reCAPTCHA -------------------------------->
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <link rel='shortcut icon' type='image/x-icon' href='../public/css/images/favicon.ico' />
-    <title>sign up</title>
+    <title>Sign Up</title>
 </head>
 
 <body>
@@ -29,12 +29,12 @@
             <!---------------------- Side Image -------------------->
             <div id="particles-js" class="d-none d-md-flex col-md-2 col-lg-6 bg-img-sign-up"></div>
             <div class="col-md-10 col-lg-6">
-                <div class="login d-flex align-items-center py-5">
+                <div class="login d-flex align-items-center pt-4">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-8 col-lg-8 mx-auto">
+                            <div class="col-md-8 col-lg-10 mx-auto">
                                 <div class="row justify-content-center mr-4 mb-3">
-                                    <img src="public/css/images/logo.png"  style="height: 6rem; width: 7rem;">
+                                    <img src="public/css/images/logo.png"  style="height: 8rem; width: 9rem;">
                                 </div>
                                 <h1 class="sign-in-up text-dark mb-5 text-center">Create an Account!</h1>
                                 <!----------------------- Start Form --------------------->
@@ -49,7 +49,7 @@
                                                     value="<%= typeof firstname != 'undefined' ? firstname : '' %>"
                                                     required autofocus>
                                                 <label for="firstname" class="ml-2"><i class="fa fa-address-card-o"
-                                                        style="font-size: 20px;"></i>First
+                                                        style="font-size: 1rem;"></i>First
                                                     Name</label>
                                                 <i class="fas fa-check-circle"></i>
                                                 <i class="fas fa-exclamation-circle"></i>
@@ -141,19 +141,19 @@
                                         </div>
 
                                         <!-------------------------- reCAPTCHA -------------------------->
-                                        <div class="g-recaptcha row"
+                                        <div class="g-recaptcha row mt-4"
                                             data-sitekey="6LfsdP0UAAAAAOrqd6tg9l9ve3Q-OsoRvb_hDxrb">
                                         </div>
                                         <!----------------------- register account button --------------------->
                                         <div class="row justify-content-center">
                                             <button type="submit" id="submitBtn" style="border: none; height: 3.2rem;"
-                                                class="glyphicon bg-secondary glyphicon-search btn btn-primary btn-block btn-login text-uppercase font-weight-bold my-5">
+                                                class="glyphicon bg-secondary glyphicon-search btn btn-primary btn-block btn-login text-uppercase font-weight-bold mt-5 mb-3">
                                                 <i class="fa fa-user-plus" style="font-size: 20px;"></i>
                                                 Register Account
                                             </button>
                                         </div>
-                                        <p class="d-flex justify-content-center h4">Already have an account?<a href="/sign-in"
-                                            class="card-link ml-2"> Sign in</a></p>
+                                        <p class="d-flex justify-content-center h5">Already have an account?<a href="/sign-in"
+                                            class="card-link ml-2">Sign in</a></p>
                                     </div>
                             </div>
                             </form>
@@ -165,6 +165,8 @@
         </div>
     </div>
     </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
         particlesJS.load('particles-js', '/public/json/particles.json', function () {

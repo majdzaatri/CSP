@@ -83,7 +83,7 @@ var passport = require('passport')
 passport.use(new FacebookStrategy({
     clientID: '978507335946498',
     clientSecret: '6680fb4eb4e4a3879b51a94e966ac353',
-    callbackURL: "http://cspproject.herokuapp.com/auth/facebook/callback",
+    callbackURL: "http://localhost:5000/auth/facebook/callback",
     profileFields : ['id', 'displayName', 'email']
 
 },
