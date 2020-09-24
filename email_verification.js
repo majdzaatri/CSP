@@ -1,10 +1,11 @@
+require('dotenv').config();
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 
-const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
-const ID_SECRET = 'dsfsdflksjf2sd5f156sdf16sd51sdlkfmnsdkljfnsdf'
-const EMAIL = 'csportbraude@hotmail.com'
-const EMAIL_PASS = 'Aa100100'
+const EMAIL_SECRET = process.env.EMAIL_SECRET;
+const ID_SECRET = process.env.ID_SECRET;
+const EMAIL = process.env.EMAIL;
+const EMAIL_PASS = process.env.EMAIL_PASS;
 
     var transporter = nodemailer.createTransport({
       service: 'hotmail',

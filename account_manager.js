@@ -1,16 +1,17 @@
+require('dotenv').config();
 const crypto = require("crypto");
 const mysql = require("mysql");
 const https = require("https");
 const EV = require(__dirname + "/email_verification.js");
 const phonesData = require(__dirname + "/cell_phone_data.json");
-const mydatabase = "heroku_98861de8c1925bc";
+const mydatabase = process.env.MYSQL_DATABASE;
 const PORT = 4000;
 
 const connection = mysql.createPool({
     connectionLimit: 10,
-    host: "us-cdbr-east-06.cleardb.net",
-    user: "b662e61354c88f",
-    password: "d6548e95",
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
     database: mydatabase
 });
 
@@ -251,7 +252,7 @@ var md5 = function (str) {
 
 var generateSalt = function () {
     var salt = '';
-    var key = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
+    var key = process.env.HASH_KEY;
     for (var i = 0; i < 10; i++) {
         var p = Math.floor(Math.random() * key.length);
         salt += key[p];

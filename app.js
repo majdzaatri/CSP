@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
@@ -48,8 +48,8 @@ app.use('/public', express.static(__dirname + '/public'));
 
 app.use(cookieParser());
 app.use(session({
-    key: 'user_sid',
-    secret: '1123FfdSSs23335',
+    key: process.env.SESSION_KEY,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 }));
@@ -81,8 +81,8 @@ var passport = require('passport')
     , FacebookStrategy = require('passport-facebook').Strategy;
 
 passport.use(new FacebookStrategy({
-    clientID: '978507335946498',
-    clientSecret: '6680fb4eb4e4a3879b51a94e966ac353',
+    clientID: process.env.PASSPORT_CLIENT_ID,
+    clientSecret: process.env.PASSPORT_CLIENT_SECRET,
     callbackURL: "http://localhost:5000/auth/facebook/callback",
     profileFields : ['id', 'displayName', 'email']
 
@@ -149,7 +149,7 @@ app.get('/sign-in', redirectHome, function (req, res) {
 
 app.post('/sign-in', function (req, res) {
     var recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?";
-    const secretKey = '6LfsdP0UAAAAANR9olaXiXnk7mPZwOMbh-TYFJ4x';
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
     recaptcha_url += "secret=" + secretKey + "&";
     recaptcha_url += "response=" + req.body["g-recaptcha-response"] + "&";
     recaptcha_url += "remoteip=" + req.connection.remoteAddress;
@@ -410,8 +410,6 @@ app.get('/profile', redirectLogin, function (req, res) {
 
 app.get('/reset-password/:token', async (req, res) => {
     try {
-
-        console.log('ffsdff')
         res.clearCookie('RememberMe')
         res.render('reset-password', { token: req.params.token });
     } catch (e) {
@@ -440,10 +438,7 @@ app.post('/reset-password/:token', async (req, res) => {
                     })
                 }
             }
-
         })
-
-
     } catch (e) {
         res.send('error');
     }
@@ -514,15 +509,13 @@ app.post('/profileInfo', function (req, res) {
     })
 
 });
+
+
 app.get('/forgot-password', function (req, res) {
     res.sendFile(__dirname + "/views/forgot-password.html")
 })
 
-
-
 app.post('/forgot-password', function (req, res) {
-
-
     var email = req.body.email;
     EV.forgetPassword(email, function (status) {
         if (status) {
@@ -532,7 +525,6 @@ app.post('/forgot-password', function (req, res) {
         }
     });
 });
-
 
 //---------------------- about -------------------------
 app.get('/about', redirectLogin, function (req, res) {
@@ -567,7 +559,7 @@ app.get('/.well-known', function(res, req){
 })
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 const host = "localhost";
 
 
