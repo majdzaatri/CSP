@@ -44,8 +44,8 @@ app.use(bodyParser.urlencoded({urlencoded: true}));
 app.use("/public", express.static(__dirname + "/public"));
 app.use(cookieParser());
 app.use(session({
-    key: process.env.SESSION_KEY,
-    secret: process.env.SESSION_SECRET,
+    key: "user_sid",
+    secret: "1123FfdSSs23335",
     resave: false,
     saveUninitialized: false,
 }));
