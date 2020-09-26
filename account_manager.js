@@ -9,10 +9,10 @@ const PORT = 4000;
 
 const connection = mysql.createPool({
     connectionLimit: 10,
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: mydatabase
+    host: "us-cdbr-east-06.cleardb.net",
+    user: "b662e61354c88f",
+    password: "d6548e95",
+    database: "heroku_98861de8c1925bc"
 });
 
 //    sign-in queries      //
