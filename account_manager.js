@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: '/.env' });
 const crypto = require("crypto");
 const mysql = require("mysql");
 const https = require("https");
