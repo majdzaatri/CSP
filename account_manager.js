@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const crypto = require("crypto");
 const mysql = require("mysql");
 const https = require("https");
@@ -31,14 +31,13 @@ exports.checkLogin = function (email, password, callback) {
                     console.log(res)
                     if (res) {
                         callback(null, rows[0]);
-
                     } else {
-                        callback('invalid-password');
+                        callback("invalid-password");
                     }
                 });
             } else {
                 console.log("email doesn't exist or password wrong!");
-                callback('invalid-email');
+                callback("invalid-email");
             }
         }
     });
@@ -53,22 +52,22 @@ exports.addNewAccount = function (newUser, callback) {
             console.log("Failed checking if email is already exist: " + err);
         } else {
             if (data[0].cnt > 0) {
-                callback(0); //TODO: Check if it's OK
+                callback(0); //TODO: Check if it"s OK
             } else {
                 saltAndHash(newUser.password, function (hash) {
                     newUser.password = hash;
                     connection.query("INSERT INTO " + mydatabase + ".`users` SET ?", newUser, function (err, res, fields) {
                         if (err) {
                             console.log("Failed to add new user: " + err);
-                            callback(500); //TODO: Check if it's OK
+                            callback(500); //TODO: Check if it"s OK
                         } else {
-                            console.log('sending email from account manager');
+                            console.log("sending email from account manager");
                             EV.sendConfirmation(newUser.email);
-                            console.log('sending email from account manager');
+                            console.log("sending email from account manager");
                             callback(200);
                         }
                     });
-                })
+                });
             }
         }
     });
@@ -81,7 +80,7 @@ exports.emailExist = function (email, callback) {
             console.log("Failed checking if email is already exist: " + err);
         } else {
             if (data[0].cnt > 0) {
-                callback(200); //TODO: Check if it's OK
+                callback(200); //TODO: Check if it"s OK
             }
             else{
                 callback(300)
@@ -113,21 +112,19 @@ exports.addPurchase = function (phoneDetails, user, callback) {
     const phones = phonesData;
     const price = phones[phone].models[model].price;
 
-
     const url = "https://currencyapi.net/api/v1/rates?key=0kpdBfiRT9ktw04EApqJbDIx55SU7aHabaes"
 
     https.get(url, function (res) {
 
-        res.setEncoding('utf8');
-        let rawData = '';
-        res.on('data', (chunk) => { rawData += chunk; });
-        res.on('end', () => {
+        res.setEncoding("utf8");
+        let rawData = "";
+        res.on("data", (chunk) => { rawData += chunk; });
+        res.on("end", () => {
 
             try {
                 const parsedData = JSON.parse(rawData);
                 const ilsRate = parsedData.rates.ILS;
-                const priceInFloat = parseFloat(price.replace('$', ''));
-                console.log(priceInFloat);
+                const priceInFloat = parseFloat(price.replace("$", ""));
                 const priceInIls = priceInFloat * ilsRate;
                 data = [
                     phones[phone].id,
@@ -142,8 +139,7 @@ exports.addPurchase = function (phoneDetails, user, callback) {
                     phoneDetails.cvv,
                     phoneDetails.cardMemo
                 ]
-
-
+ 
                 let query = "INSERT INTO `transactions` SET Product = ?, Model = ?, Date = NOW(), User = ?, Price = ?, LocalPrice = ?, TotalPriceIncludingVAT = ?, Number = ?, Name = ?, ExperationDate = ?, CVV = ?, Memo = ?";
                 connection.query(query, data, function (err, res, fields) {
                     if (err) {
@@ -164,14 +160,11 @@ exports.addPurchase = function (phoneDetails, user, callback) {
 
 
 exports.fetchPurchasesData = function (email,callback) {
-    console.log(email);
     let query = "SELECT Product ,COUNT(*) AS cnt FROM transactions WHERE User=? GROUP BY Product";
     connection.query(query,[email],function (err, res) {
-        console.log(res);
         if(res){
         callback(res);
         } else {
-            console.log("errrrrrrr")
             callback(0);
         }
     })
@@ -185,7 +178,7 @@ exports.updatePassword = function (newPassword, ID, callback) {
             console.log(newPassword)
             if (err) {
                 console.log("Failed to update password: " + err);
-                callback(500); //TODO: Check if it's OK
+                callback(500); //TODO: Check if it"s OK
 
             }
             else {
@@ -206,8 +199,7 @@ exports.updateNewPassword = function (newPassword, email, callback) {
             console.log(newPassword)
             if (err) {
                 console.log("Failed to update password: " + err);
-                callback(500); //TODO: Check if it's OK
-
+                callback(500); //TODO: Check if it"s OK
             }
             else {
                 console.log("Password has been updated successfully")
@@ -221,10 +213,7 @@ exports.updateNewPassword = function (newPassword, email, callback) {
 
 exports.updateEmail = function (email, ID, callback) {
     let query = "UPDATE " + mydatabase + ".`users` SET `Email` = ? WHERE ID = ?";
-
     connection.query(query, [email, ID], function (err, data) {
-        console.log(email)
-        console.log(ID)
         if (err) {
             console.log("Failed activating the account");
         } else {
@@ -232,6 +221,7 @@ exports.updateEmail = function (email, ID, callback) {
         }
     });
 }
+
 
 exports.emailConfirmed = function (email, callback) {
     let query = "UPDATE " + mydatabase + ".`users` SET `active` = '1' WHERE (`Email` = ?)";
@@ -247,11 +237,11 @@ exports.emailConfirmed = function (email, callback) {
 
 //    encryption methods    //
 var md5 = function (str) {
-    return crypto.createHash('md5').update(str).digest('hex');
+    return crypto.createHash("md5").update(str).digest("hex");
 }
 
 var generateSalt = function () {
-    var salt = '';
+    var salt = "";
     var key = process.env.HASH_KEY;
     for (var i = 0; i < 10; i++) {
         var p = Math.floor(Math.random() * key.length);
@@ -319,7 +309,7 @@ exports.checkPromoCode = function (promoCode, callback) {
             if (rows.length > 0) {
                 let hashPass = rows[0].promocode;
                 callback(200);
-                console.log('Promo code is exist!')
+                console.log("Promo code is exist!")
             }
 
             else {

@@ -38,8 +38,8 @@ exports.sendConfirmation = function(newEmail){
             if (error) { 
               console.log(error);
             } else {
-               console.log('Email sent: ' + info.response);
-                 console.log("sending!!!!!")
+              console.log('Email sent: ' + info.response);
+              console.log("sending!!!!!")
             }
           });
     },
