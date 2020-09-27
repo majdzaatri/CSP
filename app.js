@@ -1,4 +1,4 @@
-require("dotenv").config({ path: '.env' });
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
@@ -44,8 +44,8 @@ app.use(bodyParser.urlencoded({urlencoded: true}));
 app.use("/public", express.static(__dirname + "/public"));
 app.use(cookieParser());
 app.use(session({
-    key: "user_sid",
-    secret: "1123FfdSSs23335",
+    key: process.env.SESSION_KEY,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 }));
