@@ -32,7 +32,7 @@ exports.sendConfirmation = function(newEmail){
             from: EMAIL,
             to: newEmail,
             subject: 'Confirmation',
-            html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
+            html: "<h1>CSP</h1><h3>Thank you for choosing us</h3><h4>Please confirm your email by clicking on the link below:</h4>" + url
           };
         transporter.sendMail(mailOptions, function(error, info){
             if (error) { 
@@ -46,14 +46,47 @@ exports.sendConfirmation = function(newEmail){
   );
 }
 
+var today = new Date();
+const dd = String(today.getDate()).padStart(2, '0');
+const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+const yyyy = today.getFullYear();
 
-exports.sendPurchaseDetails = function(user, callback) {
+today = dd + '/' + mm + '/' + yyyy;
+
+exports.sendPurchaseDetails = function(user, purchaseData, callback) {
+
+console.log("purchase data : " + JSON.stringify(purchaseData));
 
   var mailOptions = {
     from: EMAIL,
     to: user.Email,
-    subject: 'Order Confirmation',
-    html: "<h1> Hello " + user.FirstName +",</h1> <h3>Thank you for shopping with us, We'll send a confirmation when your item delivers.</h3>"
+    subject: "Order Confirmation",
+    html: "<h1> Hello " + user.FirstName +",</h1> " +
+    "<h3>Thank you for shopping with us, this is your receipt from CSP.</h3>" +
+    "<div style='line-height: 0.4;'>" +
+    "<h3>Order Number</h3>" +
+    "<h3>#" + Math.floor(Math.random()*1000000) + "</h3>" +
+    "</div><br />" +
+    "<div style='line-height: 0.4;'>" +
+    "<h3>Date Ordered</h3>" +
+    "<h3>" + today + "</h3>" +
+    "</div><br />" +
+    "<div style='background-color: grey;'>" +
+    "<table style='width:100%; border: 1rem double #242321;'>" +
+    "<tr>" +
+      "<th>Item</th>" +
+      "<th>Model</th>" +
+      "<th>Price in USD</th>" +
+      "<th>Price in ILS</th>" +
+    "</tr>" +
+    "<hr>" +
+    "<tr>" +
+      "<th style='padding: 20px 0;'>" + purchaseData[0] + "</th>" +
+      "<th>" + purchaseData[1] + "</th>" +
+      "<th>" + purchaseData[3] + "</th>" +
+      "<th>" + purchaseData[4] + "</th>" +
+    "</tr>" +
+    "</div>"
   }
 
   transporter.sendMail(mailOptions, function(err, info){
@@ -76,7 +109,7 @@ exports.dataUpdateConfirmation = function(userEmail){
     from: EMAIL,
     to: userEmail,
     subject: 'Confirmation',
-    html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5> Your data has been updated successfuly"
+    html: "<h1>CSP</h1><br><h5> Your data has been updated successfuly</h5>"
   };
 
   
@@ -96,7 +129,7 @@ exports.PasswordUpdateConfirmation = function(userEmail){
     from: EMAIL,
     to: userEmail,
     subject: 'Confirmation',
-    html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5> Your password has been updated successfuly"
+    html: "<h1>CSP</h1><br><h5> Your password has been updated successfuly </h5>"
   };
 
   
@@ -127,7 +160,7 @@ exports.emailUpdateActivation = function(newEmail,ID){
             from: EMAIL,
             to: newEmail,
             subject: 'Confirmation',
-            html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
+            html: "<h1>CSP</h1><br><h5>Please confirm your email by clicking on the link below:</h5>" + url
           };
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
@@ -159,7 +192,7 @@ exports.forgetPassword = function(email,callback){
               from: EMAIL,
               to: email,
               subject: 'Forget Password',
-              html: "<h1>CSP</h1><br><h3>Thank you for choosing us</h3><br><h5>please confirm your email by clicking on the link:</h5>" + url
+              html: "<h1>CSP</h1><br><h5>Please confirm your email by clicking on the link below:</h5>" + url
             };
           transporter.sendMail(mailOptions, function(error, info){
               if (error) { 

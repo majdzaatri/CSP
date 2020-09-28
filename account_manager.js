@@ -14,20 +14,21 @@ const connection = mysql.createPool({
     database: mydatabase
 });
 
-//    sign-in queries      //
+/*    sign-in queries  
+      checkLogin - The function hash the passed password to validate the user
+      automaticLogin - No need to hash the password the function got the password hashed   */
+
 exports.checkLogin = function (email, password, callback) {
     let query = "SELECT * FROM users WHERE email = ?";
 
     connection.query(query, email, async function (err, rows, fields) {
         if (err) {
             console.log("Failed to check if email and password exist in DB: " + err);
-            //TODO: check what we have to return in the callback if something failed
         } else {
             if (rows.length > 0) {
                 let hashPass = rows[0].Password;
 
                 validatePassword(password, hashPass, function (err, res) {
-                    console.log(res)
                     if (res) {
                         callback(null, rows[0]);
                     } else {
@@ -43,6 +44,27 @@ exports.checkLogin = function (email, password, callback) {
 }
 
 
+exports.automaticLogin = function (email, password, callback) { 
+    let query = "SELECT * FROM users WHERE email = ?";
+
+    connection.query(query, email, async function (err, rows, fields) {
+        if (err) {
+            console.log("Failed to check if email and password exist in DB: " + err);
+        } else {
+            if (rows.length > 0) {
+                let hashPass = rows[0].Password;
+                if (password == hashPass) {
+                    callback(200, rows);
+                }
+            } else {
+                console.log("email doesn't exist or password wrong!");
+                callback(500);
+            }
+        }
+    });
+}
+
+
 //    sign-up queries    //
 exports.addNewAccount = function (newUser, callback) {
     let query = "SELECT COUNT(*) AS cnt FROM users WHERE email = ?";
@@ -51,14 +73,14 @@ exports.addNewAccount = function (newUser, callback) {
             console.log("Failed checking if email is already exist: " + err);
         } else {
             if (data[0].cnt > 0) {
-                callback(0); //TODO: Check if it"s OK
+                callback(0);
             } else {
                 saltAndHash(newUser.password, function (hash) {
                     newUser.password = hash;
                     connection.query("INSERT INTO " + mydatabase + ".`users` SET ?", newUser, function (err, res, fields) {
                         if (err) {
                             console.log("Failed to add new user: " + err);
-                            callback(500); //TODO: Check if it"s OK
+                            callback(500);
                         } else {
                             console.log("sending email from account manager");
                             EV.sendConfirmation(newUser.email);
@@ -79,7 +101,7 @@ exports.emailExist = function (email, callback) {
             console.log("Failed checking if email is already exist: " + err);
         } else {
             if (data[0].cnt > 0) {
-                callback(200); //TODO: Check if it"s OK
+                callback(200);
             }
             else{
                 callback(300)
@@ -90,7 +112,6 @@ exports.emailExist = function (email, callback) {
 
 // update profile queries //
 exports.updateUserInfo = function (newUserInfo, callback) {
-
     let query = "UPDATE users SET FirstName = " + JSON.stringify(newUserInfo[0]) + ", LastName = " + JSON.stringify(newUserInfo[1]) + ", PhoneNumber = " + JSON.stringify(newUserInfo[2]) + ", Country = " + JSON.stringify(newUserInfo[3]) + ", City = " + JSON.stringify(newUserInfo[4]) + ",Street = " + JSON.stringify(newUserInfo[5]) + ",ZipCode = " + JSON.stringify(newUserInfo[6]) + " WHERE ID = " + newUserInfo[7];
     connection.query(query, function (err, result, fields) {
         if (err) {
@@ -105,7 +126,6 @@ exports.updateUserInfo = function (newUserInfo, callback) {
 
 // add purchases queries //
 exports.addPurchase = function (phoneDetails, user, callback) {
-    console.log(phoneDetails);
     const phone = phoneDetails.phone;
     const model = phoneDetails.model;
     const phones = phonesData;
@@ -125,6 +145,7 @@ exports.addPurchase = function (phoneDetails, user, callback) {
                 const ilsRate = parsedData.rates.ILS;
                 const priceInFloat = parseFloat(price.replace("$", ""));
                 const priceInIls = priceInFloat * ilsRate;
+                // data to be inserted into the query
                 data = [
                     phones[phone].id,
                     phones[phone].models[model].type,
@@ -145,7 +166,7 @@ exports.addPurchase = function (phoneDetails, user, callback) {
                         console.log("Failed to add purchase detail: " + err);
                         callback(500, null);
                     } else {
-                        EV.sendPurchaseDetails(user, function (response) {
+                        EV.sendPurchaseDetails(user, data, function (response) {
                             callback(response, res);
                         })
                     }
@@ -162,13 +183,17 @@ exports.fetchPurchasesData = function (email,callback) {
     let query = "SELECT Product ,COUNT(*) AS cnt FROM transactions WHERE User=? GROUP BY Product";
     connection.query(query,[email],function (err, res) {
         if(res){
-        callback(res);
+            callback(res);
         } else {
             callback(0);
         }
     })
 }
 
+
+/*    update password queries    
+      updatePassword - updating the password by ID 
+      updateNewPassword - updating the password by email    */
 
 exports.updatePassword = function (newPassword, ID, callback) {
     saltAndHash(newPassword, function (hash) {
@@ -177,19 +202,15 @@ exports.updatePassword = function (newPassword, ID, callback) {
             console.log(newPassword)
             if (err) {
                 console.log("Failed to update password: " + err);
-                callback(500); //TODO: Check if it"s OK
-
+                callback(500);
             }
             else {
                 console.log("Password has been updated successfully")
                 callback(200);
             }
-
         });
     })
 }
-
-
 
 exports.updateNewPassword = function (newPassword, email, callback) {
     saltAndHash(newPassword, function (hash) {
@@ -204,7 +225,6 @@ exports.updateNewPassword = function (newPassword, email, callback) {
                 console.log("Password has been updated successfully")
                 callback(200);
             }
-
         });
     })
 }
@@ -234,6 +254,57 @@ exports.emailConfirmed = function (email, callback) {
 }
 
 
+
+exports.checkPassword = function (enteredPassword, password, callback) {
+    validatePassword(enteredPassword, password, function (err, res) {
+        if (res) {
+            callback(null, 200);
+        }
+        else {
+            callback(err, 500);
+        }
+    });
+}
+
+
+
+exports.checkPromoCode = function (promoCode, callback) {
+    let query = "SELECT * FROM promocode WHERE promocode = ?";
+    connection.query(query, promoCode, async function (err, rows, fields) {
+        if (err) {
+            console.log("Failed to check if promo code exist " + err);
+            //TODO: check what we have to return in the callback if something failed
+        } else {
+            if (rows.length > 0) {
+                let hashPass = rows[0].promocode;
+                callback(200);
+                console.log("Promo code is exist!")
+            }
+            else {
+                console.log("Promo Code doesn't exist!");
+                callback(500);
+            }
+        }
+    });
+}
+
+exports.fetchData = function (email, callback) {
+    let query = "SELECT * FROM users WHERE email = ?";
+
+    connection.query(query, email, async function (err, rows) {
+        if (err) {
+            console.log("Failed to fetch data: " + err);
+        } else {
+            if (rows.length > 0) {
+                let hashPass = rows[0].Password;
+                callback(null, rows[0])
+            }
+        }
+
+    });
+}
+
+
 //    encryption methods    //
 var md5 = function (str) {
     return crypto.createHash("md5").update(str).digest("hex");
@@ -258,81 +329,4 @@ var validatePassword = function (plainPass, hashPass, callback) {
     var salt = hashPass.substr(0, 10);
     var validHash = salt + md5(plainPass + salt);
     callback(null, hashPass === validHash);
-}
-
-exports.checkPassword = function (enteredPassword, password, callback) {
-
-    validatePassword(enteredPassword, password, function (err, res) {
-        if (res) {
-            callback(null, 200);
-        }
-        else {
-            callback(err, 500);
-        }
-    })
-}
-
-//    sign-in queries      //
-exports.automaticLogin = function (email, password, callback) {
-    let query = "SELECT * FROM users WHERE email = ?";
-
-    connection.query(query, email, async function (err, rows, fields) {
-        if (err) {
-            console.log("Failed to check if email and password exist in DB: " + err);
-            //TODO: check what we have to return in the callback if something failed
-        } else {
-            if (rows.length > 0) {
-                let hashPass = rows[0].Password;
-                if (password == hashPass) {
-                    callback(200, rows);
-                }
-
-            } else {
-                console.log("email doesn't exist or password wrong!");
-                callback(500);
-            }
-        }
-    });
-}
-
-exports.checkPromoCode = function (promoCode, callback) {
-
-    let query = "SELECT * FROM promocode WHERE promocode = ?";
-
-    connection.query(query, promoCode, async function (err, rows, fields) {
-        if (err) {
-            console.log("Failed to check if promo code exist " + err);
-            //TODO: check what we have to return in the callback if something failed
-        } else {
-
-            if (rows.length > 0) {
-                let hashPass = rows[0].promocode;
-                callback(200);
-                console.log("Promo code is exist!")
-            }
-
-            else {
-                console.log("Promo Code doesn't exist!");
-                callback(500);
-            }
-        }
-    });
-
-}
-
-exports.fetchData = function (email, callback) {
-    let query = "SELECT * FROM users WHERE email = ?";
-
-    connection.query(query, email, async function (err, rows) {
-        if (err) {
-            console.log("Failed to fetch data: " + err);
-            //TODO: check what we have to return in the callback if something failed
-        } else {
-            if (rows.length > 0) {
-                let hashPass = rows[0].Password;
-                callback(null, rows[0])
-            }
-        }
-
-});
 }

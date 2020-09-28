@@ -101,21 +101,10 @@ app.get("/sign-in", redirectHome, function (req, res) {
 
 app.post("/sign-in", function (req, res) {
 
-    //////////////////////////// TO DO: Move recaptcha part to external js file
-    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-    var recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?";
-    recaptcha_url += "secret=" + secretKey + "&";
-    recaptcha_url += "response=" + req.body["g-recaptcha-response"] + "&";
-    recaptcha_url += "remoteip=" + req.connection.remoteAddress;
-    Request(recaptcha_url, function (error, resp, body) {
-        body = JSON.parse(body);
-        if (body.success !== undefined && !body.success) {
-            res.redirect("/sign-in");
-        }
-    });
-
     const email = req.body.email;
     const password = req.body.password;
+
+    requestCaptcha(req,res);
 
     AM.checkLogin(email, password, function (err, result) {
         if (err) {
@@ -220,8 +209,6 @@ app.post("/change-password", function (req, res) {
                     passwordchanged.push("Password has been changed successfuly");
                 }
             });
-
-            // TO DO: Move these lines to a function
             AM.fetchPurchasesData(req.session.user.Email,function (result) {
                 purchaseJson = JSON.parse(JSON.stringify(result));
                 AM.fetchData(req.session.user.Email, function (err, result) {
@@ -264,7 +251,6 @@ app.get("/confirmation/:token", async (req, res) => {
 //////////////////    dashboard      ///////////////////
 
 app.get("/dashboard", redirectLogin, function (req, res) {
-
         let userName = req.session.user.FirstName + " " + req.session.user.LastName;
         AM.fetchPurchasesData(req.session.user.Email, function (result) {
             purchaseJson = JSON.parse(JSON.stringify(result));
@@ -277,7 +263,6 @@ app.get("/dashboard", redirectLogin, function (req, res) {
 //////////////////    buy-cell-phone      ///////////////////
 
 app.get("/buy-cell-phone", redirectLogin, function (req, res) {
-
     let userName = req.session.user.FirstName + " " + req.session.user.LastName;
     res.render("buyphone", { user: userName, phones: phonesData, purchases: req.session.user.phonesPurchases });
 });
@@ -296,28 +281,22 @@ app.post("/buy-cell-phone", function (req, res) {
 //////////////////    payment-success      ///////////////////
 
 app.get("/payment-success", function (req, res) {
-    var string = JSON.stringify(req.session.user);
-    var userJson = JSON.parse(string);
-    let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(req.session.user.Email,function (result) {
+    let userName = req.session.user.FirstName + " " + req.session.user.LastName;
+    AM.fetchPurchasesData(req.session.user.Email, function (result) {
         purchaseJson = JSON.parse(JSON.stringify(result));
-        res.render("payment-success", { user: userName, phones: phonesData, purchases: purchaseJson });
-    })
+        req.session.user.phonesPurchases = purchaseJson;
+        res.render("payment-success", { user: userName, phones: phonesData, purchases: req.session.user.phonesPurchases });
+    });
 });
 
 
 //////////////////    profile      ///////////////////
 
 app.get("/profile", redirectLogin, function (req, res) {
-    var string = JSON.stringify(req.session.user);
-    var userJson = JSON.parse(string);
-    let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(req.session.user.Email,function (result) {
-        purchaseJson = JSON.parse(JSON.stringify(result));
-        AM.fetchData(req.session.user.Email, function (err, result) {
-            userData = JSON.parse(JSON.stringify(result));
-            res.render("profile", { user: userName, userData: userData, phones: phonesData, purchases: purchaseJson });
-        });
+    let userName = req.session.user.FirstName + " " + req.session.user.LastName;
+    AM.fetchData(req.session.user.Email, function (err, result) {
+        userData = JSON.parse(JSON.stringify(result));
+        res.render("profile", { user: userName, userData: userData, phones: phonesData, purchases: req.session.user.phonesPurchases });
     });
 });
 
@@ -411,15 +390,10 @@ app.post("/profileInfo", function (req, res) {
             }
         })
     }
-
-    AM.fetchPurchasesData(req.session.user.Email,function (result) {
-        purchaseJson = JSON.parse(JSON.stringify(result))
-
-        AM.fetchData(req.session.user.Email, function (err, result) {
-            userData = JSON.parse(JSON.stringify(result))
-            console.log(messages)
-            return res.render("profile", { user: userData, phones: phonesData, purchases: purchaseJson, messages });
-        });
+    AM.fetchData(req.session.user.Email, function (err, result) {
+        userData = JSON.parse(JSON.stringify(result))
+        console.log(messages);
+        return res.render("profile", { user: userData, phones: phonesData, purchases: req.session.user.phonesPurchases, messages });
     });
 });
 
@@ -445,26 +419,16 @@ app.post("/forgot-password", function (req, res) {
 //////////////////    about      ///////////////////
 
 app.get("/about", redirectLogin, function (req, res) {
-    var string = JSON.stringify(req.session.user);
-    var userJson = JSON.parse(string);
-    let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(req.session.user.Email,function (result) {
-        purchaseJson = JSON.parse(JSON.stringify(result))
-        res.render("about", { user: userName, phones: phonesData, purchases: purchaseJson });
-    })
+    let userName = req.session.user.FirstName + " " + req.session.user.LastName;
+    res.render("about", { user: userName, phones: phonesData, purchases: req.session.user.phonesPurchases });
 });
 
 
 //////////////////    buy-pc      ///////////////////
 
 app.get("/buy-pc", redirectLogin, function (req, res) {
-    var string = JSON.stringify(req.session.user);
-    var userJson = JSON.parse(string);
-    let userName = userJson.FirstName + " " + userJson.LastName;
-    AM.fetchPurchasesData(req.session.user.Email,function (result) {
-        purchaseJson = JSON.parse(JSON.stringify(result))
-        res.render("coming-soon", { user: userName, phones: phonesData, purchases: purchaseJson });
-    })
+    let userName = req.session.user.FirstName + " " + req.session.user.LastName;
+    res.render("coming-soon", { user: userName, phones: phonesData, purchases: req.session.user.phonesPurchases });
 });
 
 
@@ -475,9 +439,27 @@ app.get("*", function (req, res) {
 });
 
 
+
 const port = process.env.PORT;
 const host = "localhost";
 
 app.listen(port, () => {
     console.log("server running on http://" + host + ":" + port + "/");
 });
+
+
+///////////// fuctions ////////////
+
+function requestCaptcha(req ,res) {
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    var recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?";
+    recaptcha_url += "secret=" + secretKey + "&";
+    recaptcha_url += "response=" + req.body["g-recaptcha-response"] + "&";
+    recaptcha_url += "remoteip=" + req.connection.remoteAddress;
+    Request(recaptcha_url, function (error, resp, body) {
+        body = JSON.parse(body);
+        if (body.success !== undefined && !body.success) {
+            res.redirect("/sign-in");
+        }
+    });
+}
