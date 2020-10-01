@@ -1,0 +1,101 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!------------------------------- CSS StyleSheet link ---------------------------->
+<link rel="stylesheet" media="all" type="text/css" href="/public/css/styles.css">
+
+<!------------------------------- Bootstrap CDN ---------------------------------->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+<!------------------------------- Font Awesome CDN -------------------------------->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+<link rel='shortcut icon' type='image/x-icon' href='../public/css/images/favicon.ico' />
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; width: 100%; z-index: 9999; top: 0;">
+    <a class="navbar-brand" href="/dashboard" style="padding-right:5rem; font-size:200%">CSP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/buy-pc"><i class="fas fa-laptop" style="padding: 0 0.5rem;"></i>PC</a>
+        </li>
+        <li class="nav-item vl">
+          <a class="nav-link" href="/buy-cell-phone"><i class="fas fa-mobile-alt" style="padding: 0 0.5rem;"></i>Cell Phone</a>
+        </li>
+        <li class="nav-item dropdown vl">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-shopping-cart" style="padding: 0 0.5rem;"></i>My Purchases
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Cell Phone</h6>
+                <% if(purchases.length !== 0) { %>
+                <% for(var i=0; i<purchases.length ;i++){ %>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <% for(var j=0; j<phones.length; j++) { %>
+                        <% if(purchases[i].Product === phones[j].id) { %>
+                        <img class="img-resposnsive" src=<%= phones[j].src %>>
+                        <% } %>
+                        <% } %>
+                    </div>
+                    <div class="col-sm">
+                        <p class="item-name"><%= purchases[i].Product %></p>
+                        <p class="item-p"><%=purchases[i].cnt%> units</p>
+                    </div>
+                </div>
+                <% if(i+1 !== purchases.length){ %>
+                <hr>
+                <% } %>
+                <% } %>
+                <% } else { %>
+                <div class="row justify-content-center">
+                    <div class="display-5">No purchases yet</div>
+                </div>
+                <% } %>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+        <span class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 ml-1 pr-5 d-none d-lg-inline">Hello, <%= user %></span>
+            </a>
+
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu mr-5 dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby=" ">
+                <a class="dropdown-item" href="/profile">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                </a>
+                <a class="dropdown-item" href="/about">
+                    <i class="fas fa-info fa-sm fa-fw mr-2 text-gray-400"></i>
+                    About
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                </a>
+            </div>
+        </span>
+      <!-- <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> -->
+    </div>
+  </nav>

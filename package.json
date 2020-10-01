@@ -15,7 +15,7 @@
     "lodash.compact": "^3.0.1",
     "lodash.isequal": "^4.5.0",
     "mysql": "^2.18.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "node-localstorage": "^2.1.6",
     "nodemailer": "^6.4.6",
     "nodemon": "^2.0.4",

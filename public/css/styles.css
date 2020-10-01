@@ -1087,3 +1087,34 @@ body {
 .text-responsive {
   font-size: 4vw;
 }
+
+@media screen and (min-width: 992px){
+
+.vl {
+  border-left: 1px solid grey;
+  height:100%;
+  margin: 0 1rem;
+}
+}
+
+@media screen and (max-width: 992px){
+
+  .vl {
+    border-top: 1px solid grey;
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 535px){
+
+  .vl {
+    border-top: 1px solid grey;
+    width: 40%;
+  }
+}
+
+
+.most-right {
+  right: 0;
+  position: absolute;
+}
